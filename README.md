@@ -1,8 +1,6 @@
-# web-dev-template
+# web-dev
 
-1. git clone https://github.com/jannunzi/web-dev-template.git
-1. cd web-dev-template
-1. npm install
-1. mongod
-1. node server.js
-1. browse to localhost:3000
+1. Install required packages with node `npm install`
+1. Run MongoDB `mongod`
+1. Run the server `node server.js`
+1. Browse at localhost:3000
