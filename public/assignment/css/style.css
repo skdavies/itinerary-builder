@@ -19,3 +19,7 @@ body {
 .skd-nav-icon {
     color: white;
 }
+
+.list-group-item {
+    border: none;
+}
