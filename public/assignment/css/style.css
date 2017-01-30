@@ -23,3 +23,8 @@ body {
 .list-group-item {
     border: none;
 }
+
+.skd-btn-primary {
+    background-color: #003366 !important;
+    color: white;
+}
