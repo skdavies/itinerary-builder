@@ -3,5 +3,19 @@ input.form-control {
 }
 
 body {
-    padding-top: 36px;
+    padding-top: 55px;
+    padding-bottom: 55px;
+}
+
+.navbar-default {
+    background-color: #003366;
+    border-bottom-color: #000;
+    color: white;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+.skd-nav-icon {
+    color: white;
 }
