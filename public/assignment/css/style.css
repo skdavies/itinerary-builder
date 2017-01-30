@@ -24,7 +24,22 @@ body {
     border: none;
 }
 
-.skd-btn-primary {
+.btn-primary, .btn-primary:active, .btn-primary:visited {
     background-color: #003366 !important;
-    color: white;
+    color: white !important;
+}
+
+.btn-success, .btn-success:active, .btn-success:visited {
+    background-color: #07791e !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: #005398 !important;
+    color: white !important;
+}
+
+.btn-success:hover {
+    background-color: #079b25 !important;
+    color: white !important;
 }
