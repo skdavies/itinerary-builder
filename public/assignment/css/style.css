@@ -1,4 +1,4 @@
-input.form-control {
+input.form-control, textarea.form-control {
     margin-bottom: 5px;
 }
 
@@ -42,4 +42,9 @@ body {
 .btn-success:hover {
     background-color: #079b25 !important;
     color: white !important;
+}
+
+.skd-left-panel {
+    border-right: 1px gray solid;
+    height: 100vh;
 }

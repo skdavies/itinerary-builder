@@ -3,67 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Websites</title>
+    <title>New Website</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../css/style.css" rel="stylesheet"/>
 </head>
 <body>
 
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-text pull-left">
-            <a href="../user/profile.html">
-                <span class="glyphicon glyphicon-chevron-left skd-nav-icon"></span>
-            </a>
+    <div class="row container-fluid">
+        <div class="col-sm-4 hidden-xs">
+            <div class="navbar-text pull-left">
+                <a href="website-list.html">
+                    <span class="glyphicon glyphicon-chevron-left skd-nav-icon"></span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Websites</a>
+            </div>
         </div>
-        <div class="navbar-text pull-right">
-            <a href="#">
-                <span class="glyphicon glyphicon-plus skd-nav-icon"></span>
-            </a>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Websites</a>
+        <div class="col-sm-8">
+            <div class="navbar-text pull-left visible-xs">
+                <a href="website-list.html">
+                    <span class="glyphicon glyphicon-chevron-left skd-nav-icon"></span>
+                </a>
+            </div>
+            <div class="navbar-text pull-right">
+                <a href="website-list.html">
+                    <span class="glyphicon glyphicon-ok skd-nav-icon"></span>
+                </a>
+            </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">New Website</a>
+            </div>
         </div>
     </div>
 </nav>
 
 
-<div class="container-fluid">
-    <ul class="list-group">
-        <li class="list-group-item">
-            <a href="../page/page-list.html">
-                Address Book App
-            </a>
-            <a href="../website/website-edit.html" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="../page/page-list.html">
-                Blogger
-            </a>
-            <a href="../website/website-edit.html" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="../page/page-list.html">
-                Blogging App
-            </a>
-            <a href="../website/website-edit.html" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="../page/page-list.html">
-                Script Testing App
-            </a>
-            <a href="../website/website-edit.html" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </li>
-    </ul>
+<div class="row container-fluid">
+    <div class="col-sm-4 hidden-xs skd-left-panel">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="../page/page-list.html">
+                    Address Book App
+                </a>
+                <a href="../website/website-edit.html" class="pull-right">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="../page/page-list.html">
+                    Blogger
+                </a>
+                <a href="../website/website-edit.html" class="pull-right">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="../page/page-list.html">
+                    Blogging App
+                </a>
+                <a href="../website/website-edit.html" class="pull-right">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="../page/page-list.html">
+                    Script Testing App
+                </a>
+                <a href="../website/website-edit.html" class="pull-right">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-sm-8">
+        <label for="name">Website Name</label>
+        <input class="form-control" id="name" placeholder="Website Name">
 
+        <label for="description">Website Description</label>
+        <textarea class="form-control" id="description" placeholder="Description"></textarea>
+
+        <a class="btn btn-primary btn-block" href="website-list.html">Create</a>
+
+        <a class="btn btn-danger btn-block" href="website-list.html">Cancel</a>
+    </div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
