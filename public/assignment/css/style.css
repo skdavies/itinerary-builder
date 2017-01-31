@@ -7,6 +7,10 @@ body {
     padding-bottom: 55px;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 .navbar-default {
     background-color: #003366;
     border-bottom-color: #000;
