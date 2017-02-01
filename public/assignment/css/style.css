@@ -1,7 +1,76 @@
-input.form-control {
+input.form-control, textarea.form-control, select.form-control {
     margin-bottom: 5px;
 }
 
 body {
-    padding-top: 36px;
+    padding-top: 55px;
+    padding-bottom: 55px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.navbar-default {
+    background-color: #003366;
+    border-bottom-color: #000;
+    color: white;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+.skd-nav-icon {
+    color: white;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: #003366 !important;
+    color: white !important;
+}
+
+.btn-success, .btn-success:active, .btn-success:visited {
+    background-color: #07791e !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: #005398 !important;
+    color: white !important;
+}
+
+.btn-success:hover {
+    background-color: #079b25 !important;
+    color: white !important;
+}
+
+.skd-left-panel {
+    border-right: 1px gray solid;
+    height: 100vh;
+}
+
+.skd-floating-actions {
+    background-color: white;
+    position: absolute;
+    right: 15px;
+    padding-left: 3px;
+    padding-bottom: 1px;
+    border-bottom-left-radius: 5px;
+}
+
+@media (min-width: 590px) {
+    iframe {
+        width: 560px;
+        height: 315px;
+    }
+}
+
+@media (max-width: 590px) {
+    iframe {
+        width: 100%;
+    }
 }
