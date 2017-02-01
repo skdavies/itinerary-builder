@@ -52,3 +52,25 @@ a:hover {
     border-right: 1px gray solid;
     height: 100vh;
 }
+
+.skd-floating-actions {
+    background-color: white;
+    position: absolute;
+    right: 15px;
+    padding-left: 3px;
+    padding-bottom: 1px;
+    border-bottom-left-radius: 5px;
+}
+
+@media (min-width: 590px) {
+    iframe {
+        width: 560px;
+        height: 315px;
+    }
+}
+
+@media (max-width: 590px) {
+    iframe {
+        width: 100%;
+    }
+}
