@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>YouTube Widget</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
-            <a href="widget-list.html">
+            <a href="widget-list.view.client.html">
                 <span class="glyphicon glyphicon-chevron-left skd-nav-icon"></span>
             </a>
         </div>
         <div class="navbar-text pull-right">
-            <a href="widget-list.html">
+            <a href="widget-list.view.client.html">
                 <span class="glyphicon glyphicon-ok skd-nav-icon"></span>
             </a>
         </div>
@@ -37,23 +26,24 @@
 
     <label for="url">URL</label>
     <input class="form-control" id="url" placeholder="URL" type="url"
-           value="https://www.youtube.com/embed/xe1ZBZyH4wM">
+           value="https://cbsboston.files.wordpress.com/2016/12/tb-12.jpg?w=628&h=353&crop=1">
 
     <label for="width">Width</label>
-    <input class="form-control" id="width" placeholder="Width" type="text">
+    <input class="form-control" id="width" placeholder="Width" type="text" value="100%">
 
-    <a class="btn btn-danger btn-block" href="widget-list.html">Delete</a>
+    <label for="upload">Upload</label>
+    <input class="form-control" id="upload" type="file">
+
+    <a class="btn btn-primary btn-block" href="widget-list.view.client.html">Upload Image</a>
+    <a class="btn btn-danger btn-block" href="widget-list.view.client.html">Delete</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="pull-right navbar-text">
-            <a href="../views/user/profile.html">
+            <a href="../user/profile.view.client.html">
                 <span class="glyphicon glyphicon-user skd-nav-icon"></span>
             </a>
         </div>
     </div>
 </nav>
-
-</body>
-</html>
