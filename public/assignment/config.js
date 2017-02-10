@@ -6,7 +6,9 @@
   function configuration($routeProvider) {
     $routeProvider
       .when('/login', {
-        templateUrl: 'views/user/login.view.client.html'
+        templateUrl: 'views/user/login.view.client.html',
+        controller: 'LoginController',
+        controllerAs: 'vm'
       })
       .when('/register', {
         templateUrl: 'views/user/register.view.client.html'
