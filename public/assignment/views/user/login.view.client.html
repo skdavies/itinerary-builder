@@ -1,11 +1,15 @@
 <div class="container-fluid">
     <h1>Login</h1>
 
-    <input class="form-control" placeholder="username" type="text"/>
+    <div ng-show="vm.error" class="alert alert-danger" role="alert">
+        {{vm.error}}
+        <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.clearError()"></span>
+    </div>
 
-    <input class="form-control" type="password" placeholder="password"/>
+    <input class="form-control" placeholder="username" type="text" ng-model="user.username"/>
+
+    <input class="form-control" type="password" placeholder="password" ng-model="user.password"/>
 
     <a class="btn btn-primary btn-block" ng-click="vm.login(user)">Login</a>
-    <a class="btn btn-success btn-block"
-       href="#/register">Register</a>
+    <a class="btn btn-success btn-block" ng-click="vm.register()">Register</a>
 </div>
