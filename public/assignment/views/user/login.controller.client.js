@@ -7,7 +7,6 @@
     var vm = this;
     vm.login = login;
     vm.register = register;
-    vm.clearError = clearError;
 
     function init() {}
     init();
@@ -25,10 +24,6 @@
 
     function register() {
       $location.url('/register');
-    }
-
-    function clearError() {
-      vm.error = null;
     }
   }
 })();

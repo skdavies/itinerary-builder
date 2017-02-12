@@ -3,7 +3,7 @@
 
     <div ng-show="vm.error" class="alert alert-danger" role="alert">
         {{vm.error}}
-        <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.clearError()"></span>
+        <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.error = null"></span>
     </div>
 
     <input class="form-control" placeholder="username" type="text" ng-model="user.username"/>
