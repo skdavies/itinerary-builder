@@ -24,12 +24,12 @@
       $location.url('/user/' + vm.userId + '/website/new');
     }
 
-    function edit(websiteId, website) {
-
+    function edit(websiteId) {
+      $location.url('/user/' + vm.userId + '/website/' + websiteId);
     }
 
     function viewWebsitePages(websiteId) {
-
+      $location.url('/user/' + vm.userId + '/website/' + websiteId + '/page');
     }
   }
 })();

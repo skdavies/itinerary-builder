@@ -27,6 +27,7 @@ a:hover {
 
 .skd-list-item {
     color: #337ab7;
+    cursor: pointer;
 }
 
 .list-group-item {

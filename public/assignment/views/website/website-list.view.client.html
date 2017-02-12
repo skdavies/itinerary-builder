@@ -17,8 +17,10 @@
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="website in vm.websites">
             <div class="skd-list-item">
+                <span class="pull-right glyphicon glyphicon-cog" ng-click="vm.edit(website._id)"></span>
+                <div ng-click="vm.viewWebsitePages(website._id)">
                 {{website.name}}
-                <span class="pull-right glyphicon glyphicon-cog"></span>
+                </div>
             </div>
         </li>
     </ul>
