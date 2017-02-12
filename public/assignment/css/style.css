@@ -22,6 +22,7 @@ a:hover {
 }
 .skd-nav-icon {
     color: white;
+    cursor: pointer;
 }
 
 .list-group-item {

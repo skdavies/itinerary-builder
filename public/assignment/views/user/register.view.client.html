@@ -1,13 +1,18 @@
 <div class="container-fluid">
     <h1>Register</h1>
 
-    <input type="text" class="form-control" placeholder="username"/>
+    <div ng-show="vm.error" class="alert alert-danger" role="alert">
+        {{vm.error}}
+        <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.error = null"></span>
+    </div>
 
-    <input type="password" class="form-control" placeholder="password"/>
+    <input type="text" class="form-control" placeholder="username" ng-model="user.username"/>
 
-    <input type="password" class="form-control" placeholder="verify password"/>
+    <input type="password" class="form-control" placeholder="password" ng-model="user.password"/>
 
-    <a class="btn btn-primary btn-block" href="profile.view.client.html">Register</a>
+    <input type="password" class="form-control" placeholder="verify password" ng-model="user.verify"/>
 
-    <a class="btn btn-danger  btn-block" href="login.view.client.html">Cancel</a>
+    <a class="btn btn-primary btn-block" ng-click="vm.register(user)">Register</a>
+
+    <a class="btn btn-danger  btn-block" ng-click="vm.cancel()">Cancel</a>
 </div>

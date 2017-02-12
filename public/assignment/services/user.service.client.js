@@ -20,7 +20,12 @@
     };
 
     function createUser(user) {
-      return users.push(user);
+      var userObj = {
+        username: user.username,
+        password: user.password,
+        _id: (parseInt(users[users.length - 1]._id) + 1).toString()
+      };
+      users.push(userObj);
     }
 
     function findUserById(userId) {
@@ -53,7 +58,9 @@
     function updateUser(userId, user) {
       for (var i = 0; i < users.length; i++) {
         if (users[i]._id === userId) {
-          users[i] = user;
+          users[i].username = user.username;
+          users[i].firstName = user.firstName;
+          users[i].lastName = user.lastName;
         }
       }
     }
