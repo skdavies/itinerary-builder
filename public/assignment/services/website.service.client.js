@@ -5,12 +5,12 @@
 
   function websiteService() {
     var websites = [
-      { "_id": "123", "name": "Facebook",    "developerId": "456", "description": "Lorem" },
-      { "_id": "234", "name": "Tweeter",     "developerId": "456", "description": "Lorem" },
-      { "_id": "456", "name": "Gizmodo",     "developerId": "456", "description": "Lorem" },
+      { "_id": "123", "name": "Facebook", "developerId": "456", "description": "Lorem" },
+      { "_id": "234", "name": "Tweeter", "developerId": "456", "description": "Lorem" },
+      { "_id": "456", "name": "Gizmodo", "developerId": "456", "description": "Lorem" },
       { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
-      { "_id": "678", "name": "Checkers",    "developerId": "123", "description": "Lorem" },
-      { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Lorem" }
+      { "_id": "678", "name": "Checkers", "developerId": "123", "description": "Lorem" },
+      { "_id": "789", "name": "Chess", "developerId": "234", "description": "Lorem" }
     ];
     return {
       'createWebsite': createWebsite,
@@ -29,7 +29,7 @@
       var userWebsites = [];
       for (var i = 0; i < websites.length; i++) {
         if (websites[i].developerId === userId) {
-          return userWebsites.push(websites[i]);
+          userWebsites.push(websites[i]);
         }
       }
       return userWebsites;
