@@ -28,8 +28,8 @@
       $location.url('/user/' + vm.userId + '/website');
     }
 
-    function save(websiteId, website) {
-      WebsiteService.updateWebsite(websiteId, website);
+    function save(website) {
+      WebsiteService.updateWebsite(vm.websiteId, website);
       back();
     }
 
@@ -37,8 +37,8 @@
       $location.url('/user/' + vm.userId + '/website/' + websiteId);
     }
 
-    function deleteWebsite(websiteId) {
-      WebsiteService.deleteWebsite(websiteId);
+    function deleteWebsite() {
+      WebsiteService.deleteWebsite(vm.websiteId);
       back();
     }
 

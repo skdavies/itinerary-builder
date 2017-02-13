@@ -13,7 +13,7 @@
                 <span class="glyphicon glyphicon-chevron-left skd-nav-icon" ng-click="vm.back()"></span>
             </div>
             <div class="navbar-text pull-right">
-                <span class="glyphicon glyphicon-ok skd-nav-icon" ng-click="vm.save(vm.websiteId, vm.website)"></span>
+                <span class="glyphicon glyphicon-ok skd-nav-icon" ng-click="vm.save(vm.website)"></span>
             </div>
             <div class="navbar-header navbar-brand">
                 Edit Website
@@ -45,7 +45,7 @@
                   ng-model="vm.website.description"></textarea>
 
 
-        <a class="btn btn-danger btn-block" ng-click="vm.deleteWebsite(vm.websiteId)">Delete</a>
+        <a class="btn btn-danger btn-block" ng-click="vm.deleteWebsite()">Delete</a>
     </div>
 </div>
 

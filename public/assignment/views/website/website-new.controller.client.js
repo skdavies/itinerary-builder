@@ -27,8 +27,8 @@
       $location.url('/user/' + vm.userId + '/website');
     }
 
-    function save(userId, website) {
-      WebsiteService.createWebsite(userId, website);
+    function save(website) {
+      WebsiteService.createWebsite(vm.userId, website);
       back();
     }
 
