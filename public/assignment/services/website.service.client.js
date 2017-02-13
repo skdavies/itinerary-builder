@@ -22,7 +22,8 @@
 
     function createWebsite(userId, website) {
       website.developerId = userId;
-      return websites.push(website);
+      website._id = (parseInt(websites[websites.length - 1]._id) + 1).toString();
+      websites.push(website);
     }
 
     function findWebsitesByUser(userId) {

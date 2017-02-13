@@ -21,7 +21,6 @@
     
     function updateUser(userId, user) {
       UserService.updateUser(userId, user);
-      console.log('hit');
     }
 
     function logout() {
