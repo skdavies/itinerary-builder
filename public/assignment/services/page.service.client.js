@@ -19,14 +19,15 @@
 
     function createPage(websiteId, page) {
       page.websiteId = websiteId;
-      return pages.push(page);
+      page._id = (parseInt(pages[pages.length - 1]._id) + 1).toString();
+      pages.push(page);
     }
 
     function findPagesByWebsiteId(websiteId) {
       var websitePages = [];
       for (var i = 0; i < pages.length; i++) {
         if (pages[i].websiteId === websiteId) {
-          return websitePages.push(pages[i]);
+          websitePages.push(pages[i]);
         }
       }
       return websitePages;

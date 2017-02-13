@@ -1,17 +1,13 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
-            <a href="../website/website-list.view.client.html">
-                <span class="glyphicon glyphicon-chevron-left skd-nav-icon"></span>
-            </a>
+            <span class="glyphicon glyphicon-chevron-left skd-nav-icon" ng-click="vm.back()"></span>
         </div>
         <div class="navbar-text pull-right">
-            <a href="page-new.view.client.html">
-                <span class="glyphicon glyphicon-plus skd-nav-icon"></span>
-            </a>
+            <span class="glyphicon glyphicon-plus skd-nav-icon" ng-click="vm.add()"></span>
         </div>
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Pages</a>
+        <div class="navbar-header navbar-brand">
+            Pages
         </div>
     </div>
 </nav>
@@ -19,45 +15,13 @@
 
 <div class="container-fluid">
     <ul class="list-group">
-        <li class="list-group-item">
-            <a href="../widget/widget-list.view.client.html">
-                Blog Post
-            </a>
-            <a href="page-edit.view.client.html" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="../widget/widget-list.view.client.html">
-                Blogs
-            </a>
-            <a href="page-edit.view.client.html" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="../widget/widget-list.view.client.html">
-                Home
-            </a>
-            <a href="page-edit.view.client.html" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="../widget/widget-list.view.client.html">
-                About
-            </a>
-            <a href="page-edit.view.client.html" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-        </li>
-        <li class="list-group-item">
-            <a href="../widget/widget-list.view.client.html">
-                Contact Us
-            </a>
-            <a href="page-edit.view.client.html" class="pull-right">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
+        <li class="list-group-item" ng-repeat="page in vm.pages">
+            <div class="skd-list-item">
+                <span class="pull-right glyphicon glyphicon-cog" ng-click="vm.edit(page._id)"></span>
+                <div ng-click="vm.viewPageWidgets(page._id)">
+                    {{page.name}}
+                </div>
+            </div>
         </li>
     </ul>
 </div>
@@ -65,9 +29,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="pull-right navbar-text">
-            <a href="../user/profile.view.client.html">
-                <span class="glyphicon glyphicon-user skd-nav-icon"></span>
-            </a>
+            <span class="glyphicon glyphicon-user skd-nav-icon" ng-click="vm.viewProfile()"></span>
         </div>
     </div>
 </nav>
