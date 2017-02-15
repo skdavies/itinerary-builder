@@ -16,9 +16,8 @@
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
       vm.pageId = $routeParams['pid'];
-      vm.page = PageService.findPageById(vm.pageId);
+      vm.page = angular.copy(PageService.findPageById(vm.pageId));
       vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
-      console.log('hit');
     }
     init();
 
@@ -31,7 +30,7 @@
     }
 
     function save(page) {
-      PageService.updatePage(vm.websiteId, page);
+      PageService.updatePage(vm.pageId, page);
       back();
     }
 

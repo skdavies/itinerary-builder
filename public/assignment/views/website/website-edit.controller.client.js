@@ -15,7 +15,7 @@
     function init() {
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
-      vm.website = WebsiteService.findWebsiteById(vm.websiteId);
+      vm.website = angular.copy(WebsiteService.findWebsiteById(vm.websiteId));
       vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
     }
     init();
