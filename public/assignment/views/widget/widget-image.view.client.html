@@ -1,49 +1,13 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-text pull-left">
-            <a href="widget-list.view.client.html">
-                <span class="glyphicon glyphicon-chevron-left skd-nav-icon"></span>
-            </a>
-        </div>
-        <div class="navbar-text pull-right">
-            <a href="widget-list.view.client.html">
-                <span class="glyphicon glyphicon-ok skd-nav-icon"></span>
-            </a>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Edit Widget</a>
-        </div>
-    </div>
-</nav>
-
-
 <div class="container-fluid">
-    <label for="name">Name</label>
-    <input class="form-control" id="name" placeholder="Name" type="text">
-
-    <label for="text">Text</label>
-    <input class="form-control" id="text" placeholder="Text" type="text">
-
     <label for="url">URL</label>
-    <input class="form-control" id="url" placeholder="URL" type="url"
-           value="https://cbsboston.files.wordpress.com/2016/12/tb-12.jpg?w=628&h=353&crop=1">
+    <input class="form-control" id="url" placeholder="URL" type="url" ng-model="vm.widget.url">
 
     <label for="width">Width</label>
-    <input class="form-control" id="width" placeholder="Width" type="text" value="100%">
+    <input class="form-control" id="width" placeholder="Width" type="text" ng-model="vm.widget.width">
 
     <label for="upload">Upload</label>
     <input class="form-control" id="upload" type="file">
 
-    <a class="btn btn-primary btn-block" href="widget-list.view.client.html">Upload Image</a>
-    <a class="btn btn-danger btn-block" href="widget-list.view.client.html">Delete</a>
+    <a class="btn btn-primary btn-block" ng-click="vm.updateWidget()">Update Image</a>
+    <a class="btn btn-danger btn-block" ng-click="vm.deleteWidget()">Delete</a>
 </div>
-
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="pull-right navbar-text">
-            <a href="../user/profile.view.client.html">
-                <span class="glyphicon glyphicon-user skd-nav-icon"></span>
-            </a>
-        </div>
-    </div>
-</nav>

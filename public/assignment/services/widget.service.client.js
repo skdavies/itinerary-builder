@@ -25,14 +25,16 @@
 
     function createWidget(pageId, widget) {
       widget.pageId = pageId;
-      return widgets.push(widget);
+      widget._id = (parseInt(widgets[widgets.length - 1]._id) + 1).toString();
+      widgets.push(widget);
+      return widget;
     }
 
     function findWidgetsByPageId(pageId) {
       var pageWidgets = [];
       for (var i = 0; i < widgets.length; i++) {
         if (widgets[i].pageId === pageId) {
-          return pageWidgets.push(widgets[i]);
+          pageWidgets.push(widgets[i]);
         }
       }
       return pageWidgets;

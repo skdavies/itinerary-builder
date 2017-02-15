@@ -16,12 +16,10 @@
 <div class="container-fluid">
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="page in vm.pages">
-            <div class="skd-list-item">
-                <span class="pull-right glyphicon glyphicon-cog" ng-click="vm.edit(page._id)"></span>
-                <div ng-click="vm.viewPageWidgets(page._id)">
-                    {{page.name}}
-                </div>
-            </div>
+            <span class="pull-right glyphicon glyphicon-cog skd-list-item" ng-click="vm.edit(page._id)"></span>
+            <a ng-click="vm.viewPageWidgets(page._id)">
+                {{page.name}}
+            </a>
         </li>
     </ul>
 </div>

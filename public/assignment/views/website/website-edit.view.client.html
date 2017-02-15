@@ -27,12 +27,10 @@
     <div class="col-sm-4 hidden-xs skd-left-panel">
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="website in vm.websites">
-                <div class="skd-list-item">
-                    <span class="pull-right glyphicon glyphicon-cog" ng-click="vm.edit(website._id)"></span>
-                    <div ng-click="vm.viewWebsitePages(website._id)">
-                        {{website.name}}
-                    </div>
-                </div>
+                <span class="pull-right glyphicon glyphicon-cog skd-list-item" ng-click="vm.edit(website._id)"></span>
+                <a ng-click="vm.viewWebsitePages(website._id)">
+                    {{website.name}}
+                </a>
             </li>
         </ul>
     </div>

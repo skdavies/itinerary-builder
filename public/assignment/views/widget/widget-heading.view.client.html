@@ -1,49 +1,10 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-text pull-left">
-            <a href="widget-list.view.client.html">
-                <span class="glyphicon glyphicon-chevron-left skd-nav-icon"></span>
-            </a>
-        </div>
-        <div class="navbar-text pull-right">
-            <a href="widget-list.view.client.html">
-                <span class="glyphicon glyphicon-ok skd-nav-icon"></span>
-            </a>
-        </div>
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Edit Widget</a>
-        </div>
-    </div>
-</nav>
-
-
 <div class="container-fluid">
-    <label for="name">Name</label>
-    <input class="form-control" id="name" placeholder="Name" type="text">
-
     <label for="text">Text</label>
-    <input class="form-control" id="text" placeholder="Text" type="text"
-           value="Unquestionably the Greatest Quarterback of All Time">
+    <input class="form-control" id="text" placeholder="Text" type="text" ng-model="vm.widget.text">
 
     <label for="size">Size</label>
-    <select class="selectpicker form-control" id="size">
-        <option>1</option>
-        <option>2</option>
-        <option selected>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
+    <select class="selectpicker form-control" id="size" ng-model="vm.widget.size" ng-options="i for i in [1, 2, 3, 4, 5, 6]">
     </select>
 
-    <a class="btn btn-danger btn-block" href="widget-list.view.client.html">Delete</a>
+    <a class="btn btn-danger btn-block" ng-click="vm.deleteWidget()">Delete</a>
 </div>
-
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="pull-right navbar-text">
-            <a href="../user/profile.view.client.html">
-                <span class="glyphicon glyphicon-user skd-nav-icon"></span>
-            </a>
-        </div>
-    </div>
-</nav>
