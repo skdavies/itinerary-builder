@@ -1,0 +1,13 @@
+<div class="container-fluid">
+    <label for="url">URL</label>
+    <input class="form-control" id="url" placeholder="URL" type="url" ng-model="vm.widget.url">
+
+    <label for="width">Width</label>
+    <input class="form-control" id="width" placeholder="Width" type="text" ng-model="vm.widget.width">
+
+    <label for="upload">Upload</label>
+    <input class="form-control" id="upload" type="file">
+
+    <a class="btn btn-primary btn-block" ng-click="vm.updateWidget()">Update Image</a>
+    <a class="btn btn-danger btn-block" ng-click="vm.deleteWidget()">Delete</a>
+</div>

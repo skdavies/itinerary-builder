@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="WebAppMaker">
+<head>
+    <title>Web App Maker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="./css/style.css" rel="stylesheet"/>
+    <script src="app.js"></script>
+    <!--Controllers-->
+    <script src="views/user/controllers/profile.controller.client.js"></script>
+    <script src="views/user/controllers/register.controller.client.js"></script>
+    <script src="views/user/controllers/login.controller.client.js"></script>
+    <script src="views/website/controllers/website-edit.controller.client.js"></script>
+    <script src="views/website/controllers/website-new.controller.client.js"></script>
+    <script src="views/website/controllers/website-list.controller.client.js"></script>
+    <script src="views/page/controllers/page-new.controller.client.js"></script>
+    <script src="views/page/controllers/page-edit.controller.client.js"></script>
+    <script src="views/page/controllers/page-list.controller.client.js"></script>
+    <script src="views/widget/controllers/widget-edit.controller.client.js"></script>
+    <script src="views/widget/controllers/widget-list.controller.client.js"></script>
+    <script src="views/widget/controllers/widget-new.controller.client.js"></script>
+    <!--Services-->
+    <script src="services/user.service.client.js"></script>
+    <script src="services/page.service.client.js"></script>
+    <script src="services/website.service.client.js"></script>
+    <script src="services/widget.service.client.js"></script>
+    <!--Config-->
+    <script src="config.js"></script>
+</head>
+<body>
+<div ng-view></div>
+</body>
+</html>

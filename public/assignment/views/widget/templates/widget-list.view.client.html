@@ -1,0 +1,57 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-text pull-left">
+            <span class="glyphicon glyphicon-chevron-left skd-nav-icon" ng-click="vm.back()"></span>
+        </div>
+        <div class="navbar-text pull-right">
+            <span class="glyphicon glyphicon-plus skd-nav-icon" ng-click="vm.addWidget()"></span>
+        </div>
+        <div class="navbar-header navbar-brand">
+            Widgets
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div ng-repeat="widget in vm.widgets">
+        <div>
+            <div class="skd-floating-actions">
+                <span class="glyphicon glyphicon-cog" ng-click="vm.editWidget(widget._id)"></span>
+                <span class="glyphicon glyphicon-align-justify"></span>
+            </div>
+            <div ng-switch="widget.widgetType">
+                <div ng-switch-when="HEADER">
+                    <h1 ng-if="widget.size == 1">{{widget.text}}</h1>
+                    <h2 ng-if="widget.size == 2">{{widget.text}}</h2>
+                    <h3 ng-if="widget.size == 3">{{widget.text}}</h3>
+                    <h4 ng-if="widget.size == 4">{{widget.text}}</h4>
+                    <h5 ng-if="widget.size == 5">{{widget.text}}</h5>
+                    <h6 ng-if="widget.size == 6">{{widget.text}}</h6>
+                </div>
+                <div ng-switch-when="IMAGE">
+                    <img ng-src="{{widget.url}}" width={{widget.width}}>
+                </div>
+                <div ng-switch-when="YOUTUBE">
+                    <iframe width={{widget.width}} ng-src="{{vm.trustUrl(widget.url)}}" frameborder="0"
+                            allowfullscreen></iframe>
+                </div>
+                <div ng-switch-when="HTML">
+                    <div ng-bind-html="vm.trustHtml(widget.text)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="pull-right navbar-text">
+            <span class="glyphicon glyphicon-user skd-nav-icon" ng-click="vm.viewProfile()"></span>
+        </div>
+        <div class="pull-left navbar-text">
+            <span class="glyphicon glyphicon-play skd-nav-icon"></span>
+            <span class="glyphicon glyphicon-eye-open skd-nav-icon"></span>
+        </div>
+    </div>
+</nav>
