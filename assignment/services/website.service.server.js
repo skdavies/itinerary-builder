@@ -22,7 +22,7 @@ module.exports = function (app) {
       websites.push(website);
       res.sendStatus(200);
     } else {
-      res.status('400').send('Empty request body is invalid.');
+      res.status(400).send('Empty request body is invalid.');
     }
   }
 
@@ -43,7 +43,7 @@ module.exports = function (app) {
         return;
       }
     }
-    res.status('404').send('Website with that ID does not exist.');
+    res.status(404).send('Website with that ID does not exist.');
   }
 
   function updateWebsite(req, res) {
@@ -55,9 +55,9 @@ module.exports = function (app) {
           return;
         }
       }
-      res.status('404').send('Website does not exist.'); // only hit if a website isn't found
+      res.status(404).send('Website does not exist.'); // only hit if a website isn't found
     } else {
-      res.status('400').send('Empty request body is invalid.');
+      res.status(400).send('Empty request body is invalid.');
     }
   }
 
@@ -69,6 +69,6 @@ module.exports = function (app) {
         return;
       }
     }
-    res.status('404').send('Website does not exist.'); // only hit if a matching website id isn't found
+    res.status(404).send('Website does not exist.'); // only hit if a matching website id isn't found
   }
 };

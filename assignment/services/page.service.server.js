@@ -19,7 +19,7 @@ module.exports = function (app) {
       pages.push(page);
       res.sendStatus(200);
     } else {
-      res.status('400').send('Empty request body is invalid.');
+      res.status(400).send('Empty request body is invalid.');
     }
   }
 
@@ -40,7 +40,7 @@ module.exports = function (app) {
         return;
       }
     }
-    res.status('404').send('Page with that ID does not exist.');
+    res.status(404).send('Page with that ID does not exist.');
   }
 
   function updatePage(req, res) {
@@ -52,9 +52,9 @@ module.exports = function (app) {
           return;
         }
       }
-      res.status('404').send('Page does not exist.');
+      res.status(404).send('Page does not exist.');
     } else {
-      res.status('400').send('Empty request body is invalid.');
+      res.status(400).send('Empty request body is invalid.');
     }
   }
 
@@ -66,6 +66,6 @@ module.exports = function (app) {
         return;
       }
     }
-    res.status('404').send('Page does not exist.');
+    res.status(404).send('Page does not exist.');
   }
 };

@@ -19,14 +19,14 @@ module.exports = function (app) {
         return usr.username === user.username;
       });
       if (existing) {
-        res.status('409').send('A user with this username already exists.');
+        res.status(409).send('A user with this username already exists.');
         return;
       }
       user._id = (parseInt(users[users.length - 1]._id) + 1).toString();
       users.push(user);
       res.json(user);
     } else {
-      res.status('400').send('Invalid request body.');
+      res.status(400).send('Invalid request body.');
     }
   }
 
@@ -45,7 +45,7 @@ module.exports = function (app) {
         return;
       }
     }
-    res.status('404').send('User with that ID does not exist.');
+    res.status(404).send('User with that ID does not exist.');
   }
 
   function updateUser(req, res) {
@@ -57,9 +57,9 @@ module.exports = function (app) {
           return;
         }
       }
-      res.status('404').send('User does not exist.'); // only hit if a user isn't found
+      res.status(404).send('User does not exist.'); // only hit if a user isn't found
     } else {
-      res.status('400').send('Invalid request body.');
+      res.status(400).send('Invalid request body.');
     }
   }
 
@@ -71,7 +71,7 @@ module.exports = function (app) {
         return;
       }
     }
-    res.status('404').send('User does not exist.'); // only hit if a user isn't found
+    res.status(404).send('User does not exist.'); // only hit if a user isn't found
   }
 
   function findUserByCredentials(req, res) {
@@ -81,7 +81,7 @@ module.exports = function (app) {
         return;
       }
     }
-    res.status('404').send('User does not exist.');
+    res.status(404).send('User does not exist.');
   }
 
   function findUserByUsername(req, res) {
@@ -91,6 +91,6 @@ module.exports = function (app) {
         return;
       }
     }
-    res.status('404').send('User does not exist.');
+    res.status(404).send('User does not exist.');
   }
 };
