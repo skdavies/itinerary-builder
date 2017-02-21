@@ -14,7 +14,11 @@
     function init() {
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
-      vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
+      PageService.findPagesByWebsiteId(vm.websiteId).success(function (pages) {
+        vm.pages = pages;
+      }).catch(function () {
+        vm.error = 'Pages could not be loaded.';
+      });
     }
     init();
 
@@ -27,8 +31,11 @@
     }
 
     function save(page) {
-      PageService.createPage(vm.websiteId, page);
-      back();
+      PageService.createPage(vm.websiteId, page).success(function () {
+        back();
+      }).catch(function () {
+        vm.error = 'New page could not be added. Please try again.';
+      });
     }
 
     function edit(pageId) {

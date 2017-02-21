@@ -16,7 +16,7 @@
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
       WebsiteService.findWebsiteById(vm.websiteId).success(function (website) {
-        vm.website = angular.copy(website);
+        vm.website = website;
       }).catch(function () {
         vm.error = 'This website does not seem to exist.';
       });

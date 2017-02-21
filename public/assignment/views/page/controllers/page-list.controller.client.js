@@ -14,7 +14,11 @@
     function init() {
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
-      vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
+      PageService.findPagesByWebsiteId(vm.websiteId).success(function (pages) {
+        vm.pages = pages;
+      }).catch(function () {
+        vm.error = 'Pages could not be loaded. Please try again.';
+      });
     }
     init();
 
