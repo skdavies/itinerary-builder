@@ -39,14 +39,13 @@ module.exports = function (app) {
   }
 
   function findUserById(req, res) {
-    var user = users.find(function (user) {
-      return user._id === req.params.userId;
-    });
-    if (user) {
-      res.json(user);
-    } else {
-      res.status('404').send('User does not exist.');
+    for (var i = 0; i < users.length; i++) {
+      if (users[i]._id === req.params.userId) {
+        res.json(users[i]);
+        return;
+      }
     }
+    res.status('404').send('User with that ID does not exist.');
   }
 
   function updateUser(req, res) {
@@ -76,24 +75,22 @@ module.exports = function (app) {
   }
 
   function findUserByCredentials(req, res) {
-    var user = users.find(function (user) {
-      return user.password === req.query.password && user.username === req.query.username;
-    });
-    if (user) {
-      res.json(user);
-    } else {
-      res.status('404').send('User does not exist.');
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].password === req.query.password && users[i].username === req.query.username) {
+        res.json(users[i]);
+        return;
+      }
     }
+    res.status('404').send('User does not exist.');
   }
 
   function findUserByUsername(req, res) {
-    var user = users.find(function (user) {
-      return user.username === req.query.username;
-    });
-    if (user) {
-      res.json(user);
-    } else {
-      res.status('404').send('User does not exist.');
+    for (var i = 0; i < users.length; i++) {
+      if (users[i].username === req.query.username) {
+        res.json(users[i]);
+        return;
+      }
     }
+    res.status('404').send('User does not exist.');
   }
 };
