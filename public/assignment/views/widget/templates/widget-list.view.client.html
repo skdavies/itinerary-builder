@@ -14,6 +14,10 @@
 
 
 <div class="container-fluid">
+    <div ng-show="vm.error" class="alert alert-danger" role="alert">
+        {{vm.error}}
+        <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.error = null"></span>
+    </div>
     <div ng-repeat="widget in vm.widgets">
         <div>
             <div class="skd-floating-actions">

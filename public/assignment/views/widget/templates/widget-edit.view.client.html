@@ -12,7 +12,11 @@
     </div>
 </nav>
 
-<div ng-switch="vm.widget.widgetType">
+<div ng-switch="vm.widget.widgetType" class="container-fluid">
+    <div ng-show="vm.error" class="alert alert-danger" role="alert">
+        {{vm.error}}
+        <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.error = null"></span>
+    </div>
     <div ng-switch-when="HEADER">
         <div ng-include src="'views/widget/templates/widget-heading.view.client.html'"></div>
     </div>

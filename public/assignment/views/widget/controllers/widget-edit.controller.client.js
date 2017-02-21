@@ -15,7 +15,11 @@
       vm.websiteId = $routeParams['wid'];
       vm.pageId = $routeParams['pid'];
       vm.widgetId = $routeParams['wgid'];
-      vm.widget = WidgetService.findWidgetById(vm.widgetId);
+      WidgetService.findWidgetById(vm.widgetId).success(function (widget) {
+        vm.widget = widget;
+      }).catch(function () {
+        vm.error = 'Unable to load widget. Please try again';
+      });
     }
 
     init();
@@ -29,13 +33,19 @@
     }
     
     function updateWidget() {
-      WidgetService.updateWidget(vm.widgetId, vm.widget);
-      back();
+      WidgetService.updateWidget(vm.widgetId, vm.widget).success(function () {
+        back();
+      }).catch(function () {
+        vm.error = 'Unable to update widget. Please try again.';
+      });
     }
     
     function deleteWidget() {
-      WidgetService.deleteWidget(vm.widgetId);
-      back();
+      WidgetService.deleteWidget(vm.widgetId).success(function () {
+        back();
+      }).catch(function () {
+        vm.error = 'Could not delete widget. Please try again.';
+      });
     }
   }
 })();
