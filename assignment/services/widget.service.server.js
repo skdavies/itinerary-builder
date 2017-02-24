@@ -16,6 +16,7 @@ module.exports = function (app) {
   app.get('/api/widget/:widgetId', findWidgetById);
   app.put('/api/widget/:widgetId', updateWidget);
   app.delete('/api/widget/:widgetId', deleteWidget);
+  app.put('/api/page/:pageId/widget', reorderWidget);
 
   function createWidget(req, res) {
     var widget = req.body;
@@ -73,5 +74,51 @@ module.exports = function (app) {
       }
     }
     res.status(404).send('Widget does not exist.');
+  }
+
+  // Written to work once there are widgets that aren't all on the same page stored
+  function reorderWidget(req, res) {
+    var initial = parseInt(req.query.initial);
+    var final = parseInt(req.query.final);
+    if (!isNaN(initial) && !isNaN(final)) {
+      try {
+        var count = 0;
+        var widget = {};
+        var up = initial > final;
+        for (var i = 0; i < widgets.length; i++) {
+          if (widgets[i].pageId === req.params.pageId) {
+            if (count === initial) {
+              widget = widgets[i];
+              break;
+            }
+            count += 1;
+          }
+        }
+        count = 0;
+        for (var j = 0; j < widgets.length; j++) {
+          if (widgets[j].pageId === req.params.pageId) {
+            if (count === final) {
+              if (up) {
+                widgets.splice(j, 0, widget);
+              } else {
+                widgets.splice(j + 1, 0, widget);
+              }
+              break;
+            }
+            count += 1;
+          }
+        }
+        if (up) { // moving up
+          widgets.splice(initial + 1, 1);
+        } else { // moving down
+          widgets.splice(initial, 1);
+        }
+        res.sendStatus(200);
+      } catch(error) {
+        res.status(400).send('Initial and final indices are out of range');
+      }
+    } else {
+      res.status(400).send('Initial and final indices must be provided');
+    }
   }
 };

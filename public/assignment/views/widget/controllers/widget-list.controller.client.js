@@ -11,6 +11,7 @@
     vm.editWidget = editWidget;
     vm.trustHtml = trustHtml;
     vm.trustUrl = trustUrl;
+    vm.reorderWidget = reorderWidget;
 
     function init() {
       vm.userId = $routeParams['uid'];
@@ -47,6 +48,12 @@
     function trustUrl(url) {
       var formatted = url.split('/')[3];
       return $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + formatted);
+    }
+
+    function reorderWidget(initial, final) {
+      if (initial !== final) {
+        return WidgetService.reorderWidget(vm.pageId, initial, final);
+      }
     }
   }
 })();
