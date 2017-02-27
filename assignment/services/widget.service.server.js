@@ -11,12 +11,12 @@ module.exports = function (app) {
     { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
   ];
 
-  app.post('/api/page/:pageId/widget', createWidget);
-  app.get('/api/page/:pageId/widget', findAllWidgetsForPage);
-  app.get('/api/widget/:widgetId', findWidgetById);
-  app.put('/api/widget/:widgetId', updateWidget);
-  app.delete('/api/widget/:widgetId', deleteWidget);
-  app.put('/api/page/:pageId/widget', reorderWidget);
+  app.post('/assignment/api/page/:pageId/widget', createWidget);
+  app.get('/assignment/api/page/:pageId/widget', findAllWidgetsForPage);
+  app.get('/assignment/api/widget/:widgetId', findWidgetById);
+  app.put('/assignment/api/widget/:widgetId', updateWidget);
+  app.delete('/assignment/api/widget/:widgetId', deleteWidget);
+  app.put('/assignment/api/page/:pageId/widget', reorderWidget);
 
   function createWidget(req, res) {
     var widget = req.body;

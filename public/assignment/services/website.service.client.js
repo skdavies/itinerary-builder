@@ -14,23 +14,23 @@
     };
 
     function createWebsite(userId, website) {
-      return $http.post('/api/user/' + userId + '/website', website);
+      return $http.post('/assignment/api/user/' + userId + '/website', website);
     }
 
     function findWebsitesByUser(userId) {
-      return $http.get('/api/user/' + userId + '/website');
+      return $http.get('/assignment/api/user/' + userId + '/website');
     }
 
     function findWebsiteById(websiteId) {
-      return $http.get('/api/website/' + websiteId);
+      return $http.get('/assignment/api/website/' + websiteId);
     }
 
     function updateWebsite(websiteId, website) {
-      return $http.put('/api/website/' + websiteId, website);
+      return $http.put('/assignment/api/website/' + websiteId, website);
     }
 
     function deleteWebsite(websiteId) {
-      return $http.delete('/api/website/' + websiteId);
+      return $http.delete('/assignment/api/website/' + websiteId);
     }
   }
 

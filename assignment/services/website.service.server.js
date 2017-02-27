@@ -8,11 +8,11 @@ module.exports = function (app) {
     { "_id": "789", "name": "Chess", "developerId": "234", "description": "Lorem" }
   ];
 
-  app.post('/api/user/:userId/website', createWebsite);
-  app.get('/api/user/:userId/website', findAllWebsitesForUser);
-  app.get('/api/website/:websiteId', findWebsiteById);
-  app.put('/api/website/:websiteId', updateWebsite);
-  app.delete('/api/website/:websiteId', deleteWebsite);
+  app.post('/assignment/api/user/:userId/website', createWebsite);
+  app.get('/assignment/api/user/:userId/website', findAllWebsitesForUser);
+  app.get('/assignment/api/website/:websiteId', findWebsiteById);
+  app.put('/assignment/api/website/:websiteId', updateWebsite);
+  app.delete('/assignment/api/website/:websiteId', deleteWebsite);
 
   function createWebsite(req, res) {
     var website = req.body;

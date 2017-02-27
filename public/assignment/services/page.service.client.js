@@ -14,23 +14,23 @@
     };
 
     function createPage(websiteId, page) {
-      return $http.post('/api/website/' + websiteId + '/page', page);
+      return $http.post('/assignment/api/website/' + websiteId + '/page', page);
     }
 
     function findPagesByWebsiteId(websiteId) {
-      return $http.get('/api/website/' + websiteId + '/page');
+      return $http.get('/assignment/api/website/' + websiteId + '/page');
     }
 
     function findPageById(pageId) {
-      return $http.get('/api/page/' + pageId);
+      return $http.get('/assignment/api/page/' + pageId);
     }
 
     function updatePage(pageId, page) {
-      return $http.put('/api/page/' + pageId, page);
+      return $http.put('/assignment/api/page/' + pageId, page);
     }
 
     function deletePage(pageId) {
-      return $http.delete('/api/page/' + pageId);
+      return $http.delete('/assignment/api/page/' + pageId);
     }
   }
 

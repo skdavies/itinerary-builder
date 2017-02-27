@@ -6,11 +6,11 @@ module.exports = function (app) {
     { _id: '456', username: 'jannunzi', password: 'jannunzi', firstName: 'Jose', lastName: 'Annunzi' }
   ];
 
-  app.post('/api/user', createUser);
-  app.get('/api/user', findUser);
-  app.get('/api/user/:userId', findUserById);
-  app.put('/api/user/:userId', updateUser);
-  app.delete('/api/user/:userId', deleteUser);
+  app.post('/assignment/api/user', createUser);
+  app.get('/assignment/api/user', findUser);
+  app.get('/assignment/api/user/:userId', findUserById);
+  app.put('/assignment/api/user/:userId', updateUser);
+  app.delete('/assignment/api/user/:userId', deleteUser);
 
   function createUser(req, res) {
     var user = req.body;
