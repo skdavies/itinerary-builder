@@ -18,10 +18,10 @@
             username: user.username,
             password: user.password
           };
-          UserService.createUser(usr).success(function (user) {
-            var userId = user._id;
+          UserService.createUser(usr).then(function (response) {
+            var userId = response.data._id;
             $location.url('/user/' + userId);
-          }).catch(function (error) {
+          }, function (error) {
             vm.error = error.data;
           });
         } else {

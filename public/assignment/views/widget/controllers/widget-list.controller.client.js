@@ -17,9 +17,9 @@
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
       vm.pageId = $routeParams['pid'];
-      WidgetService.findWidgetsByPageId(vm.pageId).success(function (widgets) {
-        vm.widgets = widgets;
-      }).catch(function () {
+      WidgetService.findWidgetsByPageId(vm.pageId).then(function (response) {
+        vm.widgets = response.data;
+      }, function () {
         vm.error = 'Unable to load widgets.';
       });
     }

@@ -15,13 +15,13 @@
     function init() {
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
-      WebsiteService.findWebsiteById(vm.websiteId).success(function (website) {
-        vm.website = website;
-      }).catch(function () {
+      WebsiteService.findWebsiteById(vm.websiteId).then(function (response) {
+        vm.website = response.data;
+      }, function () {
         vm.error = 'This website does not seem to exist.';
       });
-      WebsiteService.findWebsitesByUser(vm.userId).success(function (websites) {
-        vm.websites = websites;
+      WebsiteService.findWebsitesByUser(vm.userId).then(function (response) {
+        vm.websites = response.data;
       });
     }
     init();
@@ -35,9 +35,9 @@
     }
 
     function save(website) {
-      WebsiteService.updateWebsite(vm.websiteId, website).success(function () {
+      WebsiteService.updateWebsite(vm.websiteId, website).then(function () {
         back();
-      }).catch(function () {
+      }, function () {
         vm.error = 'Website could not be updated at this time. Please try again.';
       });
     }
@@ -47,9 +47,9 @@
     }
 
     function deleteWebsite() {
-      WebsiteService.deleteWebsite(vm.websiteId).success(function () {
+      WebsiteService.deleteWebsite(vm.websiteId).then(function () {
         back();
-      }).catch(function () {
+      }, function () {
         vm.error = 'Oops, something went wrong.';
       });
     }

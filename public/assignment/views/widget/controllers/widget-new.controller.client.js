@@ -30,9 +30,10 @@
         widget.url = '';
         widget.width = '';
       }
-      WidgetService.createWidget(vm.pageId, widget).success(function (widget) {
-        $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page/' + vm.pageId + '/widget/' + widget._id + '/true');
-      }).catch(function () {
+      WidgetService.createWidget(vm.pageId, widget).then(function (response) {
+        $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page/' + vm.pageId + '/widget/' +
+          response.data._id + '/true');
+      }, function () {
         vm.error = 'Unable to create new widget. Please try again.';
       });
     }

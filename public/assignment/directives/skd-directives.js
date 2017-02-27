@@ -16,7 +16,7 @@
         var finalIndex = ui.item.index();
         var promise = scope.vm.reorderWidget(startIndex, finalIndex);
         if (promise) {
-          promise.catch(function () {
+          promise.then(function(){}, function () {
             $('#widget-list').sortable('cancel');
           });
         }

@@ -16,14 +16,14 @@
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
       vm.pageId = $routeParams['pid'];
-      PageService.findPageById(vm.pageId).success(function (page) {
-        vm.page = page;
-      }).catch(function () {
+      PageService.findPageById(vm.pageId).then(function (response) {
+        vm.page = response.data;
+      }, function () {
         vm.error = 'Page could not be loaded.';
       });
-      PageService.findPagesByWebsiteId(vm.websiteId).success(function (pages) {
-        vm.pages = pages;
-      }).catch(function () {
+      PageService.findPagesByWebsiteId(vm.websiteId).then(function (response) {
+        vm.pages = response.data;
+      }, function () {
         vm.error = 'Pages could not be loaded.';
       });
     }
@@ -38,9 +38,9 @@
     }
 
     function save(page) {
-      PageService.updatePage(vm.pageId, page).success(function () {
+      PageService.updatePage(vm.pageId, page).then(function () {
         back();
-      }).catch(function () {
+      }, function () {
         vm.error = 'Page could not be saved. Please try again.';
       });
     }
@@ -54,9 +54,9 @@
     }
 
     function deletePage() {
-      PageService.deletePage(vm.pageId).success(function () {
+      PageService.deletePage(vm.pageId).then(function () {
         back();
-      }).catch(function () {
+      }, function () {
         vm.error = 'Page could not be deleted. Please try again.';
       });
     }
