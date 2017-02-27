@@ -9,8 +9,10 @@
     vm.viewProfile = viewProfile;
     vm.updateWidget = updateWidget;
     vm.deleteWidget = deleteWidget;
+    vm.goBack = goBack;
 
     function init() {
+      vm.new = $location.$$path.endsWith('/true');
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
       vm.pageId = $routeParams['pid'];
@@ -23,6 +25,14 @@
     }
 
     init();
+
+    function goBack() {
+      if (vm.new) {
+        deleteWidget();
+      } else {
+        back();
+      }
+    }
 
     function back() {
       $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page/' + vm.pageId + '/widget');

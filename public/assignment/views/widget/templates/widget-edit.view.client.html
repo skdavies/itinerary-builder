@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-text pull-left">
-            <span class="glyphicon glyphicon-chevron-left skd-nav-icon" ng-click="vm.back()"></span>
+            <span class="glyphicon glyphicon-chevron-left skd-nav-icon" ng-click="vm.goBack()"></span>
         </div>
         <div class="navbar-text pull-right">
             <span class="glyphicon glyphicon-ok skd-nav-icon" ng-click="vm.updateWidget()"></span>
@@ -34,9 +34,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <div class="pull-right navbar-text">
-            <a href="../../user/templates/profile.view.client.html">
-                <span class="glyphicon glyphicon-user skd-nav-icon"></span>
-            </a>
+            <span class="glyphicon glyphicon-user skd-nav-icon" ng-click="vm.viewProfile()"></span>
         </div>
     </div>
 </nav>

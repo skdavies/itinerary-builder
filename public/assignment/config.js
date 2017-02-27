@@ -65,7 +65,7 @@
         controller: 'WidgetNewController',
         controllerAs: 'vm'
       })
-      .when('/user/:uid/website/:wid/page/:pid/widget/:wgid', {
+      .when('/user/:uid/website/:wid/page/:pid/widget/:wgid/:new?', {
         templateUrl: 'views/widget/templates/widget-edit.view.client.html',
         controller: 'WidgetEditController',
         controllerAs: 'vm'
