@@ -14,7 +14,9 @@
     function init() {
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
-      vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+      WebsiteService.findWebsitesByUser(vm.userId).then(function (response) {
+        vm.websites = response.data;
+      });
     }
     init();
 
@@ -27,8 +29,11 @@
     }
 
     function save(website) {
-      WebsiteService.createWebsite(vm.userId, website);
-      back();
+      WebsiteService.createWebsite(vm.userId, website).then(function () {
+        back();
+      }, function () {
+        vm.error = 'Website could not be updated at this time. Please try again.';
+      });
     }
 
     function edit(websiteId) {

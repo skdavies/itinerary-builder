@@ -27,6 +27,10 @@ a:hover {
     cursor: pointer;
 }
 
+.skd-hidden-form-el {
+    visibility: hidden;
+}
+
 .skd-list-item {
     color: #337ab7;
     cursor: pointer;

@@ -12,7 +12,11 @@
 
     function init() {
       vm.userId = $routeParams['uid'];
-      vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+      WebsiteService.findWebsitesByUser(vm.userId).then(function (response) {
+        vm.websites = response.data;
+      }, function () {
+        vm.error = 'Websites could not be loaded';
+      });
     }
     init();
 

@@ -14,6 +14,10 @@
 
 
 <div class="container-fluid">
+    <div ng-show="vm.error" class="alert alert-danger" role="alert">
+        {{vm.error}}
+        <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.error = null"></span>
+    </div>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="website in vm.websites">
             <span class="pull-right glyphicon glyphicon-cog skd-list-item" ng-click="vm.edit(website._id)"></span>

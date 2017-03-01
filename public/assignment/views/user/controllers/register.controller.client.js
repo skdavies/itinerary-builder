@@ -13,16 +13,19 @@
 
     function register(user) {
       if (user) {
-        var usr = UserService.findUserByUsername(user.username);
-        if (usr) {
-          vm.error = 'A user with that name already exists.';
+        if (user.password === user.verify) {
+          var usr = {
+            username: user.username,
+            password: user.password
+          };
+          UserService.createUser(usr).then(function (response) {
+            var userId = response.data._id;
+            $location.url('/user/' + userId);
+          }, function (error) {
+            vm.error = error.data;
+          });
         } else {
-          if (user.password === user.verify) {
-            UserService.createUser(user);
-            $location.url('/user/' + UserService.findUserByUsername(user.username)._id);
-          } else {
-            vm.error = 'Passwords must match.';
-          }
+          vm.error = 'Passwords must match.';
         }
       }
     }

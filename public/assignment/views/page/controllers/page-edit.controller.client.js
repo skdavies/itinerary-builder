@@ -16,8 +16,16 @@
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
       vm.pageId = $routeParams['pid'];
-      vm.page = angular.copy(PageService.findPageById(vm.pageId));
-      vm.pages = PageService.findPagesByWebsiteId(vm.websiteId);
+      PageService.findPageById(vm.pageId).then(function (response) {
+        vm.page = response.data;
+      }, function () {
+        vm.error = 'Page could not be loaded.';
+      });
+      PageService.findPagesByWebsiteId(vm.websiteId).then(function (response) {
+        vm.pages = response.data;
+      }, function () {
+        vm.error = 'Pages could not be loaded.';
+      });
     }
     init();
 
@@ -30,8 +38,11 @@
     }
 
     function save(page) {
-      PageService.updatePage(vm.pageId, page);
-      back();
+      PageService.updatePage(vm.pageId, page).then(function () {
+        back();
+      }, function () {
+        vm.error = 'Page could not be saved. Please try again.';
+      });
     }
 
     function edit(pageId) {
@@ -43,8 +54,11 @@
     }
 
     function deletePage() {
-      PageService.deletePage(vm.pageId);
-      back();
+      PageService.deletePage(vm.pageId).then(function () {
+        back();
+      }, function () {
+        vm.error = 'Page could not be deleted. Please try again.';
+      });
     }
   }
 })();

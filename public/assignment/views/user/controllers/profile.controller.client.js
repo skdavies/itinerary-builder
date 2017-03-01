@@ -11,7 +11,11 @@
 
     function init() {
       vm.userId = $routeParams['uid'];
-      vm.user = UserService.findUserById(vm.userId);
+      UserService.findUserById(vm.userId).then(function (response) {
+        vm.user = response.data;
+      }, function () {
+        vm.error = 'User data could not be loaded';
+      });
     }
     init();
     
@@ -20,7 +24,11 @@
     }
     
     function updateUser(userId, user) {
-      UserService.updateUser(userId, user);
+      UserService.updateUser(userId, user).then(function () {
+        vm.message = 'User updated successfully.';
+      }, function () {
+        vm.error = 'User info could not be updated.';
+      });
     }
 
     function logout() {

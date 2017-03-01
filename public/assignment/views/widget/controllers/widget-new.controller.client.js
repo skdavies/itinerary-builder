@@ -30,9 +30,12 @@
         widget.url = '';
         widget.width = '';
       }
-      var widgetId = WidgetService.createWidget(vm.pageId, widget)._id;
-
-      $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page/' + vm.pageId + '/widget/' + widgetId);
+      WidgetService.createWidget(vm.pageId, widget).then(function (response) {
+        $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page/' + vm.pageId + '/widget/' +
+          response.data._id + '/true');
+      }, function () {
+        vm.error = 'Unable to create new widget. Please try again.';
+      });
     }
 
     function viewProfile() {

@@ -11,12 +11,17 @@
     vm.editWidget = editWidget;
     vm.trustHtml = trustHtml;
     vm.trustUrl = trustUrl;
+    vm.reorderWidget = reorderWidget;
 
     function init() {
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
       vm.pageId = $routeParams['pid'];
-      vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+      WidgetService.findWidgetsByPageId(vm.pageId).then(function (response) {
+        vm.widgets = response.data;
+      }, function () {
+        vm.error = 'Unable to load widgets.';
+      });
     }
     init();
 
@@ -43,6 +48,12 @@
     function trustUrl(url) {
       var formatted = url.split('/')[3];
       return $sce.trustAsResourceUrl('https://www.youtube.com/embed/' + formatted);
+    }
+
+    function reorderWidget(initial, final) {
+      if (initial !== final) {
+        return WidgetService.reorderWidget(vm.pageId, initial, final);
+      }
     }
   }
 })();

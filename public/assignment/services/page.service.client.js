@@ -3,12 +3,8 @@
     .module('WebAppMaker')
     .factory('PageService', pageService);
 
-  function pageService() {
-    var pages = [
-      { "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem" },
-      { "_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem" },
-      { "_id": "543", "name": "Post 3", "websiteId": "456", "description": "Lorem" }
-    ];
+  function pageService($http) {
+
     return {
       'createPage': createPage,
       'findPagesByWebsiteId': findPagesByWebsiteId,
@@ -18,44 +14,23 @@
     };
 
     function createPage(websiteId, page) {
-      page.websiteId = websiteId;
-      page._id = (parseInt(pages[pages.length - 1]._id) + 1).toString();
-      pages.push(page);
+      return $http.post('/assignment/api/website/' + websiteId + '/page', page);
     }
 
     function findPagesByWebsiteId(websiteId) {
-      var websitePages = [];
-      for (var i = 0; i < pages.length; i++) {
-        if (pages[i].websiteId === websiteId) {
-          websitePages.push(pages[i]);
-        }
-      }
-      return websitePages;
+      return $http.get('/assignment/api/website/' + websiteId + '/page');
     }
 
     function findPageById(pageId) {
-      for (var i = 0; i < pages.length; i++) {
-        if (pages[i]._id === pageId) {
-          return pages[i];
-        }
-      }
-      return null;
+      return $http.get('/assignment/api/page/' + pageId);
     }
 
     function updatePage(pageId, page) {
-      for (var i = 0; i < pages.length; i++) {
-        if (pages[i]._id === pageId) {
-          pages[i] = page;
-        }
-      }
+      return $http.put('/assignment/api/page/' + pageId, page);
     }
 
     function deletePage(pageId) {
-      for (var i = 0; i < pages.length; i++) {
-        if (pages[i]._id === pageId) {
-          pages.splice(i, 1);
-        }
-      }
+      return $http.delete('/assignment/api/page/' + pageId);
     }
   }
 

@@ -15,8 +15,14 @@
     function init() {
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
-      vm.website = angular.copy(WebsiteService.findWebsiteById(vm.websiteId));
-      vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+      WebsiteService.findWebsiteById(vm.websiteId).then(function (response) {
+        vm.website = response.data;
+      }, function () {
+        vm.error = 'This website does not seem to exist.';
+      });
+      WebsiteService.findWebsitesByUser(vm.userId).then(function (response) {
+        vm.websites = response.data;
+      });
     }
     init();
 
@@ -29,8 +35,11 @@
     }
 
     function save(website) {
-      WebsiteService.updateWebsite(vm.websiteId, website);
-      back();
+      WebsiteService.updateWebsite(vm.websiteId, website).then(function () {
+        back();
+      }, function () {
+        vm.error = 'Website could not be updated at this time. Please try again.';
+      });
     }
 
     function edit(websiteId) {
@@ -38,8 +47,11 @@
     }
 
     function deleteWebsite() {
-      WebsiteService.deleteWebsite(vm.websiteId);
-      back();
+      WebsiteService.deleteWebsite(vm.websiteId).then(function () {
+        back();
+      }, function () {
+        vm.error = 'Oops, something went wrong.';
+      });
     }
 
     function viewWebsitePages(websiteId) {

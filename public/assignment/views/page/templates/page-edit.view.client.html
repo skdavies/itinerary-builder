@@ -35,6 +35,10 @@
         </ul>
     </div>
     <div class="col-sm-8">
+        <div ng-show="vm.error" class="alert alert-danger" role="alert">
+            {{vm.error}}
+            <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.error = null"></span>
+        </div>
         <label for="name">Name</label>
         <input class="form-control" id="name" placeholder="Page Name" type="text" ng-model="vm.page.name">
 

@@ -13,12 +13,11 @@
 
     function login(user) {
       if (user) {
-        var usr = UserService.findUserByCredentials(user.username, user.password);
-        if (usr) {
-          $location.url('/user/' + usr._id);
-        } else {
+        UserService.findUserByCredentials(user.username, user.password).then(function (response) {
+          $location.url('/user/' + response.data._id);
+        }, function () {
           vm.error = 'User not found. Please try again.'
-        }
+        });
       }
     }
 
