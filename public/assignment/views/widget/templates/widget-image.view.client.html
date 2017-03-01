@@ -5,9 +5,15 @@
     <label for="width">Width</label>
     <input class="form-control" id="width" placeholder="Width" type="text" ng-model="vm.widget.width">
 
-    <label for="upload">Upload</label>
-    <input class="form-control" id="upload" type="file">
+    <form action="/assignment/api/upload"  method="post" enctype="multipart/form-data">
+        <label for="upload">Upload</label>
+        <input name="myFile" id="upload" type="file" class="form-control"/>
+        <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
+        <input class="skd-hidden-form-el" name="width" value="{{vm.widget.width}}"/>
+        <input class="skd-hidden-form-el" name="widgetId" value="{{vm.widget._id}}"/>
+        <input class="skd-hidden-form-el" name="location" value="{{vm.location}}"/>
+    </form>
 
-    <a class="btn btn-primary btn-block" ng-click="vm.updateWidget()">Update Image</a>
+    <a class="btn btn-primary btn-block" ng-click="vm.updateWidget()">Update Widget</a>
     <a class="btn btn-danger btn-block" ng-click="vm.deleteWidget()">Delete</a>
 </div>

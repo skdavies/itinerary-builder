@@ -13,6 +13,7 @@
 
     function init() {
       vm.new = $location.$$path.endsWith('/true');
+      vm.location = $location.$$path;
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
       vm.pageId = $routeParams['pid'];
