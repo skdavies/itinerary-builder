@@ -1,6 +1,13 @@
 <div class="container-fluid">
-    <h3>
-        We have not been instructed to implement this yet but having a blank page felt weird so I made this page and
-        figured a run on sentence would be nice to show so here it is
-    </h3>
+    <label for="name">Name</label>
+    <input type="text" class="form-control" ng-model="vm.widget.name" id="name">
+
+    <label for="html">HTML</label>
+    <div ng-model="vm.widget.text" text-angular id="html"
+         ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+        ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+        ['indent','outdent'],['html']]">
+    </div>
+
+    <a class="btn btn-danger btn-block" ng-click="vm.deleteWidget()">Delete</a>
 </div>
