@@ -23,13 +23,6 @@
 
     function createWidget(type) {
       var widget = { 'widgetType': type };
-      if (type === 'HEADER') {
-        widget.size = 1;
-        widget.text = '';
-      } else if (type === 'YOUTUBE' || type === 'IMAGE') {
-        widget.url = '';
-        widget.width = '';
-      }
       WidgetService.createWidget(vm.pageId, widget).then(function (response) {
         $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page/' + vm.pageId + '/widget/' +
           response.data._id + '/true');
