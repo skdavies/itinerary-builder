@@ -1,10 +1,4 @@
-module.exports = function (app) {
-  var users = [
-    { _id: '123', username: 'alice', password: 'alice', firstName: 'Alice', lastName: 'Wonder' },
-    { _id: '234', username: 'bob', password: 'bob', firstName: 'Bob', lastName: 'Marley' },
-    { _id: '345', username: 'charly', password: 'charly', firstName: 'Charly', lastName: 'Garcia' },
-    { _id: '456', username: 'jannunzi', password: 'jannunzi', firstName: 'Jose', lastName: 'Annunzi' }
-  ];
+module.exports = function (app, UserModel) {
 
   app.post('/assignment/api/user', createUser);
   app.get('/assignment/api/user', findUser);
@@ -15,16 +9,15 @@ module.exports = function (app) {
   function createUser(req, res) {
     var user = req.body;
     if (user) {
-      var existing = users.find(function (usr) {
-        return usr.username === user.username;
+      UserModel.createUser(user).then(function (user) {
+        res.json(user);
+      }, function (error) {
+        if (error.code === 11000) {
+          res.status(409).send('A user with that username already exists.');
+        } else {
+          res.status(500);
+        }
       });
-      if (existing) {
-        res.status(409).send('A user with this username already exists.');
-        return;
-      }
-      user._id = (parseInt(users[users.length - 1]._id) + 1).toString();
-      users.push(user);
-      res.json(user);
     } else {
       res.status(400).send('Invalid request body.');
     }
@@ -35,62 +28,56 @@ module.exports = function (app) {
       findUserByCredentials(req, res);
     } else if (req.query.username) {
       findUserByUsername(req, res);
+    } else {
+      res.status(400).send('Missing query parameters.');
     }
   }
 
   function findUserById(req, res) {
-    for (var i = 0; i < users.length; i++) {
-      if (users[i]._id === req.params.userId) {
-        res.json(users[i]);
-        return;
+    UserModel.findUserById(req.params.userId).then(function (user) {
+      if (user) {
+        res.json(user);
+      } else {
+        res.status(404).send('User with that ID does not exist.');
       }
-    }
-    res.status(404).send('User with that ID does not exist.');
+    }, function () {
+      res.sendStatus(500);
+    })
   }
 
   function updateUser(req, res) {
     if (req.body) {
-      for (var i = 0; i < users.length; i++) {
-        if (users[i]._id === req.params.userId) {
-          users[i] = req.body;
-          res.sendStatus(200);
-          return;
-        }
-      }
-      res.status(404).send('User does not exist.'); // only hit if a user isn't found
+      UserModel.updateUser(req.params.userId, req.body).then(function () {
+        res.sendStatus(200);
+      }, function () {
+        res.sendStatus(500);
+      });
     } else {
       res.status(400).send('Invalid request body.');
     }
   }
 
   function deleteUser(req, res) {
-    for (var i = 0; i < users.length; i++) {
-      if (users[i]._id === req.params.userId) {
-        users.splice(i, 1);
-        res.sendStatus(200);
-        return;
-      }
-    }
-    res.status(404).send('User does not exist.'); // only hit if a user isn't found
+    UserModel.deleteUser(req.params.userId).then(function () {
+      res.sendStatus(200);
+    }, function () {
+      res.sendStatus(500);
+    })
   }
 
   function findUserByCredentials(req, res) {
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].password === req.query.password && users[i].username === req.query.username) {
-        res.json(users[i]);
-        return;
-      }
-    }
-    res.status(404).send('User does not exist.');
+    UserModel.findUserByCredentials(req.query.username, req.query.password).then(function (user) {
+      res.json(user);
+    }, function () {
+      res.sendStatus(500);
+    });
   }
 
   function findUserByUsername(req, res) {
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].username === req.query.username) {
-        res.json(users[i]);
-        return;
-      }
-    }
-    res.status(404).send('User does not exist.');
+    UserModel.findUserByUsername(req.query.username).then(function (user) {
+      res.json(user);
+    }, function () {
+      res.sendStatus(500);
+    });
   }
 };

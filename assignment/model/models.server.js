@@ -1,6 +1,6 @@
 module.exports = function () {
   var mongoose = require('mongoose');
-  var connectionString = 'mongodb://127.0.0.1:27017/skd-webdev';
+  var connectionString = 'mongodb://127.0.0.1:27017/skd_webdev';
 
   if(process.env.MLAB_USERNAME) {
     connectionString = process.env.MLAB_USERNAME + ":" +

@@ -12,7 +12,12 @@
     function init() {
       vm.userId = $routeParams['uid'];
       UserService.findUserById(vm.userId).then(function (response) {
-        vm.user = response.data;
+        var user = response.data;
+        if (user) {
+          vm.user = user;
+        } else {
+          vm.error = 'User data could not be loaded';
+        }
       }, function () {
         vm.error = 'User data could not be loaded';
       });

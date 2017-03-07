@@ -18,7 +18,7 @@ module.exports = function () {
     deletable: Boolean,
     formatted: Boolean,
     dateCreated: { type: Date, default: Date.now }
-  }, { collection: 'assignment.widget' });
+  }, { collection: 'assignment_widgets' });
 
   return WidgetSchema;
 };

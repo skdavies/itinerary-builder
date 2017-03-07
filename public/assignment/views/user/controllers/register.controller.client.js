@@ -20,7 +20,11 @@
           };
           UserService.createUser(usr).then(function (response) {
             var userId = response.data._id;
-            $location.url('/user/' + userId);
+            if (userId) {
+              $location.url('/user/' + userId);
+            } else {
+              vm.error = 'Oops something went wrong.';
+            }
           }, function (error) {
             vm.error = error.data;
           });
