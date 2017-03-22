@@ -1,6 +1,6 @@
 module.exports = function (app, model) {
 
-  var UserModel = model.userModel;
+  var userModel = model.userModel;
 
   app.post('/assignment/api/user', createUser);
   app.get('/assignment/api/user', findUser);
@@ -11,7 +11,7 @@ module.exports = function (app, model) {
   function createUser(req, res) {
     var user = req.body;
     if (user) {
-      UserModel.createUser(user).then(function (user) {
+      userModel.createUser(user).then(function (user) {
         res.json(user);
       }, function (error) {
         if (error.code === 11000) {
@@ -36,7 +36,7 @@ module.exports = function (app, model) {
   }
 
   function findUserById(req, res) {
-    UserModel.findUserById(req.params.userId).then(function (user) {
+    userModel.findUserById(req.params.userId).then(function (user) {
       if (user) {
         res.json(user);
       } else {
@@ -49,7 +49,7 @@ module.exports = function (app, model) {
 
   function updateUser(req, res) {
     if (req.body) {
-      UserModel.updateUser(req.params.userId, req.body).then(function () {
+      userModel.updateUser(req.params.userId, req.body).then(function () {
         res.sendStatus(200);
       }, function () {
         res.sendStatus(500);
@@ -60,7 +60,7 @@ module.exports = function (app, model) {
   }
 
   function deleteUser(req, res) {
-    UserModel.deleteUser(req.params.userId).then(function () {
+    userModel.deleteUser(req.params.userId).then(function () {
       res.sendStatus(200);
     }, function () {
       res.sendStatus(500);
@@ -68,7 +68,7 @@ module.exports = function (app, model) {
   }
 
   function findUserByCredentials(req, res) {
-    UserModel.findUserByCredentials(req.query.username, req.query.password).then(function (user) {
+    userModel.findUserByCredentials(req.query.username, req.query.password).then(function (user) {
       res.json(user);
     }, function () {
       res.sendStatus(500);
@@ -76,7 +76,7 @@ module.exports = function (app, model) {
   }
 
   function findUserByUsername(req, res) {
-    UserModel.findUserByUsername(req.query.username).then(function (user) {
+    userModel.findUserByUsername(req.query.username).then(function (user) {
       res.json(user);
     }, function () {
       res.sendStatus(500);
