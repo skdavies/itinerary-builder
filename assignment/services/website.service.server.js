@@ -1,12 +1,7 @@
-module.exports = function (app) {
-  var websites = [
-    { "_id": "123", "name": "Facebook", "developerId": "456", "description": "Lorem" },
-    { "_id": "234", "name": "Tweeter", "developerId": "456", "description": "Lorem" },
-    { "_id": "456", "name": "Gizmodo", "developerId": "456", "description": "Lorem" },
-    { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
-    { "_id": "678", "name": "Checkers", "developerId": "123", "description": "Lorem" },
-    { "_id": "789", "name": "Chess", "developerId": "234", "description": "Lorem" }
-  ];
+module.exports = function (app, model) {
+
+  var WebsiteModel = model.websiteModel;
+  var UserModel = model.userModel;
 
   app.post('/assignment/api/user/:userId/website', createWebsite);
   app.get('/assignment/api/user/:userId/website', findAllWebsitesForUser);
@@ -17,58 +12,64 @@ module.exports = function (app) {
   function createWebsite(req, res) {
     var website = req.body;
     if (website) {
-      website._id = (parseInt(websites[websites.length - 1]._id) + 1).toString();
-      website.developerId = req.params.userId;
-      websites.push(website);
-      res.sendStatus(200);
+      WebsiteModel.createWebsiteForUser(req.params.userId, website).then(function (site) {
+        UserModel.findUserById(req.params.userId).then(function (user) {
+          user.websites.push(site._id);
+          user.save();
+          res.sendStatus(200);
+        }, function () {
+          res.sendStatus(500);
+        });
+      }, function () {
+        res.sendStatus(500);
+      });
     } else {
       res.status(400).send('Empty request body is invalid.');
     }
   }
 
   function findAllWebsitesForUser(req, res) {
-    var userWebsites = [];
-    for (var i = 0; i < websites.length; i++) {
-      if (websites[i].developerId === req.params.userId) {
-        userWebsites.push(websites[i]);
-      }
-    }
-    res.json(userWebsites);
+    WebsiteModel.findAllWebsitesForUser(req.params.userId).then(function(websites) {
+      res.json(websites);
+    }, function () {
+      res.sendStatus(500);
+    });
   }
 
   function findWebsiteById(req, res) {
-    for (var i = 0; i < websites.length; i++) {
-      if (websites[i]._id === req.params.websiteId) {
-        res.json(websites[i]);
-        return;
-      }
-    }
-    res.status(404).send('Website with that ID does not exist.');
+    WebsiteModel.findWebsiteById(req.params.websiteId).then(function (website) {
+      res.json(website);
+    }, function () {
+      res.status(404).send('Website with that ID does not exist.');
+    });
   }
 
   function updateWebsite(req, res) {
     if (req.body) {
-      for (var i = 0; i < websites.length; i++) {
-        if (websites[i]._id === req.params.websiteId) {
-          websites[i] = req.body;
-          res.sendStatus(200);
-          return;
-        }
-      }
-      res.status(404).send('Website does not exist.'); // only hit if a website isn't found
+      WebsiteModel.updateWebsite(req.params.websiteId, req.body).then(function (obj) {
+        console.log(obj);
+        res.sendStatus(200);
+      }, function () {
+        res.status(404).send('Website does not exist.'); // only hit if a website isn't found
+      });
     } else {
       res.status(400).send('Empty request body is invalid.');
     }
   }
 
   function deleteWebsite(req, res) {
-    for (var i = 0; i < websites.length; i++) {
-      if (websites[i]._id === req.params.websiteId) {
-        websites.splice(i, 1);
+    WebsiteModel.deleteWebsite(req.params.websiteId).then(function (website) {
+      var userId = website._user;
+      UserModel.findUserById(userId).then(function (user) {
+        var index = user.websites.indexOf(website.websiteId);
+        user.websites.splice(index, 1);
+        user.save();
         res.sendStatus(200);
-        return;
-      }
-    }
-    res.status(404).send('Website does not exist.'); // only hit if a matching website id isn't found
+      }, function () {
+        res.sendStatus(500);
+      });
+    }, function () {
+      res.status(404).send('Website does not exist.');
+    });
   }
 };

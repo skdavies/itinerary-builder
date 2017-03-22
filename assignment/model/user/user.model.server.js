@@ -9,6 +9,7 @@ module.exports = function () {
     deleteUser: deleteUser
   };
 
+  var q = require('q');
   var mongoose = require('mongoose');
 
   var UserSchema = require('./user.schema.server')();
@@ -17,26 +18,74 @@ module.exports = function () {
   return api;
 
   function createUser(user) {
-    return UserModel.create(user);
+    var deferred = q.defer();
+    UserModel.create(user, function (err, usr) {
+      if (err) {
+        deferred.reject(err);
+      } else {
+        deferred.resolve(usr);
+      }
+    });
+    return deferred.promise;
   }
 
   function findUserById(userId) {
-    return UserModel.findById(userId);
+    var deferred = q.defer();
+    UserModel.findById(userId, function (err, user) {
+      if (err) {
+        deferred.reject(err);
+      } else {
+        deferred.resolve(user);
+      }
+    });
+    return deferred.promise;
   }
 
   function findUserByUsername(username) {
-    return UserModel.findOne({ username: username });
+    var deferred = q.defer();
+    UserModel.findOne({ username: username }, function (err, user) {
+      if (err) {
+        deferred.reject(err);
+      } else {
+        deferred.resolve(user);
+      }
+    });
+    return deferred.promise;
   }
 
   function findUserByCredentials(username, password) {
-    return UserModel.findOne({ username: username, password: password });
+    var deferred = q.defer();
+    UserModel.findOne({ username: username, password: password }, function (err, user) {
+      if (err) {
+        deferred.reject(err);
+      } else {
+        deferred.resolve(user);
+      }
+    });
+    return deferred.promise;
   }
 
   function updateUser(userId, user) {
-    return UserModel.update({ _id: userId }, { $set: user });
+    var deferred = q.defer();
+    UserModel.findOneAndUpdate({ _id: userId }, { $set: user }, function (err, user) {
+      if (err) {
+        deferred.reject(err);
+      } else {
+        deferred.resolve(user);
+      }
+    });
+    return deferred.promise;
   }
 
   function deleteUser(userId) {
-    return UserModel.remove({ _id: userId });
+    var deferred = q.defer();
+    UserModel.remove({ _id: userId }, function (err) {
+      if (err) {
+        deferred.reject(err);
+      } else {
+        deferred.resolve();
+      }
+    });
+    return deferred.promise;
   }
 };
