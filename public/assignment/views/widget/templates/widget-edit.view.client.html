@@ -12,7 +12,7 @@
     </div>
 </nav>
 
-<div ng-switch="vm.widget.widgetType" class="container-fluid">
+<div ng-switch="vm.widget.type" class="container-fluid">
     <div ng-show="vm.error" class="alert alert-danger" role="alert">
         {{vm.error}}
         <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.error = null"></span>
@@ -28,6 +28,9 @@
     </div>
     <div ng-switch-when="HTML">
         <div ng-include src="'views/widget/templates/widget-html.view.client.html'"></div>
+    </div>
+    <div ng-switch-when="TEXT">
+        <div ng-include src="'views/widget/templates/widget-text.view.client.html'"></div>
     </div>
 </div>
 

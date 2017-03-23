@@ -10,6 +10,7 @@
     vm.updateWidget = updateWidget;
     vm.deleteWidget = deleteWidget;
     vm.goBack = goBack;
+    vm.toSearch = toSearch;
 
     function init() {
       vm.new = $location.$$path.endsWith('/true');
@@ -42,7 +43,7 @@
     function viewProfile() {
       $location.url('user/' + vm.userId);
     }
-    
+
     function updateWidget() {
       WidgetService.updateWidget(vm.widgetId, vm.widget).then(function () {
         back();
@@ -50,13 +51,18 @@
         vm.error = 'Unable to update widget. Please try again.';
       });
     }
-    
+
     function deleteWidget() {
       WidgetService.deleteWidget(vm.widgetId).then(function () {
         back();
       }, function () {
         vm.error = 'Could not delete widget. Please try again.';
       });
+    }
+
+    function toSearch() {
+      $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page/' + vm.pageId + '/widget/' +
+        vm.widgetId + '/flickr-search');
     }
   }
 })();

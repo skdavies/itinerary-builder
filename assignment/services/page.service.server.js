@@ -1,9 +1,7 @@
-module.exports = function (app) {
-  var pages = [
-    { "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem" },
-    { "_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem" },
-    { "_id": "543", "name": "Post 3", "websiteId": "456", "description": "Lorem" }
-  ];
+module.exports = function (app, model) {
+
+  var pageModel = model.pageModel;
+  var websiteModel = model.websiteModel;
 
   app.post('/assignment/api/website/:websiteId/page', createPage);
   app.get('/assignment/api/website/:websiteId/page', findAllPagesForWebsite);
@@ -14,58 +12,63 @@ module.exports = function (app) {
   function createPage(req, res) {
     var page = req.body;
     if (page) {
-      page._id = (parseInt(pages[pages.length - 1]._id) + 1).toString();
-      page.websiteId = req.params.websiteId;
-      pages.push(page);
-      res.sendStatus(200);
+      pageModel.createPage(req.params.websiteId, page).then(function (page) {
+        websiteModel.findWebsiteById(req.params.websiteId).then(function (website) {
+          website.pages.push(page._id);
+          website.save();
+          res.sendStatus(200);
+        }, function () {
+          res.sendStatus(500);
+        });
+      }, function () {
+        res.sendStatus(500);
+      });
     } else {
       res.status(400).send('Empty request body is invalid.');
     }
   }
 
   function findAllPagesForWebsite(req, res) {
-    var websitePages = [];
-    for (var i = 0; i < pages.length; i++) {
-      if (pages[i].websiteId === req.params.websiteId) {
-        websitePages.push(pages[i]);
-      }
-    }
-    res.json(websitePages);
+    pageModel.findAllPagesForWebsite(req.params.websiteId).then(function(pages) {
+      res.json(pages);
+    }, function () {
+      res.sendStatus(500);
+    });
   }
 
   function findPageById(req, res) {
-    for (var i = 0; i < pages.length; i++) {
-      if (pages[i]._id === req.params.pageId) {
-        res.json(pages[i]);
-        return;
-      }
-    }
-    res.status(404).send('Page with that ID does not exist.');
+    pageModel.findPageById(req.params.pageId).then(function (page) {
+      res.json(page);
+    }, function () {
+      res.status(404).send('Page with that ID does not exist.');
+    });
   }
 
   function updatePage(req, res) {
     if (req.body) {
-      for (var i = 0; i < pages.length; i++) {
-        if (pages[i]._id === req.params.pageId) {
-          pages[i] = req.body;
-          res.sendStatus(200);
-          return;
-        }
-      }
-      res.status(404).send('Page does not exist.');
+      pageModel.updatePage(req.params.pageId, req.body).then(function () {
+        res.sendStatus(200);
+      }, function () {
+        res.status(404).send('Page does not exist.');
+      });
     } else {
       res.status(400).send('Empty request body is invalid.');
     }
   }
 
   function deletePage(req, res) {
-    for (var i = 0; i < pages.length; i++) {
-      if (pages[i]._id === req.params.pageId) {
-        pages.splice(i, 1);
+    pageModel.deletePage(req.params.pageId).then(function (page) {
+      var websiteId = page._website;
+      websiteModel.findWebsiteById(websiteId).then(function (website) {
+        var index = website.pages.indexOf(page._id);
+        website.pages.splice(index, 1);
+        website.save();
         res.sendStatus(200);
-        return;
-      }
-    }
-    res.status(404).send('Page does not exist.');
+      }, function () {
+        res.sendStatus(500);
+      });
+    }, function () {
+      res.status(404).send('Page does not exist.');
+    });
   }
 };

@@ -2,6 +2,8 @@
     <label for="url">URL</label>
     <input class="form-control" id="url" placeholder="URL" type="url" ng-model="vm.widget.url">
 
+    <a class="btn btn-primary btn-block" ng-click="vm.toSearch()">Search for Photo</a>
+
     <label for="width">Width</label>
     <input class="form-control" id="width" placeholder="Width" type="text" ng-model="vm.widget.width">
 
@@ -14,6 +16,5 @@
         <input class="skd-hidden-form-el" name="location" value="{{vm.location}}"/>
     </form>
 
-    <a class="btn btn-primary btn-block" ng-click="vm.updateWidget()">Update Widget</a>
     <a class="btn btn-danger btn-block" ng-click="vm.deleteWidget()">Delete</a>
 </div>
