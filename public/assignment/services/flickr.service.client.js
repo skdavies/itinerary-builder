@@ -5,8 +5,8 @@
 
   function FlickService($http) {
 
-    var key = 'your-flickr-key'; //TODO get key
-    var secret = 'your-flickr-secret';
+    var key = 'd16f95841e477211f9e5ee20ab6fcd36';
+    var secret = 'abefb5812435d639';
     var urlBase = 'https://api.flickr.com/services/rest/?method=flickr.photos.search' +
       '&format=json&api_key=API_KEY&text=TEXT';
 

@@ -5,11 +5,12 @@ module.exports = function () {
     findAllPagesForWebsite: findAllPagesForWebsite,
     findPageById: findPageById,
     updatePage: updatePage,
-    deletePage: deletePage
+    deletePage: deletePage,
+    reorderWidgets: reorderWidgets
   };
 
   var mongoose = require('mongoose');
-  var q = require('q');
+  mongoose.Promise = require('q').Promise;
 
   var PageSchema = require('./page.schema.server')();
   var PageModel = mongoose.model('PageModel', PageSchema);
@@ -17,63 +18,31 @@ module.exports = function () {
   return api;
 
   function createPage(websiteId, page) {
-    var deferred = q.defer();
     page._website = websiteId;
-    PageModel.create(page, function (err, page) {
-      if (err) {
-        deferred.reject(err);
-      } else {
-        deferred.resolve(page);
-      }
-    });
-    return deferred.promise;
+    return PageModel.create(page);
   }
 
   function findAllPagesForWebsite(websiteId) {
-    var deferred = q.defer();
-    PageModel.find({ _website: websiteId }, function (err, websites) {
-      if (err) {
-        deferred.reject(err);
-      } else {
-        deferred.resolve(websites);
-      }
-    });
-    return deferred.promise;
+    return PageModel.find({ _website: websiteId });
   }
 
   function findPageById(pageId) {
-    var deferred = q.defer();
-    PageModel.findById(pageId, function (err, website) {
-      if (err) {
-        deferred.reject(err);
-      } else {
-        deferred.resolve(website);
-      }
-    });
-    return deferred.promise;
+    return PageModel.findById(pageId).populate('widgets');
   }
 
   function updatePage(pageId, page) {
-    var deferred = q.defer();
-    PageModel.findOneAndUpdate({ _id: pageId }, { $set: page }, function (err, page) {
-      if (err) {
-        deferred.reject(err);
-      } else {
-        deferred.resolve(page);
-      }
-    });
-    return deferred.promise;
+    return PageModel.findOneAndUpdate({ _id: pageId }, { $set: page });
   }
 
   function deletePage(pageId) {
-    var deferred = q.defer();
-    PageModel.findOneAndRemove({ _id: pageId }, function (err, page) {
-      if (err) {
-        deferred.reject(err);
-      } else {
-        deferred.resolve(page);
-      }
+    return PageModel.findOneAndRemove({ _id: pageId });
+  }
+
+  function reorderWidgets(pageId, start, end) {
+    return PageModel.findById(pageId).then(function (page) {
+      page.widgets.splice(end, 0, page.widgets.splice(start, 1)[0]);
+      page.markModified('widgets');
+      page.save();
     });
-    return deferred.promise;
   }
 };

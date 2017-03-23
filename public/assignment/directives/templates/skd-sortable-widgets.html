@@ -5,7 +5,7 @@
                 <span class="glyphicon glyphicon-cog" ng-click="vm.editWidget(widget._id)"></span>
                 <span class="glyphicon glyphicon-align-justify sortable"></span>
             </div>
-            <div ng-switch="widget.widgetType">
+            <div ng-switch="widget.type">
                 <div ng-switch-when="HEADER">
                     <h1 ng-if="widget.size == 1">{{widget.text}}</h1>
                     <h2 ng-if="widget.size == 2">{{widget.text}}</h2>

@@ -28,12 +28,12 @@
     }
 
     function searchPhotos(searchTerm) {
-      FlickrService.searchPhotos(searchTerm).then(function(response) {
-          var data = response.data.replace("jsonFlickrApi(","");
-          data = data.substring(0,data.length - 1);
-          data = JSON.parse(data);
-          vm.photos = data.photos;
-        }, function () {
+      FlickrService.searchPhotos(searchTerm).then(function (response) {
+        var data = response.data.replace("jsonFlickrApi(", "");
+        data = data.substring(0, data.length - 1);
+        data = JSON.parse(data);
+        vm.photos = data.photos.photo;
+      }, function () {
         vm.error = 'Unable to load images. Please try again.';
       });
     }

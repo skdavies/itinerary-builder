@@ -3,7 +3,7 @@
     .module('WebAppMaker')
     .controller('WidgetListController', widgetListController);
 
-  function widgetListController(WidgetService, $location, $routeParams, $sce) {
+  function widgetListController(WidgetService, PageService, $location, $routeParams, $sce) {
     var vm = this;
     vm.back = back;
     vm.addWidget = addWidget;
@@ -17,8 +17,8 @@
       vm.userId = $routeParams['uid'];
       vm.websiteId = $routeParams['wid'];
       vm.pageId = $routeParams['pid'];
-      WidgetService.findWidgetsByPageId(vm.pageId).then(function (response) {
-        vm.widgets = response.data;
+      PageService.findPageById(vm.pageId).then(function (response) {
+        vm.widgets = response.data.widgets;
       }, function () {
         vm.error = 'Unable to load widgets.';
       });

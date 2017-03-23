@@ -25,8 +25,7 @@
     <div class="row">
         <div class="col-xs-4" ng-repeat="photo in vm.photos">
             <img ng-click="vm.selectPhoto(photo)"
-                 ng-src="https://farm{{photo.farm}}.staticflickr.com/
-             {{photo.server}}/{{photo.id}}_{{photo.secret}}_s.jpg"/>
+                 ng-src="https://farm{{photo.farm}}.staticflickr.com/{{photo.server}}/{{photo.id}}_{{photo.secret}}_s.jpg"/>
         </div>
     </div>
 </div>

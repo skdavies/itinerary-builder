@@ -22,7 +22,7 @@
     }
 
     function createWidget(type) {
-      var widget = { 'widgetType': type };
+      var widget = { 'type': type };
       WidgetService.createWidget(vm.pageId, widget).then(function (response) {
         $location.url('/user/' + vm.userId + '/website/' + vm.websiteId + '/page/' + vm.pageId + '/widget/' +
           response.data._id + '/true');
