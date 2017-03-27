@@ -5,6 +5,7 @@ module.exports = function () {
     findUserById: findUserById,
     findUserByUsername: findUserByUsername,
     findUserByCredentials: findUserByCredentials,
+    followUser: followUser,
     updateUser: updateUser,
     deleteUser: deleteUser
   };
@@ -33,11 +34,19 @@ module.exports = function () {
     return UserModel.findOne({ username: username, password: password });
   }
 
+  function followUser(userId, userIdToFollow) {
+    return UserModel.findOneAndUpdate({ _id: userId }, { $addToSet: { following: userIdToFollow } }, { new: true }).then(function (user) {
+      user.followers.push(userId);
+      user.save();
+      // UserModel.findOneAndUpdate({ _id: userIdToFollow }, { $addToSet: { followers: userId } });
+    });
+  }
+
   function updateUser(userId, user) {
     return UserModel.findOneAndUpdate({ _id: userId }, { $set: user })
   }
 
   function deleteUser(userId) {
-    return UserModel.remove({ _id: userId });
+    return UserModel.findOneAndRemove({ _id: userId });
   }
 };

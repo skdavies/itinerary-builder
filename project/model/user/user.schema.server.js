@@ -9,6 +9,8 @@ module.exports = function () {
     email: String,
     phone: String,
     itineraries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ItineraryModel' }],
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProjectUserModel' }],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProjectUserModel' }],
     dateCreated: { type: Date, default: Date.now }
   }, { collection: 'project_users' });
 
