@@ -1,0 +1,27 @@
+.home-view {
+    text-align: center;
+}
+
+#login {
+    width: 80px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px 10px 0 0;
+}
+
+#map {
+    height: 400px;
+}
+
+.form-control {
+    margin-bottom: 5px;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.login {
+
+}

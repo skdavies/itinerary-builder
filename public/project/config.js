@@ -9,6 +9,11 @@
         templateUrl: 'views/home/home.view.client.html',
         controller: 'HomeController',
         controllerAs: 'vm'
+      })
+      .when('/user/:userId/itinerary/:itinId', {
+        templateUrl: 'views/home/home.view.client.html',
+        controller: 'HomeController',
+        controllerAs: 'vm'
       });
   }
 })();
