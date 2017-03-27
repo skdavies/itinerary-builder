@@ -1,5 +1,7 @@
 .home-view {
     text-align: center;
+    height: 100vh;
+    overflow-y: scroll;
 }
 
 #login {
@@ -22,6 +24,14 @@
     outline: none;
 }
 
-.login {
+.itinerary {
+    height: 240px;
+}
 
+#itin-placeholder {
+    height: 100%;
+}
+
+#itinerary {
+    overflow-y: scroll;
 }

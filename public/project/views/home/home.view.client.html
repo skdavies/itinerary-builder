@@ -1,7 +1,8 @@
 <div class="home-view">
     <div class="container-fluid">
         <h1>Plan Your Dream Vacation!</h1>
-        <button type="button" class="btn btn-primary btn-block hidden-xs" id="login" ng-show="!vm.user" ng-click="vm.toggleLogin(true)">
+        <button type="button" class="btn btn-primary btn-block hidden-xs" id="login" ng-show="!vm.user"
+                ng-click="vm.toggleLogin(true)">
             Login
         </button>
         <div class="row">
@@ -10,21 +11,29 @@
                 <div id="map"></div>
             </div>
             <div class="col-sm-4">
-                <div class="list-group">
-                    <a class="list-group-item list-group-item-action text-left" ng-repeat="place in vm.places">
-                        <i class="fa fa-bars" aria-hidden="true"></i>
-                        {{place.name}}
-                        <div class="pull-right">
-                            <i class="fa fa-info-circle" aria-hidden="true"></i>
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </div>
-                    </a>
+                <div class="itinerary">
+                    <div ng-show="vm.places.length === 0" class="alert alert-success" id="itin-placeholder">
+                        <h3>Add a place to start your itinerary!</h3>
+                    </div>
+                    <div class="list-group" ng-show="vm.places.length > 0" id="itinerary">
+                        <a class="list-group-item list-group-item-action text-left" ng-repeat="place in vm.places">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                            {{place.name}}
+                            <div class="pull-right">
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                <a class="btn btn-primary btn-block" ng-show="!vm.user && vm.places" ng-click="vm.toggleRegister()">
+                <a class="btn btn-primary btn-block" ng-show="!vm.user && vm.places.length > 0"
+                   ng-click="vm.toggleRegister()">
                     Sign Up to Save Itinerary
                 </a>
-                <a class="btn btn-success btn-block" ng-show="vm.user" ng-click="vm.saveItinerary()">Save</a>
-                <a class="btn btn-danger btn-block" ng-show="vm.user" ng-click="vm.resetToLastSave()">Reset</a>
+                <a class="btn btn-success btn-block" ng-show="vm.user && vm.places.length > 0"
+                   ng-click="vm.saveItinerary()">Save</a>
+                <a class="btn btn-danger btn-block" ng-show="vm.user && vm.places.length > 0"
+                   ng-click="vm.resetToLastSave()">Reset</a>
                 <div>
                     FOLLOWING UPDATES WILL GO HERE
                 </div>
@@ -36,7 +45,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" ng-click="vm.toggleLogin()"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" aria-label="Close" ng-click="vm.toggleLogin()"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="loginModalLabel">Login</h4>
                 </div>
                 <div class="modal-body">
@@ -55,7 +65,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" ng-click="vm.toggleRegister()"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" aria-label="Close" ng-click="vm.toggleRegister()"><span
+                            aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="registerModalLabel">Register</h4>
                 </div>
                 <div class="modal-body">
