@@ -5,8 +5,8 @@ module.exports = function (app, model) {
   app.post('/project/api/places', createPlace);
   app.get('/project/api/places/:placeId', findPlaceById);
   app.get('/project/api/places/google/:googleId', findPlaceByGoogleId);
-  app.post('/project/api/places/reviews', addPlaceReview);
-  app.post('/project/api/places/reviews', addPlaceAd);
+  app.post('/project/api/places/:placeId/reviews', addPlaceReview);
+  app.post('/project/api/places/:placeId/ads', addPlaceAd);
   app.put('/project/api/places/:placeId', updatePlace);
   app.delete('/project/api/places/:placeId', deletePlace);
 
