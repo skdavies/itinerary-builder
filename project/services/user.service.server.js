@@ -7,6 +7,7 @@ module.exports = function (app, model) {
   app.get('/project/api/users/:userId', findUserById);
   app.put('/project/api/users/:userId', updateUser);
   app.delete('/project/api/users/:userId', deleteUser);
+  app.put('/project/api/users/:userId/follow/:followId', followUser);
 
   function createUser(req, res) {
     var user = req.body;
@@ -77,6 +78,14 @@ module.exports = function (app, model) {
 
   function findUserByUsername(req, res) {
     userModel.findUserByUsername(req.query.username).then(function (user) {
+      res.json(user);
+    }, function () {
+      res.sendStatus(500);
+    });
+  }
+
+  function followUser(req, res) {
+    userModel.followUser(req.params.userId, req.params.followId).then(function (user) {
       res.json(user);
     }, function () {
       res.sendStatus(500);

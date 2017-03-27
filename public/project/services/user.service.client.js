@@ -10,7 +10,8 @@
       'findUserByUsername': findUserByUsername,
       'findUserByCredentials': findUserByCredentials,
       'updateUser': updateUser,
-      'deleteUser': deleteUser
+      'deleteUser': deleteUser,
+      'followUser': followUser
     };
 
     function createUser(user) {
@@ -35,6 +36,10 @@
 
     function deleteUser(userId) {
       return $http.delete('/project/api/users/' + userId);
+    }
+
+    function followUser(userId, followId) {
+      return $http.put('/project/api/users/' + userId + '/follow/' + followId);
     }
   }
 
