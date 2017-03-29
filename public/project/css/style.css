@@ -35,3 +35,11 @@
 #itinerary {
     overflow-y: scroll;
 }
+
+#right-panel {
+    height: 600px;
+}
+
+.fa {
+    cursor: pointer;
+}

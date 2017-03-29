@@ -2,6 +2,7 @@ module.exports = function () {
   var mongoose = require('mongoose');
 
   return mongoose.Schema({
+    name: { type: String, required: true },
     googlePlaceId: { type: String, required: true, unique: true },
     reviews: [{
       reviewer: {

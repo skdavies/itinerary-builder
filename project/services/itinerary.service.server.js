@@ -12,7 +12,7 @@ module.exports = function (app, model) {
 
   function createItinerary(req, res) {
     var itinerary = req.body;
-    if (itinerary) {
+    if (itinerary && req.params.userId) {
       itinerary._user = req.params.userId;
       itineraryModel.createItinerary(itinerary).then(function (itinerary) {
         userModel.findUserById(req.params.userId).then(function (user) {

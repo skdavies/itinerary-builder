@@ -1,7 +1,7 @@
 module.exports = function () {
   var mongoose = require('mongoose');
 
-  return mongoose.Schema({
+  var UserSchema = mongoose.Schema({
     username: { type: String, required: true, lowercase: true, unique: true },
     password: { type: String, required: true },
     firstName: String,
@@ -14,4 +14,6 @@ module.exports = function () {
     dateCreated: { type: Date, default: Date.now }
   }, { collection: 'project_users' });
 
+  UserSchema.plugin(require('mongoose-unique-validator'));
+  return UserSchema;
 };
