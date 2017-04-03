@@ -22,7 +22,7 @@ module.exports = function () {
   }
 
   function findItineraryById(itineraryId) {
-    return ItineraryModel.findById(itineraryId);
+    return ItineraryModel.findById(itineraryId).populate('places');
   }
 
   function findItinerariesForUser(userId) {

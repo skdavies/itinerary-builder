@@ -1,4 +1,4 @@
-(function() {
+(function () {
   angular
     .module('ItineraryPlanner')
     .config(configuration);
@@ -8,12 +8,32 @@
       .when('/', {
         templateUrl: 'views/home/home.view.client.html',
         controller: 'HomeController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          loggedIn: checkLogin
+        }
       })
-      .when('/user/:userId/itinerary/:itinId', {
+      .when('/itinerary/:itinId', {
         templateUrl: 'views/home/home.view.client.html',
         controller: 'HomeController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          loggedIn: checkLogin
+        }
+      })
+      .otherwise({
+        redirectTo: '/'
       });
+  }
+
+  function checkLogin($q, UserService) {
+    var deferred = $q.defer();
+    UserService.loggedin().then(function (response) {
+      var user = response.data;
+      deferred.resolve(user);
+    }, function () {
+      deferred.resolve(null);
+    });
+    return deferred.promise;
   }
 })();

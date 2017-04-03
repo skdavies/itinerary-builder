@@ -5,17 +5,20 @@
 
   function userService($http) {
     return {
-      'createUser': createUser,
+      'register': register,
       'findUserById': findUserById,
       'findUserByUsername': findUserByUsername,
       'findUserByCredentials': findUserByCredentials,
       'updateUser': updateUser,
       'deleteUser': deleteUser,
-      'followUser': followUser
+      'followUser': followUser,
+      'login': login,
+      'logout': logout,
+      'loggedin': loggedin
     };
 
-    function createUser(user) {
-      return $http.post('/project/api/users', user);
+    function register(user) {
+      return $http.post('/project/api/users/register', user);
     }
 
     function findUserById(userId) {
@@ -40,6 +43,18 @@
 
     function followUser(userId, followId) {
       return $http.put('/project/api/users/' + userId + '/follow/' + followId);
+    }
+    
+    function login(user) {
+      return $http.post('/project/api/users/login', user);
+    }
+    
+    function logout() {
+      return $http.post('/project/api/users/logout');
+    }
+
+    function loggedin() {
+      return $http.get('/project/api/users/loggedin');
     }
   }
 

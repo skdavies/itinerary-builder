@@ -7,7 +7,7 @@ module.exports = function () {
     firstName: String,
     lastName: String,
     email: String,
-    phone: String,
+    role: { type: String, required: true, enum: ['ADMIN', 'USER', 'ADVERTISER'], default: 'USER' },
     itineraries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ItineraryModel' }],
     following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProjectUserModel' }],
     followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProjectUserModel' }],

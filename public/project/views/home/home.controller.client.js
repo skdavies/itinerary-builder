@@ -3,9 +3,10 @@
     .module('ItineraryPlanner')
     .controller('HomeController', homeController);
 
-  function homeController($location, $routeParams, ItineraryService, PlaceService, UserService, $scope) {
+  function homeController($location, $routeParams, ItineraryService, PlaceService, UserService, $scope, loggedIn) {
     var vm = this;
     vm.login = login;
+    vm.logout = logout;
     vm.toggleLogin = toggleLogin;
     vm.toggleRegister = toggleRegister;
     vm.register = register;
@@ -14,26 +15,38 @@
     vm.removePlace = removePlace;
 
     function init() {
-      vm.userId = $routeParams['userId'];
       vm.itinId = $routeParams['itinId'];
-      if (vm.userId && vm.itinId) {
+      if (loggedIn) {
+        vm.user = loggedIn;
+      } else {
+        vm.user = null;
+      }
+      vm.canEdit = true;
+      if (vm.itinId) {
         ItineraryService.findItineraryById(vm.itinId).then(function (response) {
           vm.itinerary = response.data;
+          vm.places = response.data.places;
+          if (vm.user && vm.user._id !== response.data._user) {
+            vm.canEdit = false;
+          }
         });
-        // if user id matches the logged in user then they can edit
-        // TODO get places from itinerary service call
-        // TODO get user
       } else {
         vm.itinerary = null;
         vm.places = [];
-        vm.placeIds = [];
-        vm.user = false;
       }
       vm.dirty = false;
+      initSortable();
       initMap()
     }
 
     init();
+
+    function initSortable() {
+      $('#itinerary').sortable({
+        axis: 'y',
+        handle: '.sortable'
+      });
+    }
 
     function initMap() {
       var fenway = { lat: 42.346268, lng: -71.095764 };
@@ -54,23 +67,17 @@
           });
           map.setCenter(coordinates)
         }
-        var added = false;
         PlaceService.findPlaceByGoogleId(place.place_id).then(function (response) {
           if (response.data) { //that place already exists
-            var placeId = response.data._id;
-            if (vm.placeIds.indexOf(placeId) === -1) {
-              vm.placeIds.push(placeId);
-            } else {
-              added = true;
-            }
+            place._id = response.data._id;
+            vm.places.push(place);
+            vm.dirty = true;
           } else {
             PlaceService.createPlace({ googlePlaceId: place.place_id, name: place.name }).then(function (response) {
-              vm.placeIds.push(response.data._id);
+              place._id = response.data._id;
+              vm.places.push(place);
+              vm.dirty = true;
             });
-          }
-          if (!added) {
-            vm.dirty = true;
-            vm.places.push(place);
           }
         });
         $scope.$apply();
@@ -80,9 +87,23 @@
     }
 
     function login(user) {
-      UserService.findUserByCredentials(user.username, user.password).then(function (response) {
+      var usr = { username: user.username, password: user.password };
+      UserService.login(usr).then(function (response) {
+        var user = response.data;
         vm.toggleLogin();
-        vm.user = response.data;
+        if (user.role === 'ADMIN') {
+          //TODO go to admin page
+        } else if (user.role === 'ADVERTISER') {
+          // TODO go to advertiser page
+        } else {
+          vm.user = user;
+        }
+      });
+    }
+
+    function logout() {
+      UserService.logout().then(function () {
+        vm.user = null;
       });
     }
 
@@ -91,12 +112,12 @@
         username: user.username,
         password: user.password
       };
-      UserService.createUser(usr).then(function (response) {
+      UserService.register(usr).then(function (response) {
         var user = response.data;
         vm.toggleRegister();
         vm.user = user;
         if (vm.places.length > 0) {
-          var itinerary = { _user: user._id, places: vm.placeIds };
+          var itinerary = { _user: user._id, places: _formatPlacesToIds(vm.places) };
           ItineraryService.createItinerary(user._id, itinerary).then(function (response) {
             vm.dirty = false;
             vm.itinerary = response.data;
@@ -106,12 +127,14 @@
     }
 
     function saveItinerary() {
+      var placeIds = $("#itinerary").sortable("toArray");
       if (vm.itinerary) {
-        vm.itinerary.places = vm.placeIds;
-        ItineraryService.updateItinerary(vm.itinerary.itineraryId, vm.itinerary).then(function (itinerary) {
+        vm.itinerary.places = placeIds;
+        ItineraryService.updateItinerary(vm.itinerary._id, vm.itinerary).then(function (itinerary) {
         });
       } else {
-        ItineraryService.createItinerary(vm.user._id, { places: vm.placeIds }).then(function (itinerary) {
+        ItineraryService.createItinerary(vm.user._id, { places: placeIds }).then(function (response) {
+          vm.itinerary = response.data;
         });
       }
       vm.dirty = false;
@@ -119,7 +142,6 @@
 
     function removePlace(index) {
       vm.places = vm.places.slice(index, 1);
-      vm.placeIds = vm.placeIds.slice(index, 1);
     }
 
     function resetToLastSave() {
@@ -135,6 +157,14 @@
 
     function toggleLogin() {
       $('#loginModal').modal('toggle');
+    }
+
+    function _formatPlacesToIds(places) {
+      var placeIds = [];
+      for (var i = 0; i < places.length; i++) {
+        placeIds.push(places[i]._id);
+      }
+      return placeIds;
     }
   }
 })();

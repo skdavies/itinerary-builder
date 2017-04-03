@@ -7,6 +7,7 @@ module.exports = function () {
     findUserByCredentials: findUserByCredentials,
     followUser: followUser,
     updateUser: updateUser,
+    updateProfile: updateProfile,
     deleteUser: deleteUser
   };
 
@@ -44,6 +45,16 @@ module.exports = function () {
 
   function updateUser(userId, user) {
     return UserModel.findOneAndUpdate({ _id: userId }, { $set: user })
+  }
+
+  function updateProfile(user) {
+    return UserModel.findOneAndUpdate({ _id: user._id }, {
+      $set: {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
+      }
+    });
   }
 
   function deleteUser(userId) {
