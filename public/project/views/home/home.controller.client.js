@@ -13,10 +13,12 @@
     vm.saveItinerary = saveItinerary;
     vm.resetToLastSave = resetToLastSave;
     vm.removePlace = removePlace;
+    vm.viewProfile = viewProfile;
 
     function init() {
       vm.itinId = $routeParams['itinId'];
       if (loggedIn) {
+        //TODO: GO TO ADMIN PAGE OR ADVERTISER PAGE
         vm.user = loggedIn;
       } else {
         vm.user = null;
@@ -157,6 +159,10 @@
 
     function toggleLogin() {
       $('#loginModal').modal('toggle');
+    }
+
+    function viewProfile() {
+      //TODO go to profile
     }
 
     function _formatPlacesToIds(places) {

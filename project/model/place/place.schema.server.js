@@ -18,6 +18,7 @@ module.exports = function () {
       },
       ad: String
     }],
+    suggested: { type: Date },
     dateCreated: { type: Date, default: Date.now }
   }, { collection: 'project_places' });
 

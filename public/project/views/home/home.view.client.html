@@ -1,18 +1,17 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <div class="row">
-            <a class="navbar-brand col-xs-3">Profile</a>
-            <a class="navbar-brand col-xs-3">World</a>
-            <a class="navbar-brand col-xs-3">Thing</a>
+        <div>
+            <h1 class="title">Vacation Builder</h1>
         </div>
         <div class="pull-right" ng-show="!vm.user">
-            <a id="sign-up" ng-click="vm.toggleRegister()">Sign Up</a>
+            <a class="secondary-nav-btn" ng-click="vm.toggleRegister()">Sign Up</a>
             <button type="button" class="btn btn-primary btn-block nav-btn"
                     ng-click="vm.toggleLogin()">
                 Login
             </button>
         </div>
         <div class="pull-right" ng-show="vm.user">
+            <a class="secondary-nav-btn" ng-click="vm.viewProfile()">Profile</a>
             <button type="button" class="btn btn-danger btn-block nav-btn"
                     ng-click="vm.logout()">
                 Logout
@@ -23,7 +22,6 @@
 
 <div class="home-view">
     <div class="container-fluid">
-        <h1>Plan Your Dream Vacation!</h1>
         <div class="row">
             <div class="hidden-xs col-sm-8">
                 <input type="text" class="form-control" placeholder="Search..." id="autocomplete">
@@ -107,5 +105,14 @@
             </div>
         </div>
     </div>
-
 </div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row">
+            <a class="navbar-brand col-xs-4">Places</a>
+            <a class="navbar-brand col-xs-4">Itineraries</a>
+            <a class="navbar-brand col-xs-4">Suggestions</a>
+        </div>
+    </div>
+</nav>

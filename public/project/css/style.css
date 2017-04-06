@@ -2,11 +2,12 @@
     text-align: center;
     height: 100%;
     overflow-y: scroll;
-    margin-top: 50px;
+    margin-top: 70px;
+    margin-bottom: 70px;
 }
 
 body {
-    background-color: lightgray;
+    background-color: #e4e4e4;
 }
 
 .nav-btn {
@@ -17,15 +18,25 @@ body {
     margin: 8px 10px 0 0;
 }
 
-.navbar-default {
+.navbar-fixed-top {
     background-color: #dff0d8;
+}
+
+.title {
+    margin: 0;
+    line-height: 50px;
+}
+
+.navbar-fixed-bottom {
+    background-color: #0842f0;
 }
 
 .navbar-brand {
     text-align: center;
+    color: white !important;
 }
 
-#sign-up {
+.secondary-nav-btn {
     position: absolute;
     right: 100px;
     top: 0;
