@@ -18,8 +18,15 @@
     function init() {
       vm.itinId = $routeParams['itinId'];
       if (loggedIn) {
-        //TODO: GO TO ADMIN PAGE OR ADVERTISER PAGE
-        vm.user = loggedIn;
+        if (loggedIn.role === 'ADMIN') {
+          $location.url('/admin');
+          return;
+        } else if (loggedIn.role === 'ADVERTISER') {
+          //TODO go to advertisement page
+          return;
+        } else {
+          vm.user = loggedIn;
+        }
       } else {
         vm.user = null;
       }
@@ -94,7 +101,7 @@
         var user = response.data;
         vm.toggleLogin();
         if (user.role === 'ADMIN') {
-          //TODO go to admin page
+          $location.url('/admin');
         } else if (user.role === 'ADVERTISER') {
           // TODO go to advertiser page
         } else {

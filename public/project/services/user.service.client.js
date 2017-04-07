@@ -8,13 +8,15 @@
       'register': register,
       'findUserById': findUserById,
       'findUserByUsername': findUserByUsername,
+      'findAllUsers': findAllUsers,
       'findUserByCredentials': findUserByCredentials,
       'updateUser': updateUser,
       'deleteUser': deleteUser,
       'followUser': followUser,
       'login': login,
       'logout': logout,
-      'loggedin': loggedin
+      'loggedin': loggedin,
+      'isAdmin': isAdmin
     };
 
     function register(user) {
@@ -31,6 +33,10 @@
 
     function findUserByCredentials(username, password) {
       return $http.get('/project/api/users?username=' + username + '&password=' + password);
+    }
+
+    function findAllUsers() {
+      return $http.get('/project/api/users');
     }
 
     function updateUser(userId, user) {
@@ -55,6 +61,10 @@
 
     function loggedin() {
       return $http.get('/project/api/users/loggedin');
+    }
+
+    function isAdmin() {
+      return $http.get('/project/api/users/isadmin');
     }
   }
 

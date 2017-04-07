@@ -5,6 +5,7 @@ module.exports = function () {
     findUserById: findUserById,
     findUserByUsername: findUserByUsername,
     findUserByCredentials: findUserByCredentials,
+    findAllUsers: findAllUsers,
     followUser: followUser,
     updateUser: updateUser,
     updateProfile: updateProfile,
@@ -33,6 +34,10 @@ module.exports = function () {
 
   function findUserByCredentials(username, password) {
     return UserModel.findOne({ username: username, password: password });
+  }
+
+  function findAllUsers() {
+    return UserModel.find();
   }
 
   function followUser(userId, userIdToFollow) {

@@ -21,6 +21,14 @@
           loggedIn: checkLogin
         }
       })
+      .when('/admin', {
+        templateUrl: 'views/admin/admin.view.client.html',
+        controller: 'AdminController',
+        controllerAs: 'vm',
+        resolve: {
+          admin: checkAdmin
+        }
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -36,4 +44,21 @@
     });
     return deferred.promise;
   }
+
+  function checkAdmin($q, UserService, $location) {
+    var deferred = $q.defer();
+    UserService.isAdmin().then(function (response) {
+      var user = response.data;
+      if (user && user.role === 'ADMIN') {
+        deferred.resolve(user);
+      } else {
+        $location.url('/');
+        deferred.reject();
+      }
+    }, function () {
+      deferred.reject();
+    });
+    return deferred.promise;
+  }
+
 })();

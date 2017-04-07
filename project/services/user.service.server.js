@@ -11,6 +11,7 @@ module.exports = function (app, model) {
   app.post('/project/api/users/login', passport.authenticate('local'), login);
   app.post('/project/api/users/logout', logout);
   app.get('/project/api/users/loggedin', loggedin);
+  app.get('/project/api/users/isadmin', isAdmin);
   app.post('/project/api/users/register', register);
   app.get('/project/api/users', findUser);
   app.get('/project/api/users/:userId', findUserById);
@@ -59,6 +60,14 @@ module.exports = function (app, model) {
     res.send(req.isAuthenticated() ? req.user : null);
   }
 
+  function isAdmin(req, res) {
+    if(req.isAuthenticated() && req.user.role && req.user.role === 'ADMIN') {
+      res.json(req.user);
+    } else {
+      res.send(false);
+    }
+  }
+
   function register(req, res) {
     var user = req.body;
     if (user) {
@@ -88,7 +97,7 @@ module.exports = function (app, model) {
     } else if (req.query.username) {
       findUserByUsername(req, res);
     } else {
-      res.status(400).send('Missing query parameters.');
+      findAllUsers(req, res);
     }
   }
 
@@ -144,6 +153,14 @@ module.exports = function (app, model) {
   function findUserByUsername(req, res) {
     userModel.findUserByUsername(req.query.username).then(function (user) {
       res.json(user);
+    }, function () {
+      res.sendStatus(500);
+    });
+  }
+
+  function findAllUsers(req, res) {
+    userModel.findAllUsers().then(function (users) {
+      res.json(users);
     }, function () {
       res.sendStatus(500);
     });
