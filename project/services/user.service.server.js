@@ -1,7 +1,18 @@
 module.exports = function (app, model) {
   var passport = require('passport');
   var LocalStrategy = require('passport-local').Strategy;
+  var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+  var googleConfig = {
+    clientID: process.env.GOOGLE_CLIENT_ID_ITINERARY_PLANNER,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET_ITINERARY_PLANNER,
+    callbackURL: process.env.GOOGLE_CALLBACK_URL_ITINERARY_PLANNER
+    //TODO SET THESE IN HEROKU BEFORE DEPLOYING
+  };
+
   passport.use(new LocalStrategy(localStrategy));
+  passport.use(new GoogleStrategy(googleConfig, googleStrategy));
+
 
   var userModel = model.userModel;
 
@@ -9,6 +20,11 @@ module.exports = function (app, model) {
   passport.deserializeUser(deserializeUser);
 
   app.post('/project/api/users/login', passport.authenticate('local'), login);
+  app.get('/project/api/users/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+  app.get('/project/google/auth/cb', passport.authenticate('google', {
+    successRedirect: '/project/#/',
+    failureRedirect: '/project/#/'
+  }));
   app.post('/project/api/users/logout', logout);
   app.get('/project/api/users/loggedin', loggedin);
   app.get('/project/api/users/isadmin', isAdmin);
@@ -31,6 +47,30 @@ module.exports = function (app, model) {
         }
       }
     );
+  }
+
+  function googleStrategy(token, refreshToken, profile, done) {
+    userModel.findUserByGoogleId(profile.id).then(function (user) {
+      if (user) {
+        done(null, user);
+      } else {
+        var newUser = {
+          username: profile.emails[0].value,
+          firstName: profile.name.givenName,
+          lastName:  profile.name.familyName,
+          google: {
+            id:    profile.id
+          }
+        };
+        userModel.createUser(newUser).then(function (user) {
+
+        }, function (err) {
+          done(err, null);
+        });
+      }
+    }, function (err) {
+      done(err, null);
+    });
   }
 
   function serializeUser(user, done) {
@@ -61,7 +101,7 @@ module.exports = function (app, model) {
   }
 
   function isAdmin(req, res) {
-    if(req.isAuthenticated() && req.user.role && req.user.role === 'ADMIN') {
+    if (req.isAuthenticated() && req.user.role && req.user.role === 'ADMIN') {
       res.json(req.user);
     } else {
       res.send(false);

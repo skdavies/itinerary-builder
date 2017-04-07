@@ -14,6 +14,8 @@
       'deleteUser': deleteUser,
       'followUser': followUser,
       'login': login,
+      'fbAuth': fbAuth,
+      'googleAuth': googleAuth,
       'logout': logout,
       'loggedin': loggedin,
       'isAdmin': isAdmin
@@ -53,6 +55,14 @@
     
     function login(user) {
       return $http.post('/project/api/users/login', user);
+    }
+    
+    function fbAuth() {
+      
+    }
+    
+    function googleAuth() {
+      return $http.get('/project/api/users/auth/google');
     }
     
     function logout() {

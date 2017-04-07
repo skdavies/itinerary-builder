@@ -6,6 +6,8 @@ module.exports = function () {
     findUserByUsername: findUserByUsername,
     findUserByCredentials: findUserByCredentials,
     findAllUsers: findAllUsers,
+    findUserByGoogleId: findUserByGoogleId,
+    findUserByFacebookId: findUserByFacebookId,
     followUser: followUser,
     updateUser: updateUser,
     updateProfile: updateProfile,
@@ -38,6 +40,14 @@ module.exports = function () {
 
   function findAllUsers() {
     return UserModel.find();
+  }
+
+  function findUserByGoogleId(googleId) {
+    return UserModel.findOne({ 'google.id': googleId });
+  }
+
+  function findUserByFacebookId(facebookId) {
+    return UserModel.findOne({ 'facebook.id': facebookId });
   }
 
   function followUser(userId, userIdToFollow) {
