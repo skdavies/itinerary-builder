@@ -3,4 +3,151 @@
             ng-click="vm.logout()">
         Logout
     </button>
+    <div class="container-fluid hidden-xs">
+        <ul class="nav nav-pills" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" data-target="#users" role="tab" aria-controls="users">
+                    Users
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" data-target="#places" role="tab" aria-controls="places">
+                    Places
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" data-target="#itineraries" role="tab" aria-controls="itineraries">
+                    Itineraries
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div ng-show="vm.error" class="alert alert-danger" role="alert">
+                {{vm.error}}
+                <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.error = null"></span>
+            </div>
+            <div ng-show="vm.success" class="alert alert-success" role="alert">
+                {{vm.success}}
+                <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.success = null"></span>
+            </div>
+
+            <div class="tab-pane active" id="users" role="tabpanel">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Itineraries</th>
+                        <th>Followers</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="user in vm.users">
+                        <td>{{user.username}}</td>
+                        <td>{{user.role}}</td>
+                        <td>{{user.itineraries.length}}</td>
+                        <td>{{user.followers.length}}</td>
+                        <td ng-show="user.role !== 'ADMIN'">
+                            <i class="fa fa-pencil admin-icon" ng-click="vm.user = user; vm.toggleEditUser()"></i>
+                            <i class="fa fa-times admin-icon" ng-click="vm.deleteUser(user)"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane" id="places" role="tabpanel">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Google Place ID</th>
+                        <th>Reviews</th>
+                        <th>Ads</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="place in vm.places">
+                        <td>{{place.name}}</td>
+                        <td>{{place.googlePlaceId}}</td>
+                        <td>{{place.reviews.length}}</td>
+                        <td>{{place.ads.length}}</td>
+                        <td>
+                            <i class="fa fa-pencil admin-icon" ng-click="vm.place = place; vm.toggleEditPlace()"
+                               ng-show="place.ads.length > 0 || place.reviews.length > 0"></i>
+                            <i class="fa fa-times admin-icon" ng-click="vm.deletePlace(place)"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane" id="itineraries" role="tabpanel">...</div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <h2 class="hidden-md hidden-lg hidden-sm" id="require-lg">
+            We're sorry, the admin view requires a bigger screen.
+        </h2>
+    </div>
+
+    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="editUserModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="Close" ng-click="vm.user=null; vm.toggleEditUser()"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="editUserModal">Edit</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" placeholder="Username" ng-model="vm.user.username" disabled>
+                    <input type="text" class="form-control" placeholder="First Name" ng-model="vm.user.firstName">
+                    <input type="text" class="form-control" placeholder="Last Name" ng-model="vm.user.lastName">
+                    <select class="selectpicker form-control" title="Role" ng-model="vm.user.role">
+                        <option value="USER">User</option>
+                        <option value="ADVERTISER">Advertiser</option>
+                        <option value="ADMIN" disabled>Admin</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="vm.user=null; vm.toggleEditUser()">Cancel
+                    </button>
+                    <button type="button" class="btn btn-success" ng-click="vm.editUser()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="placeModal" tabindex="-1" role="dialog" aria-labelledby="editPlaceModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-label="Close"
+                            ng-click="vm.place = null; vm.toggleEditPlace()"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="editPlaceModal">Edit</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" placeholder="Name" ng-model="vm.place.name" disabled>
+                    <ul class="list-group">
+                        <li ng-repeat="review in vm.place.reviews" class="list-group-item">{{review.review}}</li>
+                    </ul>
+                    <ul class="list-group">
+                        <li ng-repeat="ad in vm.place.ads" class="list-group-item">{{ad.ad}}</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="vm.place = null; vm.toggleEditPlace()">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-success" ng-click="vm.editPlace()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

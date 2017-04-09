@@ -100,6 +100,7 @@
       UserService.login(usr).then(function (response) {
         var user = response.data;
         vm.toggleLogin();
+        $('.modal-backdrop').remove();
         if (user.role === 'ADMIN') {
           $location.url('/admin');
         } else if (user.role === 'ADVERTISER') {

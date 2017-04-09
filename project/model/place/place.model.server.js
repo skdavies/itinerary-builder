@@ -3,6 +3,7 @@ module.exports = function () {
   var api = {
     createPlace: createPlace,
     findPlaceById: findPlaceById,
+    findAllPlaces: findAllPlaces,
     findPlaceByGoogleId: findPlaceByGoogleId,
     addPlaceReview: addPlaceReview,
     addPlaceAd: addPlaceAd,
@@ -20,6 +21,10 @@ module.exports = function () {
 
   function createPlace(place) {
     return PlaceModel.create(place);
+  }
+
+  function findAllPlaces() {
+    return PlaceModel.find();
   }
 
   function findPlaceById(placeId) {

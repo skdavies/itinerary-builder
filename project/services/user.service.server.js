@@ -162,7 +162,7 @@ module.exports = function (app, model) {
         }, function () {
           res.sendStatus(500);
         });
-      } else if (req.user.role === 'USER') {
+      } else if (req.user.role === 'USER' && req.user._id === user._id) {
         userModel.updateProfile(user).then(function () {
           res.sendStatus(200);
         }, function () {
@@ -199,11 +199,15 @@ module.exports = function (app, model) {
   }
 
   function findAllUsers(req, res) {
-    userModel.findAllUsers().then(function (users) {
-      res.json(users);
-    }, function () {
-      res.sendStatus(500);
-    });
+    if (req.user.role === 'ADMIN') {
+      userModel.findAllUsers().then(function (users) {
+        res.json(users);
+      }, function () {
+        res.sendStatus(500);
+      });
+    } else {
+      res.status(409).send('You do not have permission to do that.');
+    }
   }
 
   function followUser(req, res) {

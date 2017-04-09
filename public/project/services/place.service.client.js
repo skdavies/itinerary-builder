@@ -8,6 +8,7 @@
       'createPlace': createPlace,
       'findPlaceById': findPlaceById,
       'findPlaceByGoogleId': findPlaceByGoogleId,
+      'findAllPlaces': findAllPlaces,
       'updatePlace': updatePlace,
       'deletePlace': deletePlace,
       'addPlaceReview': addPlaceReview,
@@ -24,6 +25,10 @@
 
     function findPlaceByGoogleId(googleId) {
       return $http.get('/project/api/places/google/' + googleId);
+    }
+
+    function findAllPlaces() {
+      return $http.get('/project/api/places');
     }
 
     function updatePlace(placeId, place) {

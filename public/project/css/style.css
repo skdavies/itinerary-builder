@@ -78,3 +78,20 @@ a {
 .fa {
     cursor: pointer;
 }
+
+.tab-content {
+    padding-top: 10px;
+}
+
+.admin-icon {
+    font-size: 24px;
+}
+
+.admin-view {
+    margin-top: 10px;
+}
+
+#require-lg {
+    margin-top: 40px;
+    text-align: center;
+}
