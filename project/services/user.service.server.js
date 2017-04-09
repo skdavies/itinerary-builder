@@ -22,8 +22,9 @@ module.exports = function (app, model) {
   app.post('/project/api/users/login', passport.authenticate('local'), login);
   app.get('/project/api/users/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
   app.get('/project/google/auth/cb', passport.authenticate('google', {
-    successRedirect: '/project/#/',
-    failureRedirect: '/project/#/'
+    successRedirect: 'http://localhost:3000/project/#/',
+    failureRedirect: 'http://localhost:3000/project/#/'
+    //TODO CHANGE FOR DEPLOY
   }));
   app.post('/project/api/users/logout', logout);
   app.get('/project/api/users/loggedin', loggedin);
