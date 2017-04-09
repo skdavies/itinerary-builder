@@ -5,6 +5,10 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
 
+if (!process.env.GOOGLE_CLIENT_ID_ITINERARY_PLANNER) {
+  require('dotenv').config();
+}
+
 app.use(cookieParser());
 app.use(session({
   secret: 'this is the secret', // process.env.SESSION_SECRET

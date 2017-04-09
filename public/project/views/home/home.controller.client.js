@@ -154,7 +154,8 @@
     }
 
     function resetToLastSave() {
-      ItineraryService.findItineraryById(vm.itinId).then(function (itinerary) {
+      ItineraryService.findItineraryById(vm.itinId).then(function (response) {
+        var itinerary = response.data;
         vm.itinerary = itinerary;
         vm.places = itinerary.places;
       });

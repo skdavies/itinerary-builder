@@ -14,8 +14,6 @@
       'deleteUser': deleteUser,
       'followUser': followUser,
       'login': login,
-      'fbAuth': fbAuth,
-      'googleAuth': googleAuth,
       'logout': logout,
       'loggedin': loggedin,
       'isAdmin': isAdmin
@@ -52,19 +50,11 @@
     function followUser(userId, followId) {
       return $http.put('/project/api/users/' + userId + '/follow/' + followId);
     }
-    
+
     function login(user) {
       return $http.post('/project/api/users/login', user);
     }
-    
-    function fbAuth() {
-      
-    }
-    
-    function googleAuth() {
-      return $http.get('/project/api/users/auth/google');
-    }
-    
+
     function logout() {
       return $http.post('/project/api/users/logout');
     }
