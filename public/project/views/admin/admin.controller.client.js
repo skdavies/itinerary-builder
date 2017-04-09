@@ -22,7 +22,6 @@
       });
       PlaceService.findAllPlaces().then(function (response) {
         vm.places = response.data;
-        console.log(vm.places);
       });
       $('#myTab a:first').tab('show');
     }
