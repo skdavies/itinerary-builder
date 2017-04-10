@@ -91,6 +91,12 @@ a {
     margin-top: 10px;
 }
 
+.place-view {
+    height: 100vh;
+    margin-top: 60px;
+    overflow-y: scroll;
+}
+
 #require-lg {
     margin-top: 40px;
     text-align: center;

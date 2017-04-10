@@ -14,6 +14,8 @@
     vm.resetToLastSave = resetToLastSave;
     vm.removePlace = removePlace;
     vm.viewProfile = viewProfile;
+    vm.viewPlace = viewPlace;
+    vm.goPlaces = goPlaces;
 
     function init() {
       vm.itinId = $routeParams['itinId'];
@@ -82,7 +84,9 @@
             vm.places.push(place);
             vm.dirty = true;
           } else {
-            PlaceService.createPlace({ googlePlaceId: place.place_id, name: place.name }).then(function (response) {
+            PlaceService.createPlace({
+              googlePlaceId: place.place_id, name: place.name
+            }).then(function (response) {
               place._id = response.data._id;
               vm.places.push(place);
               vm.dirty = true;
@@ -172,6 +176,14 @@
 
     function viewProfile() {
       //TODO go to profile
+    }
+
+    function viewPlace(place) {
+      $location.url('/place/' + place._id);
+    }
+
+    function goPlaces() {
+      $location.url('/place');
     }
 
     function _formatPlacesToIds(places) {

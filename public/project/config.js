@@ -29,6 +29,22 @@
           admin: checkAdmin
         }
       })
+      .when('/place', {
+        templateUrl: 'views/place/place.view.client.html',
+        controller: 'PlaceController',
+        controllerAs: 'vm',
+        resolve: {
+          loggedIn: checkLogin
+        }
+      })
+      .when('/place/:placeId', {
+        templateUrl: 'views/place/place.view.client.html',
+        controller: 'PlaceController',
+        controllerAs: 'vm',
+        resolve: {
+          loggedIn: checkLogin
+        }
+      })
       .otherwise({
         redirectTo: '/'
       });
