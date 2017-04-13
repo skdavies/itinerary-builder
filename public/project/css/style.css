@@ -1,8 +1,3 @@
-.home-view {
-    text-align: center;
-    height: 100%;
-}
-
 body {
     background-color: #e4e4e4;
 }
@@ -13,15 +8,6 @@ body {
 
 .md-block {
     margin: 0 !important;
-}
-
-.navbar-fixed-bottom {
-    background-color: #0842f0;
-}
-
-.navbar-brand {
-    text-align: center;
-    color: white !important;
 }
 
 a {
@@ -78,7 +64,19 @@ a {
     overflow-y: scroll;
 }
 
+.home-view {
+    margin-bottom: 60px;
+}
+
 #require-lg {
     margin-top: 40px;
     text-align: center;
+}
+
+.skd-sticky-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 100;
 }

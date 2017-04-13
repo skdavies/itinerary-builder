@@ -12,108 +12,109 @@
     </div>
 </md-toolbar>
 
-<div class="home-view">
-    <md-content class="layout-padding">
-        <div layout="row" layout-xs="column">
-            <div flex="100" flex-gt-xs="66">
-                <md-input-container md-no-float class="md-block">
-                    <input type="text" placeholder="Enter a location" id="autocomplete">
-                </md-input-container>
-                <div hide-xs id="map"></div>
-            </div>
-            <div flex="100" flex-gt-xs="33">
-                <div class="right-panel">
-                    <div class="itinerary">
-                        <div ng-show="vm.places.length === 0" class="alert alert-success" id="itin-placeholder">
-                            <h3>Add a place to start your itinerary!</h3>
-                        </div>
-                        <div class="list-group" ng-show="vm.places.length > 0" id="itinerary">
-                            <a class="list-group-item list-group-item-action text-left" ng-repeat="place in vm.places"
-                               id="{{place._id}}">
-                                <i class="fa fa-bars sortable" aria-hidden="true"></i>
-                                {{place.name}}
-                                <div class="pull-right">
-                                    <i class="fa fa-info-circle" aria-hidden="true" ng-click="vm.viewPlace(place)"></i>
-                                    <i class="fa fa-times" aria-hidden="true" ng-click="vm.removePlace($index)"
-                                       ng-if="vm.canEdit"></i>
-                                </div>
-                            </a>
-                        </div>
+<md-content flex class="layout-padding home-view">
+    <div layout="row" layout-xs="column" flex>
+        <div flex="100" flex-gt-xs="66">
+            <md-input-container md-no-float class="md-block">
+                <input type="text" placeholder="Enter a location" id="autocomplete">
+            </md-input-container>
+            <div hide-xs id="map"></div>
+        </div>
+        <div flex="100" flex-gt-xs="33">
+            <div class="right-panel" layout-padding>
+                <div class="itinerary">
+                    <div ng-show="vm.places.length === 0" class="alert alert-success" id="itin-placeholder">
+                        <h3>Add a place to start your itinerary!</h3>
                     </div>
-                    <md-button class="md-raised md-primary" ng-show="!vm.user && vm.places.length > 0" ng-click="vm.toggleLogin()">
-                        Sign Up or Login to Save
-                    </md-button>
-                    <md-button class="md-raised md-primary" ng-show="vm.user && vm.places.length > 0 && vm.canEdit"
-                       ng-click="vm.saveItinerary()">Save</md-button>
-                    <md-button class="md-raised md-warn" ng-show="vm.user && vm.places.length > 0 && vm.canEdit"
-                       ng-click="vm.resetToLastSave()" ng-disabled="!vm.dirty">Reset</md-button>
-                    <div>
-                        FOLLOWING UPDATES WILL GO HERE
+                    <div class="list-group" ng-show="vm.places.length > 0" id="itinerary">
+                        <a class="list-group-item list-group-item-action text-left" ng-repeat="place in vm.places"
+                           id="{{place._id}}">
+                            <i class="fa fa-bars sortable" aria-hidden="true"></i>
+                            {{place.name}}
+                            <div class="pull-right">
+                                <i class="fa fa-info-circle" aria-hidden="true" ng-click="vm.viewPlace(place)"></i>
+                                <i class="fa fa-times" aria-hidden="true" ng-click="vm.removePlace($index)"
+                                   ng-if="vm.canEdit"></i>
+                            </div>
+                        </a>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-3" ng-repeat="suggestion in vm.suggestions">
-                Test
-            </div>
-        </div>
-    </md-content>
-
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" ng-click="vm.toggleLogin()"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="loginModalLabel">Login</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
-                    <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
-                    Don't have an account yet? <a class="login" ng-click="vm.toggleLogin();vm.toggleRegister()">Sign
-                    up!</a>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="vm.toggleLogin()">Cancel</button>
-                    <button type="button" class="btn btn-success" ng-click="vm.login(user)">Login</button>
+                <md-button class="md-raised md-primary" ng-show="!vm.user && vm.places.length > 0"
+                           ng-click="vm.toggleLogin()">
+                    Sign Up or Login to Save
+                </md-button>
+                <md-button class="md-raised md-primary" ng-show="vm.user && vm.places.length > 0 && vm.canEdit"
+                           ng-click="vm.saveItinerary()">Save
+                </md-button>
+                <md-button class="md-raised md-warn" ng-show="vm.user && vm.places.length > 0 && vm.canEdit"
+                           ng-click="vm.resetToLastSave()" ng-disabled="!vm.dirty">Reset
+                </md-button>
+                <div>
+                    FOLLOWING UPDATES WILL GO HERE
                 </div>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xs-3" ng-repeat="suggestion in vm.suggestions">
+            Test
+        </div>
+    </div>
+</md-content>
 
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" ng-click="vm.toggleRegister()"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="registerModalLabel">Register</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
-                    <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
-                    <input type="password" class="form-control" placeholder="Confirm Password" ng-model="user.confirm">
-                    <a href="/project/api/users/auth/google"><i class="fa fa-google-plus-square"></i></a>
-                    <a><i class="fa fa-facebook-official"></i></a>
-                    Already have an account? <a class="login" ng-click="vm.toggleRegister();vm.toggleLogin()">Login</a>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="vm.toggleRegister()">Cancel</button>
-                    <button type="button" class="btn btn-success" ng-click="vm.register(user)">Register</button>
-                </div>
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" ng-click="vm.toggleLogin()"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="loginModalLabel">Login</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
+                <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+                Don't have an account yet? <a class="login" ng-click="vm.toggleLogin();vm.toggleRegister()">Sign
+                up!</a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="vm.toggleLogin()">Cancel</button>
+                <button type="button" class="btn btn-success" ng-click="vm.login(user)">Login</button>
             </div>
         </div>
     </div>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="row">
-            <a class="navbar-brand col-xs-3">Home</a>
-            <a class="navbar-brand col-xs-3" ng-click="vm.goPlaces()">Places</a>
-            <a class="navbar-brand col-xs-3">Itineraries</a>
-            <a class="navbar-brand col-xs-3">Suggestions</a>
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" ng-click="vm.toggleRegister()"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="registerModalLabel">Register</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
+                <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
+                <input type="password" class="form-control" placeholder="Confirm Password" ng-model="user.confirm">
+                <a href="/project/api/users/auth/google"><i class="fa fa-google-plus-square"></i></a>
+                <a><i class="fa fa-facebook-official"></i></a>
+                Already have an account? <a class="login" ng-click="vm.toggleRegister();vm.toggleLogin()">Login</a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="vm.toggleRegister()">Cancel</button>
+                <button type="button" class="btn btn-success" ng-click="vm.register(user)">Register</button>
+            </div>
         </div>
     </div>
-</nav>
+</div>
+
+<md-toolbar class="skd-sticky-footer">
+    <div class="md-toolbar-tools">
+        <div flex layout="row">
+            <md-button flex="25">Home</md-button>
+            <md-button flex="25">Itineraries</md-button>
+            <md-button flex="25" ng-click="vm.goPlaces()">Places</md-button>
+            <md-button flex="25">Suggestions</md-button>
+        </div>
+    </div>
+</md-toolbar>
