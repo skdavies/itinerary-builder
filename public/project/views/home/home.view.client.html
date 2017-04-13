@@ -13,14 +13,16 @@
 </md-toolbar>
 
 <div class="home-view">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="hidden-xs col-sm-8">
-                <input type="text" class="form-control" placeholder="Search..." id="autocomplete">
-                <div id="map"></div>
+    <md-content class="layout-padding">
+        <div layout="row" layout-xs="column">
+            <div flex="100" flex-gt-xs="66">
+                <md-input-container md-no-float class="md-block">
+                    <input type="text" placeholder="Enter a location" id="autocomplete">
+                </md-input-container>
+                <div hide-xs id="map"></div>
             </div>
-            <div class="col-sm-4">
-                <div id="right-panel">
+            <div flex="100" flex-gt-xs="33">
+                <div class="right-panel">
                     <div class="itinerary">
                         <div ng-show="vm.places.length === 0" class="alert alert-success" id="itin-placeholder">
                             <h3>Add a place to start your itinerary!</h3>
@@ -38,14 +40,13 @@
                             </a>
                         </div>
                     </div>
-                    <a class="btn btn-primary btn-block" ng-show="!vm.user && vm.places.length > 0"
-                       ng-click="vm.toggleLogin()">
+                    <md-button class="md-raised md-primary" ng-show="!vm.user && vm.places.length > 0" ng-click="vm.toggleLogin()">
                         Sign Up or Login to Save
-                    </a>
-                    <a class="btn btn-success btn-block" ng-show="vm.user && vm.places.length > 0 && vm.canEdit"
-                       ng-click="vm.saveItinerary()">Save</a>
-                    <a class="btn btn-danger btn-block" ng-show="vm.user && vm.places.length > 0 && vm.canEdit"
-                       ng-click="vm.resetToLastSave()" ng-disabled="!vm.dirty">Reset</a>
+                    </md-button>
+                    <md-button class="md-raised md-primary" ng-show="vm.user && vm.places.length > 0 && vm.canEdit"
+                       ng-click="vm.saveItinerary()">Save</md-button>
+                    <md-button class="md-raised md-warn" ng-show="vm.user && vm.places.length > 0 && vm.canEdit"
+                       ng-click="vm.resetToLastSave()" ng-disabled="!vm.dirty">Reset</md-button>
                     <div>
                         FOLLOWING UPDATES WILL GO HERE
                     </div>
@@ -57,7 +58,7 @@
                 Test
             </div>
         </div>
-    </div>
+    </md-content>
 
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
         <div class="modal-dialog" role="document">
