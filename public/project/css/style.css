@@ -59,9 +59,7 @@ a {
 }
 
 .place-view {
-    height: 100vh;
-    margin-top: 60px;
-    overflow-y: scroll;
+    margin-bottom: 60px;
 }
 
 .home-view {

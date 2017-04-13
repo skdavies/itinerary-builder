@@ -5,32 +5,21 @@
 
   function homeController($location, $routeParams, ItineraryService, PlaceService, UserService, $scope, loggedIn) {
     var vm = this;
-    vm.login = login;
-    vm.logout = logout;
-    vm.toggleLogin = toggleLogin;
-    vm.toggleRegister = toggleRegister;
-    vm.register = register;
     vm.saveItinerary = saveItinerary;
     vm.resetToLastSave = resetToLastSave;
     vm.removePlace = removePlace;
-    vm.viewProfile = viewProfile;
     vm.viewPlace = viewPlace;
     vm.goPlaces = goPlaces;
 
     function init() {
       vm.itinId = $routeParams['itinId'];
-      if (loggedIn) {
-        if (loggedIn.role === 'ADMIN') {
-          $location.url('/admin');
-          return;
-        } else if (loggedIn.role === 'ADVERTISER') {
-          $location.url('/places');
-          return;
-        } else {
-          vm.user = loggedIn;
-        }
-      } else {
-        vm.user = null;
+      vm.user = loggedIn;
+      if (vm.user && vm.user.role === 'ADMIN') {
+        $location.url('/admin');
+        return;
+      } else if (vm.user && vm.user.role === 'ADVERTISER') {
+        $location.url('/places');
+        return;
       }
       vm.canEdit = true;
       if (vm.itinId) {
@@ -105,47 +94,6 @@
       });
     }
 
-    function login(user) {
-      var usr = { username: user.username, password: user.password };
-      UserService.login(usr).then(function (response) {
-        var user = response.data;
-        vm.toggleLogin();
-        $('.modal-backdrop').remove();
-        if (user.role === 'ADMIN') {
-          $location.url('/admin');
-        } else if (user.role === 'ADVERTISER') {
-          $location.url('/places');
-        } else {
-          vm.user = user;
-        }
-      });
-    }
-
-    function logout() {
-      UserService.logout().then(function () {
-        vm.user = null;
-      });
-    }
-
-    function register(user) {
-      var usr = {
-        username: user.username,
-        password: user.password
-      };
-      UserService.register(usr).then(function (response) {
-        var user = response.data;
-        vm.toggleRegister();
-        vm.user = user;
-        if (vm.places.length > 0) {
-          var itinerary = { _user: user._id, places: _formatPlacesToIds(vm.places) };
-          ItineraryService.createItinerary(user._id, itinerary).then(function (response) {
-            vm.dirty = false;
-            vm.itinerary = response.data;
-          });
-        }
-      });
-    }
-
     function saveItinerary() {
       var placeIds = $("#itinerary").sortable("toArray");
       if (vm.itinerary) {
@@ -170,18 +118,6 @@
         vm.itinerary = itinerary;
         vm.places = itinerary.places;
       });
-    }
-
-    function toggleRegister() {
-      $('#registerModal').modal('toggle');
-    }
-
-    function toggleLogin() {
-      $('#loginModal').modal('toggle');
-    }
-
-    function viewProfile() {
-      //TODO go to profile
     }
 
     function viewPlace(place) {

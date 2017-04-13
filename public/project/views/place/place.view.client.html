@@ -1,8 +1,18 @@
-<div class="place-view">
-    <div class="container-fluid">
-        <div>
-            <input type="text" class="form-control" placeholder="Search for a place..." id="autocomplete">
-            <div id="map"></div>
+<skd-login-nav user="vm.user"></skd-login-nav>
+
+<md-content class="place-view layout-padding">
+    <div layout="column">
+        <div flex="100">
+            <md-input-container md-no-float class="md-block">
+                <input type="text" placeholder="Search for a place..." id="autocomplete">
+            </md-input-container>
+        </div>
+        <div layout="row" ng-show="vm.place">
+            <div hide-xs id="map" flex="50"></div>
+            <div flex-gt-xs="50" flex="100">
+
+            </div>
         </div>
     </div>
-</div>
+    <md-button ng-show="vm.user && vm.user.role === 'ADVERTISER'">Add Suggestion</md-button>
+</md-content>

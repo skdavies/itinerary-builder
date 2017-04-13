@@ -5,7 +5,6 @@
 
   function placeController($location, $routeParams, PlaceService, loggedIn, UserService) {
     var vm = this;
-    vm.logout = logout;
 
     function init() {
       vm.place = null;
@@ -72,12 +71,5 @@
         }
       });
     }
-
-    function logout() {
-      UserService.logout().then(function () {
-        vm.user = null;
-      });
-    }
-
   }
 })();

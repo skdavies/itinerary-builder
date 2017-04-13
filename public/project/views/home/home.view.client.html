@@ -1,16 +1,4 @@
-<md-toolbar>
-    <div class="md-toolbar-tools">
-        <h1 flex>Vacation Builder</h1>
-        <div ng-show="!vm.user">
-            <md-button ng-click="vm.toggleRegister()">Sign Up</md-button>
-            <md-button class="md-raised" ng-click="vm.toggleLogin()">Login</md-button>
-        </div>
-        <div ng-show="vm.user">
-            <md-button ng-click="vm.viewProfile()">Profile</md-button>
-            <md-button class="md-raised" ng-click="vm.logout()">Logout</md-button>
-        </div>
-    </div>
-</md-toolbar>
+<skd-login-nav user="vm.user"></skd-login-nav>
 
 <md-content flex class="layout-padding home-view">
     <div layout="row" layout-xs="column" flex>
@@ -61,52 +49,6 @@
         </div>
     </div>
 </md-content>
-
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="vm.toggleLogin()"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="loginModalLabel">Login</h4>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
-                <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
-                Don't have an account yet? <a class="login" ng-click="vm.toggleLogin();vm.toggleRegister()">Sign
-                up!</a>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="vm.toggleLogin()">Cancel</button>
-                <button type="button" class="btn btn-success" ng-click="vm.login(user)">Login</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="vm.toggleRegister()"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="registerModalLabel">Register</h4>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
-                <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
-                <input type="password" class="form-control" placeholder="Confirm Password" ng-model="user.confirm">
-                <a href="/project/api/users/auth/google"><i class="fa fa-google-plus-square"></i></a>
-                <a><i class="fa fa-facebook-official"></i></a>
-                Already have an account? <a class="login" ng-click="vm.toggleRegister();vm.toggleLogin()">Login</a>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="vm.toggleRegister()">Cancel</button>
-                <button type="button" class="btn btn-success" ng-click="vm.register(user)">Register</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <md-toolbar class="skd-sticky-footer">
     <div class="md-toolbar-tools">

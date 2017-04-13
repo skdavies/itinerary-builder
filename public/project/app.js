@@ -1,4 +1,4 @@
 (function () {
   angular
-    .module('ItineraryPlanner', ['ngRoute', 'ngMaterial']);
+    .module('ItineraryPlanner', ['ngRoute', 'ngMaterial', 'skdItineraryDirectives']);
 })();
