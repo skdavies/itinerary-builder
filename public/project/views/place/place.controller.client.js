@@ -3,8 +3,9 @@
     .module('ItineraryPlanner')
     .controller('PlaceController', placeController);
 
-  function placeController($location, $routeParams, PlaceService, loggedIn) {
+  function placeController($location, $routeParams, PlaceService, loggedIn, UserService) {
     var vm = this;
+    vm.logout = logout;
 
     function init() {
       vm.place = null;
@@ -12,6 +13,10 @@
       if (placeId) {
         PlaceService.findPlaceById(placeId).then(function (response) {
           initMap(response.data);
+        });
+      } else {
+        PlaceService.findMostRecentAds().then(function (response) {
+          //TODO FORMAT THEN DISPLAY THESE
         });
       }
       vm.user = loggedIn;
@@ -65,6 +70,12 @@
         } else {
           vm.place = myPlace;
         }
+      });
+    }
+
+    function logout() {
+      UserService.logout().then(function () {
+        vm.user = null;
       });
     }
 

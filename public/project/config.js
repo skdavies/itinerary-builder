@@ -10,7 +10,7 @@
         controller: 'HomeController',
         controllerAs: 'vm',
         resolve: {
-          loggedIn: checkLogin
+          loggedIn: checkLoginUserRole
         }
       })
       .when('/itinerary/:itinId', {
@@ -18,7 +18,7 @@
         controller: 'HomeController',
         controllerAs: 'vm',
         resolve: {
-          loggedIn: checkLogin
+          loggedIn: checkLoginUserRole
         }
       })
       .when('/admin', {
@@ -48,6 +48,27 @@
       .otherwise({
         redirectTo: '/'
       });
+  }
+
+  function checkLoginUserRole($q, UserService, $location) {
+    var deferred = $q.defer();
+    UserService.loggedin().then(function (response) {
+      var user = response.data;
+      if (!user) {
+        deferred.resolve(null);
+      } else if (user.role === 'USER') {
+        deferred.resolve(user);
+      } else if (user.role === 'ADVERTISER') {
+        $location.url('/pages');
+        deferred.reject();
+      } else if (user.role === 'ADMIN') {
+        $location.url('/admin');
+        deferred.reject();
+      }
+    }, function () {
+      deferred.resolve(null);
+    });
+    return deferred.promise;
   }
 
   function checkLogin($q, UserService) {

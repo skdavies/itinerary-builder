@@ -8,6 +8,7 @@ module.exports = function (app, model) {
   app.get('/project/api/places/google/:googleId', findPlaceByGoogleId);
   app.post('/project/api/places/:placeId/reviews', addPlaceReview);
   app.post('/project/api/places/:placeId/ads', addPlaceAd);
+  app.get('/project/api/places/ads/recent', findMostRecentAds);
   app.put('/project/api/places/:placeId', updatePlace);
   app.delete('/project/api/places/:placeId', deletePlace);
 
@@ -101,5 +102,14 @@ module.exports = function (app, model) {
     } else {
       res.status(409).send('Yod do not have permission to do that.');
     }
+  }
+
+  function findMostRecentAds(req, res) {
+    placeModel.findMostRecentAds().then(function (places) {
+      res.json(places);
+    }, function (err) {
+      console.log(err);
+      res.sendStatus(500);
+    });
   }
 };

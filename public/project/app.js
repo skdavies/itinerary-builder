@@ -1,4 +1,4 @@
 (function () {
   angular
-    .module('ItineraryPlanner', ['ngRoute']);
+    .module('ItineraryPlanner', ['ngRoute', 'ngMaterial']);
 })();

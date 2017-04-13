@@ -24,7 +24,7 @@
           $location.url('/admin');
           return;
         } else if (loggedIn.role === 'ADVERTISER') {
-          //TODO go to advertisement page
+          $location.url('/places');
           return;
         } else {
           vm.user = loggedIn;
@@ -45,6 +45,12 @@
         vm.itinerary = null;
         vm.places = [];
       }
+      PlaceService.findMostRecentAds().then(function (response) {
+        vm.suggestions = response.data;
+        //TODO reformat into array of ads/suggestions
+      }, function () {
+        vm.suggestions = [];
+      });
       vm.dirty = false;
       initSortable();
       initMap()
@@ -108,7 +114,7 @@
         if (user.role === 'ADMIN') {
           $location.url('/admin');
         } else if (user.role === 'ADVERTISER') {
-          // TODO go to advertiser page
+          $location.url('/places');
         } else {
           vm.user = user;
         }

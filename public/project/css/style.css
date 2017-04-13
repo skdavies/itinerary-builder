@@ -10,23 +10,6 @@ body {
     background-color: #e4e4e4;
 }
 
-.nav-btn {
-    width: 80px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 8px 10px 0 0;
-}
-
-.navbar-fixed-top {
-    background-color: #dff0d8;
-}
-
-.title {
-    margin: 0;
-    line-height: 50px;
-}
-
 .navbar-fixed-bottom {
     background-color: #0842f0;
 }
@@ -36,12 +19,6 @@ body {
     color: white !important;
 }
 
-.secondary-nav-btn {
-    position: absolute;
-    right: 100px;
-    top: 0;
-    line-height: 50px;
-}
 
 a {
     cursor: pointer;

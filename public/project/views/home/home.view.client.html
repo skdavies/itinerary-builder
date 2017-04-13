@@ -1,24 +1,16 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div>
-            <h1 class="title">Vacation Builder</h1>
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h1 flex>Vacation Builder</h1>
+        <div ng-show="!vm.user">
+            <md-button ng-click="vm.toggleRegister()">Sign Up</md-button>
+            <md-button class="md-raised" ng-click="vm.toggleLogin()">Login</md-button>
         </div>
-        <div class="pull-right" ng-show="!vm.user">
-            <a class="secondary-nav-btn" ng-click="vm.toggleRegister()">Sign Up</a>
-            <button type="button" class="btn btn-primary btn-block nav-btn"
-                    ng-click="vm.toggleLogin()">
-                Login
-            </button>
-        </div>
-        <div class="pull-right" ng-show="vm.user">
-            <a class="secondary-nav-btn" ng-click="vm.viewProfile()">Profile</a>
-            <button type="button" class="btn btn-danger btn-block nav-btn"
-                    ng-click="vm.logout()">
-                Logout
-            </button>
+        <div ng-show="vm.user">
+            <md-button ng-click="vm.viewProfile()">Profile</md-button>
+            <md-button class="md-raised" ng-click="vm.logout()">Logout</md-button>
         </div>
     </div>
-</nav>
+</md-toolbar>
 
 <div class="home-view">
     <div class="container-fluid">
@@ -58,6 +50,11 @@
                         FOLLOWING UPDATES WILL GO HERE
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3" ng-repeat="suggestion in vm.suggestions">
+                Test
             </div>
         </div>
     </div>
