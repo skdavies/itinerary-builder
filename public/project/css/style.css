@@ -18,6 +18,10 @@ a {
     height: 400px;
 }
 
+#map-place {
+    height: 400px;
+}
+
 .form-control {
     margin-bottom: 5px;
 }

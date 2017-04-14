@@ -4,11 +4,11 @@
     <div layout="column">
         <div flex="100">
             <md-input-container md-no-float class="md-block">
-                <input type="text" placeholder="Search for a place..." id="autocomplete">
+                <input type="text" placeholder="Search for a place..." id="autocomplete-place">
             </md-input-container>
         </div>
         <div layout="row">
-            <div hide-xs id="map" flex="50"></div>
+            <div hide-xs id="map-place" flex="50"></div>
             <div flex-gt-xs="50" flex="100" ng-show="vm.place" layout="column" class="layout-padding">
                 <h2>{{vm.place.formatted_address}}</h2>
                 <div ng-repeat="review in vm.place.reviews">

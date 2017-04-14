@@ -132,13 +132,15 @@
       scope.goSuggestions = goSuggestions;
 
       function goPlaces() {
-        $window.location.href = '/project/#/place';
-        $window.location.reload();
+        $location.url('/place');
+        // $window.location.href = '/project/#/place';
+        // $window.location.reload();
       }
 
       function goHome() {
-        $window.location.href = '/project/#/';
-        $window.location.reload(); // verify map reloads
+        $location.url('/');
+        // $window.location.href = '/project/#/';
+        // $window.location.reload(); // verify map reloads
       }
 
       function goItineraries() {

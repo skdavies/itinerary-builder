@@ -34,7 +34,7 @@
       var options = {
         types: ['(regions)']
       };
-      var input = document.getElementById('autocomplete');
+      var input = document.getElementById('autocomplete-place');
       var autocomplete = new google.maps.places.Autocomplete(input, options);
       window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
         var place = autocomplete.getPlace();
@@ -54,6 +54,10 @@
     }
 
     function initMap(myPlace) {
+      var map = new google.maps.Map(document.getElementById('map-place'), {
+        zoom: 4,
+        center: {lat: 42.346268, lng: -71.095764}
+      });
       var request = {
         placeId: myPlace.googlePlaceId
       };
@@ -61,15 +65,11 @@
       service.getDetails(request, function (place, status) {
         if (status === 'OK') {
           var coordinates = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
-          var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
-            center: coordinates
-          });
           new google.maps.Marker({
             position: coordinates,
             map: map
           });
-          // map.setCenter(coordinates);
+          map.setCenter(coordinates);
           place.googleReviews = place.reviews;
           delete place.reviews;
           vm.place = $.extend({}, myPlace, place);
@@ -87,7 +87,6 @@
         DarkSkyService.timeMachineLookup(vm.place.geometry.location.lat(), vm.place.geometry.location.lng(), date.getTime() / 1000)
           .then(function (response) {
             vm.weather.forecast = JSON.parse(response.data);
-            console.log(vm.weather.forecast);
           }, function (err) {
           });
       }
