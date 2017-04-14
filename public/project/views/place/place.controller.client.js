@@ -39,12 +39,12 @@
       window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
         var place = autocomplete.getPlace();
         PlaceService.findPlaceByGoogleId(place.place_id).then(function (response) {
-          var ourPlace = response.data;
-          if (ourPlace) {
-            $location.url('/place/' + ourPlace._id);
+          var myPlace = response.data;
+          if (myPlace) {
+            initMap(myPlace);
           } else {
             PlaceService.createPlace({ googlePlaceId: place.place_id, name: place.name }).then(function (response) {
-              $location.url('/place/' + response.data._id);
+              initMap(response.data);
             });
           }
         });
@@ -54,11 +54,6 @@
     }
 
     function initMap(myPlace) {
-      var fenway = { lat: 42.346268, lng: -71.095764 };
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
-        center: fenway
-      });
       var request = {
         placeId: myPlace.googlePlaceId
       };
@@ -66,11 +61,15 @@
       service.getDetails(request, function (place, status) {
         if (status === 'OK') {
           var coordinates = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: coordinates
+          });
           new google.maps.Marker({
             position: coordinates,
             map: map
           });
-          map.setCenter(coordinates);
+          // map.setCenter(coordinates);
           place.googleReviews = place.reviews;
           delete place.reviews;
           vm.place = $.extend({}, myPlace, place);

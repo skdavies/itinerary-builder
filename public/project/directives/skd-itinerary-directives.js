@@ -124,7 +124,7 @@
     }
   }
 
-  function skdBottomNav($location) {
+  function skdBottomNav($location, $window) {
     function link(scope, element) {
       scope.goPlaces = goPlaces;
       scope.goHome = goHome;
@@ -132,11 +132,13 @@
       scope.goSuggestions = goSuggestions;
 
       function goPlaces() {
-        $location.url('/place');
+        $window.location.href = '/project/#/place';
+        $window.location.reload();
       }
 
       function goHome() {
-        $location.url('/');
+        $window.location.href = '/project/#/';
+        $window.location.reload(); // verify map reloads
       }
 
       function goItineraries() {
