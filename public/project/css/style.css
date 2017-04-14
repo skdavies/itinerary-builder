@@ -60,6 +60,28 @@ a {
 
 .place-view {
     margin-bottom: 60px;
+    text-align: center;
+}
+
+.place-view h2 {
+    margin-top: 0;
+}
+
+#dark-sky {
+    font-size: 12px;
+}
+
+.datepicker {
+    background-color: #e4e4e4 !important;
+    margin: 0 !important;
+}
+
+.md-datepicker-input-container {
+    width: 50%;
+}
+
+.md-datepicker-input {
+    width: 100%;
 }
 
 .home-view {

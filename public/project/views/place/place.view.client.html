@@ -7,12 +7,35 @@
                 <input type="text" placeholder="Search for a place..." id="autocomplete">
             </md-input-container>
         </div>
-        <div layout="row" ng-show="vm.place">
+        <div layout="row">
             <div hide-xs id="map" flex="50"></div>
-            <div flex-gt-xs="50" flex="100">
-
+            <div flex-gt-xs="50" flex="100" ng-show="vm.place" layout="column" class="layout-padding">
+                <h2>{{vm.place.formatted_address}}</h2>
+                <div ng-repeat="review in vm.place.reviews">
+                    {{review.review}}
+                </div>
+                <md-datepicker class="datepicker" layout-margin ng-model="vm.weather.selected" md-placeholder="Lookup Past Weather"
+                               md-open-on-focus md-max-date="vm.weather.maxDate" ng-change="vm.lookupWeather()"></md-datepicker>
+                <div ng-show="vm.weather.forecast">
+                    <md-whiteframe class="md-whiteframe-5dp" flex-offset="25" flex="50" layout="column">
+                        <div>Summary: {{vm.weather.forecast.hourly.summary}}</div>
+                        <div><strong>Weather at 2pm:</strong></div>
+                        <div>Temperature: {{vm.weather.forecast.hourly.data[13].temperature}}</div>
+                        <div>Feels Like: {{vm.weather.forecast.hourly.data[13].apparentTemperature}}</div>
+                        <div>Wind Speed: {{vm.weather.forecast.hourly.data[13].windSpeed}}</div>
+                        <div>Humidity: {{vm.weather.forecast.hourly.data[13].humidity * 100}}%</div>
+                        <a id="dark-sky" href="https://darksky.net/poweredby/">Powered By Dark Sky</a>
+                    </md-whiteframe>
+                </div>
+                <md-button ng-show="vm.user && vm.user.role === 'USER' && vm.place" class="md-raised md-primary">
+                    Add Review
+                </md-button>
             </div>
         </div>
     </div>
-    <md-button ng-show="vm.user && vm.user.role === 'ADVERTISER'">Add Suggestion</md-button>
+    <md-button ng-show="vm.user && vm.user.role === 'ADVERTISER' && vm.place" class="md-raised md-primary">
+        Add Suggestion
+    </md-button>
 </md-content>
+
+<skd-bottom-nav></skd-bottom-nav>

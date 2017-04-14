@@ -3,11 +3,17 @@
     .module('ItineraryPlanner')
     .controller('PlaceController', placeController);
 
-  function placeController($location, $routeParams, PlaceService, loggedIn, UserService) {
+  function placeController($location, $routeParams, PlaceService, loggedIn, $scope, DarkSkyService) {
     var vm = this;
+    vm.lookupWeather = lookupWeather;
 
     function init() {
       vm.place = null;
+      vm.weather = {
+        selected: null,
+        maxDate: new Date(),
+        forecast: null
+      };
       var placeId = $routeParams['placeId'];
       if (placeId) {
         PlaceService.findPlaceById(placeId).then(function (response) {
@@ -25,7 +31,9 @@
     init();
 
     function initAutocomplete() {
-      var options = {};
+      var options = {
+        types: ['(regions)']
+      };
       var input = document.getElementById('autocomplete');
       var autocomplete = new google.maps.places.Autocomplete(input, options);
       window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -66,10 +74,24 @@
           place.googleReviews = place.reviews;
           delete place.reviews;
           vm.place = $.extend({}, myPlace, place);
+          console.log(vm.place);
         } else {
           vm.place = myPlace;
         }
+        $scope.$apply();
       });
+    }
+
+    function lookupWeather() {
+      var date = vm.weather.selected;
+      if (date) {
+        DarkSkyService.timeMachineLookup(vm.place.geometry.location.lat(), vm.place.geometry.location.lng(), date.getTime() / 1000)
+          .then(function (response) {
+            vm.weather.forecast = JSON.parse(response.data);
+            console.log(vm.weather.forecast);
+          }, function (err) {
+          });
+      }
     }
   }
 })();

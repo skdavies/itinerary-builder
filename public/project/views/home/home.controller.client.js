@@ -9,7 +9,6 @@
     vm.resetToLastSave = resetToLastSave;
     vm.removePlace = removePlace;
     vm.viewPlace = viewPlace;
-    vm.goPlaces = goPlaces;
 
     function init() {
       vm.itinId = $routeParams['itinId'];
@@ -60,7 +59,9 @@
         zoom: 4,
         center: fenway
       });
-      var options = {};
+      var options = {
+        types: ['(regions)']
+      };
       var input = document.getElementById('autocomplete');
       var autocomplete = new google.maps.places.Autocomplete(input, options);
       window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -122,10 +123,6 @@
 
     function viewPlace(place) {
       $location.url('/place/' + place._id);
-    }
-
-    function goPlaces() {
-      $location.url('/place');
     }
 
     function _formatPlacesToIds(places) {

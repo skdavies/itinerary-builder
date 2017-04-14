@@ -1,7 +1,8 @@
 (function () {
   angular
     .module('skdItineraryDirectives', [])
-    .directive('skdLoginNav', skdLoginNav);
+    .directive('skdLoginNav', skdLoginNav)
+    .directive('skdBottomNav', skdBottomNav);
 
   function skdLoginNav(UserService, $location, $mdDialog) {
 
@@ -120,6 +121,36 @@
       scope: {
         user: '='
       }
+    }
+  }
+
+  function skdBottomNav($location) {
+    function link(scope, element) {
+      scope.goPlaces = goPlaces;
+      scope.goHome = goHome;
+      scope.goItineraries = goItineraries;
+      scope.goSuggestions = goSuggestions;
+
+      function goPlaces() {
+        $location.url('/place');
+      }
+
+      function goHome() {
+        $location.url('/');
+      }
+
+      function goItineraries() {
+        $location.url('/');
+      }
+
+      function goSuggestions() {
+        $location.url('/');
+      }
+    }
+
+    return {
+      templateUrl: 'directives/templates/skd-bottom-nav.html',
+      link: link
     }
   }
 })();

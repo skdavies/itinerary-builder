@@ -3,4 +3,5 @@ module.exports = function(app) {
   require('./services/user.service.server')(app, model);
   require('./services/place.service.server')(app, model);
   require('./services/itinerary.service.server')(app, model);
+  require('./services/dark-sky-service.server')(app);
 };
