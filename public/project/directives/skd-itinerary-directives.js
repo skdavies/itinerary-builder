@@ -129,7 +129,7 @@
       scope.goPlaces = goPlaces;
       scope.goHome = goHome;
       scope.goItineraries = goItineraries;
-      scope.goSuggestions = goSuggestions;
+      scope.goUsers = goUsers;
 
       function goPlaces() {
         $location.url('/place');
@@ -147,7 +147,7 @@
         $location.url('/');
       }
 
-      function goSuggestions() {
+      function goUsers() {
         $location.url('/');
       }
     }
