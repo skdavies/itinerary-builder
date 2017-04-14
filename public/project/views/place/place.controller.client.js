@@ -3,9 +3,10 @@
     .module('ItineraryPlanner')
     .controller('PlaceController', placeController);
 
-  function placeController($location, $routeParams, PlaceService, loggedIn, $scope, DarkSkyService) {
+  function placeController($location, $routeParams, PlaceService, loggedIn, $scope, DarkSkyService, $mdDialog) {
     var vm = this;
     vm.lookupWeather = lookupWeather;
+    vm.showModal = showModal;
 
     function init() {
       vm.place = null;
@@ -14,9 +15,9 @@
         maxDate: new Date(),
         forecast: null
       };
-      var placeId = $routeParams['placeId'];
-      if (placeId) {
-        PlaceService.findPlaceById(placeId).then(function (response) {
+      vm.placeId = $routeParams['placeId'];
+      if (vm.placeId) {
+        PlaceService.findPlaceById(vm.placeId).then(function (response) {
           initMap(response.data);
         });
       } else {
@@ -41,9 +42,11 @@
         PlaceService.findPlaceByGoogleId(place.place_id).then(function (response) {
           var myPlace = response.data;
           if (myPlace) {
+            // $location.url('/place/' + myPlace._id);
             initMap(myPlace);
           } else {
             PlaceService.createPlace({ googlePlaceId: place.place_id, name: place.name }).then(function (response) {
+              // $location.url('/place/' + response.data._id);
               initMap(response.data);
             });
           }
@@ -56,7 +59,7 @@
     function initMap(myPlace) {
       var map = new google.maps.Map(document.getElementById('map-place'), {
         zoom: 4,
-        center: {lat: 42.346268, lng: -71.095764}
+        center: { lat: 42.346268, lng: -71.095764 }
       });
       var request = {
         placeId: myPlace.googlePlaceId
@@ -89,6 +92,45 @@
             vm.weather.forecast = JSON.parse(response.data);
           }, function (err) {
           });
+      }
+    }
+
+    function showModal(ev, action) {
+      $mdDialog.show({
+        controller: AddSuggestionController,
+        templateUrl: '/project/views/place/modals/add-suggestion-review.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        locals: {
+          action: action
+        }
+      }).then(function (place) {
+        vm.place.reviews = place.reviews;
+        vm.place.ads = place.ads;
+      });
+
+      function AddSuggestionController($scope, $mdDialog, action) {
+        $scope.cancel = cancel;
+        $scope.post = post;
+        $scope.action = action;
+        $scope.title = action === 'REVIEW' ? 'Review' : 'Suggestion';
+
+        function cancel() {
+          $mdDialog.cancel();
+        }
+
+        function post(text) {
+          if (action === 'REVIEW') {
+            PlaceService.addPlaceReview(vm.placeId, { text: text }).then(function (response) {
+              $mdDialog.hide(response.data);
+            });
+          } else if (action === 'SUGGESTION') {
+            PlaceService.addPlaceAd(vm.placeId, {text: text}).then(function (response) {
+              $mdDialog.hide(response.data);
+            });
+          }
+        }
       }
     }
   }

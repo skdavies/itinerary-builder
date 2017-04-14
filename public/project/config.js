@@ -45,6 +45,14 @@
           loggedIn: checkLogin
         }
       })
+      .when('/user/:userId', {
+        templateUrl: 'views/user/user.view.client.html',
+        controller: 'UserController',
+        controllerAs: 'vm',
+        resolve: {
+          loggedIn: checkLogin
+        }
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -51,12 +51,16 @@ module.exports = function (app, model) {
 
   function addPlaceReview(req, res) {
     var review = req.body;
-    if (review && review.reviewer && review.review) {
-      placeModel.addPlaceReview(req.params.placeId, review).then(function (place) {
-        res.json(place);
-      }, function (error) {
-        res.sendStatus(500);
-      });
+    if (review && review.text) {
+      if (req.user && req.user.role === 'USER') {
+        placeModel.addPlaceReview(req.user._id, req.params.placeId, review.text).then(function (place) {
+          res.json(place);
+        }, function (error) {
+          res.sendStatus(500);
+        });
+      } else {
+        res.status(401).send('Only users can add reviews.');
+      }
     } else {
       res.status(400).send('Invalid request body.');
     }
@@ -64,12 +68,16 @@ module.exports = function (app, model) {
 
   function addPlaceAd(req, res) {
     var ad = req.body;
-    if (ad && ad.advertiser && ad.ad) {
-      placeModel.addPlaceReview(req.params.placeId, ad).then(function (place) {
-        res.json(place);
-      }, function (error) {
-        res.sendStatus(500);
-      });
+    if (ad && ad.text) {
+      if (req.user && req.user.role === 'ADVERTISER') {
+        placeModel.addPlaceReview(req.user._id, req.params.placeId, ad.text).then(function (place) {
+          res.json(place);
+        }, function (error) {
+          res.sendStatus(500);
+        });
+      } else {
+        res.status(401).send('Only local advertisers can do that.');
+      }
     } else {
       res.status(400).send('Invalid request body.');
     }
@@ -85,7 +93,7 @@ module.exports = function (app, model) {
           res.sendStatus(500);
         });
       } else {
-        res.status(409).send('Yod do not have permission to do that.');
+        res.status(401).send('Yod do not have permission to do that.');
       }
     } else {
       res.status(400).send('Invalid request body.');
@@ -100,7 +108,7 @@ module.exports = function (app, model) {
         res.sendStatus(500);
       });
     } else {
-      res.status(409).send('Yod do not have permission to do that.');
+      res.status(401).send('Yod do not have permission to do that.');
     }
   }
 

@@ -36,13 +36,22 @@ module.exports = function () {
     return PlaceModel.findOne({ googlePlaceId: googleId });
   }
 
-  function addPlaceReview(placeId, review) {
-    return PlaceModel.findOneAndUpdate({ _id: placeId }, { $addToSet: { reviews: review } });
-
+  function addPlaceReview(userId, placeId, review) {
+    return PlaceModel.findOneAndUpdate({ _id: placeId }, {
+      $addToSet: {
+        reviews: {
+          reviewer: userId,
+          review: review
+        }
+      }
+    });
   }
 
-  function addPlaceAd(placeId, ad) {
-    return PlaceModel.findOneAndUpdate({ _id: placeId }, { $addToSet: { ads: ad }, $set: { suggested: Date.now } });
+  function addPlaceAd(userId, placeId, ad) {
+    return PlaceModel.findOneAndUpdate({ _id: placeId }, {
+      $addToSet: { ads: { advertiser: userId, ad: ad } },
+      $set: { suggested: Date.now }
+    });
   }
 
   function findMostRecentAds() {

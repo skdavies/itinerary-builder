@@ -14,8 +14,10 @@
                 <div ng-repeat="review in vm.place.reviews">
                     {{review.review}}
                 </div>
-                <md-datepicker class="datepicker" layout-margin ng-model="vm.weather.selected" md-placeholder="Lookup Past Weather"
-                               md-open-on-focus md-max-date="vm.weather.maxDate" ng-change="vm.lookupWeather()"></md-datepicker>
+                <md-datepicker class="datepicker" layout-margin ng-model="vm.weather.selected"
+                               md-placeholder="Lookup Past Weather"
+                               md-open-on-focus md-max-date="vm.weather.maxDate"
+                               ng-change="vm.lookupWeather()"></md-datepicker>
                 <div ng-show="vm.weather.forecast">
                     <md-whiteframe class="md-whiteframe-5dp" flex-offset="25" flex="50" layout="column">
                         <div>Summary: {{vm.weather.forecast.hourly.summary}}</div>
@@ -27,13 +29,15 @@
                         <a id="dark-sky" href="https://darksky.net/poweredby/">Powered By Dark Sky</a>
                     </md-whiteframe>
                 </div>
-                <md-button ng-show="vm.user && vm.user.role === 'USER' && vm.place" class="md-raised md-primary">
+                <md-button ng-show="vm.user && vm.user.role === 'USER' && vm.place" class="md-raised md-primary"
+                           ng-click="vm.showModal($event, 'REVIEW')">
                     Add Review
                 </md-button>
             </div>
         </div>
     </div>
-    <md-button ng-show="vm.user && vm.user.role === 'ADVERTISER' && vm.place" class="md-raised md-primary">
+    <md-button ng-show="vm.user && vm.user.role === 'ADVERTISER' && vm.place" class="md-raised md-primary"
+               ng-click="vm.showModal($event, 'SUGGESTION')">
         Add Suggestion
     </md-button>
 </md-content>
