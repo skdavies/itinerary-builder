@@ -77,7 +77,7 @@
             if (user.role === 'ADMIN') {
               $location.url('/admin');
             } else if (user.role === 'ADVERTISER') {
-              $location.url('/places');
+              $location.url('/place');
             }
           });
         }
@@ -98,14 +98,15 @@
 
         function register(user) {
           if (user.password === user.confirm) {
-            var usr = { username: user.username, password: user.password };
+            var role = user.advertiser ? 'ADVERTISER' : 'USER';
+            var usr = { username: user.username, password: user.password, role: role };
             UserService.register(usr).then(function (response) {
               var user = response.data;
               $mdDialog.hide(user);
               if (user.role === 'ADMIN') {
                 $location.url('/admin');
               } else if (user.role === 'ADVERTISER') {
-                $location.url('/places');
+                $location.url('/place');
               }
             });
           }
