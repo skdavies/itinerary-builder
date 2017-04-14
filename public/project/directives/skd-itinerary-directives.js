@@ -3,37 +3,47 @@
     .module('skdItineraryDirectives', [])
     .directive('skdLoginNav', skdLoginNav);
 
-  function skdLoginNav(UserService, $location) {
+  function skdLoginNav(UserService, $location, $mdDialog) {
 
     function linkFunction(scope, element) {
       scope.toggleRegister = toggleRegister;
       scope.toggleLogin = toggleLogin;
-      scope.login = login;
       scope.logout = logout;
-      scope.register = register;
       scope.viewProfile = viewProfile;
 
-      function toggleLogin() {
-        $('#loginModal').modal('toggle');
-      }
-
-      function toggleRegister() {
-        $('#registerModal').modal('toggle');
-      }
-
-      function login(user) {
-        var usr = { username: user.username, password: user.password };
-        UserService.login(usr).then(function (response) {
-          var user = response.data;
-          toggleLogin();
-          $('.modal-backdrop').remove();
-          if (user.role === 'ADMIN') {
-            $location.url('/admin');
-          } else if (user.role === 'ADVERTISER') {
-            $location.url('/places');
+      function toggleLogin(ev) {
+        $mdDialog.show({
+          controller: LoginModalController,
+          templateUrl: '/project/directives/templates/modals/skd-login-modal.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          clickOutsideToClose: true
+        }).then(function (response) {
+          if (response === 'REGISTER') {
+            toggleRegister(ev);
           } else {
-            scope.user = user;
+            scope.user = response;
           }
+        }, function () {
+          scope.user = null;
+        });
+      }
+
+      function toggleRegister(ev) {
+        $mdDialog.show({
+          controller: RegisterModalController,
+          templateUrl: '/project/directives/templates/modals/skd-register-modal.html',
+          parent: angular.element(document.body),
+          targetEvent: ev,
+          clickOutsideToClose: true
+        }).then(function (response) {
+          if (response === 'LOGIN') {
+            toggleLogin(ev);
+          } else {
+            scope.user = response;
+          }
+        }, function () {
+          scope.user = null;
         });
       }
 
@@ -43,20 +53,63 @@
         });
       }
 
-      function register(user) {
-        var usr = {
-          username: user.username,
-          password: user.password
-        };
-        UserService.register(usr).then(function (response) {
-          var user = response.data;
-          toggleRegister();
-          scope.user = user;
-        });
-      }
-
       function viewProfile() {
         // TODO go to profile
+      }
+
+      function LoginModalController($scope, $mdDialog) {
+        $scope.cancel = cancel;
+        $scope.showRegister = showRegister;
+        $scope.login = login;
+
+        function showRegister() {
+          $mdDialog.hide('REGISTER');
+        }
+
+        function cancel() {
+          $mdDialog.cancel();
+        }
+
+        function login(user) {
+          UserService.login(user).then(function (response) {
+            var user = response.data;
+            $mdDialog.hide(user);
+            if (user.role === 'ADMIN') {
+              $location.url('/admin');
+            } else if (user.role === 'ADVERTISER') {
+              $location.url('/places');
+            }
+          });
+        }
+      }
+
+      function RegisterModalController($scope, $mdDialog) {
+        $scope.cancel = cancel;
+        $scope.showLogin = showLogin;
+        $scope.register = register;
+
+        function showLogin() {
+          $mdDialog.hide('LOGIN');
+        }
+
+        function cancel() {
+          $mdDialog.cancel();
+        }
+
+        function register(user) {
+          if (user.password === user.confirm) {
+            var usr = { username: user.username, password: user.password };
+            UserService.register(usr).then(function (response) {
+              var user = response.data;
+              $mdDialog.hide(user);
+              if (user.role === 'ADMIN') {
+                $location.url('/admin');
+              } else if (user.role === 'ADVERTISER') {
+                $location.url('/places');
+              }
+            });
+          }
+        }
       }
     }
 

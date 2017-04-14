@@ -6,7 +6,7 @@ body {
     background-color: #e4e4e4;
 }
 
-.md-block {
+.md-block, .md-icon-float {
     margin: 0 !important;
 }
 

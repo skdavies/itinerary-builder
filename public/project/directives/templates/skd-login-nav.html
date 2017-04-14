@@ -2,8 +2,8 @@
     <div class="md-toolbar-tools">
         <h1 flex>Vacation Builder</h1>
         <div ng-show="!user">
-            <md-button ng-click="toggleRegister()">Sign Up</md-button>
-            <md-button class="md-raised" ng-click="toggleLogin()">Login</md-button>
+            <md-button ng-click="toggleRegister($event)">Sign Up</md-button>
+            <md-button class="md-raised" ng-click="toggleLogin($event)">Login</md-button>
         </div>
         <div ng-show="user">
             <md-button ng-click="viewProfile()">Profile</md-button>
@@ -11,49 +11,3 @@
         </div>
     </div>
 </md-toolbar>
-
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="toggleLogin()"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="loginModalLabel">Login</h4>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control" placeholder="Username" ng-model="login.username">
-                <input type="password" class="form-control" placeholder="Password" ng-model="login.password">
-                Don't have an account yet? <a class="login" ng-click="toggleLogin();toggleRegister()">Sign
-                up!</a>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="toggleLogin()">Cancel</button>
-                <button type="button" class="btn btn-success" ng-click="login(login)">Login</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" ng-click="toggleRegister()"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="registerModalLabel">Register</h4>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control" placeholder="Username" ng-model="login.username">
-                <input type="password" class="form-control" placeholder="Password" ng-model="login.password">
-                <input type="password" class="form-control" placeholder="Confirm Password" ng-model="login.confirm">
-                <a href="/project/api/users/auth/google"><i class="fa fa-google-plus-square"></i></a>
-                <a><i class="fa fa-facebook-official"></i></a>
-                Already have an account? <a class="login" ng-click="toggleRegister();toggleLogin()">Login</a>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="toggleRegister()">Cancel</button>
-                <button type="button" class="btn btn-success" ng-click="register(login)">Register</button>
-            </div>
-        </div>
-    </div>
-</div>

@@ -1,0 +1,38 @@
+<md-dialog aria-label="Register">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Login</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()" aria-label="cancel">
+                    <i class="fa fa-times"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="column">
+                <md-input-container>
+                    <input ng-model="usr.username" type="text" placeholder="Username">
+                </md-input-container>
+                <md-input-container>
+                    <input ng-model="usr.password" type="password" placeholder="Password">
+                </md-input-container>
+                <md-input-container>
+                    <input ng-model="usr.confirm" type="password" placeholder="Confirm Password">
+                </md-input-container>
+                Already have an account? <a class="login" ng-click="showLogin()">Login!</a>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel()">
+                Cancel
+            </md-button>
+            <md-button class="md-raised md-primary" ng-click="register(usr)">
+                Register
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
