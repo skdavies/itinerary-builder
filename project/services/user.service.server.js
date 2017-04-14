@@ -1,5 +1,6 @@
 module.exports = function (app, model) {
   var passport = require('passport');
+  var bcrypt = require("bcrypt-nodejs");
   var LocalStrategy = require('passport-local').Strategy;
   var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
@@ -37,11 +38,13 @@ module.exports = function (app, model) {
   app.put('/project/api/users/:userId/follow/:followId', followUser);
 
   function localStrategy(username, password, done) {
-    userModel.findUserByCredentials(username, password).then(function (user) {
-        if (!user) {
+    userModel.findUserByUsername(username).then(function (user) {
+        if (user && bcrypt.compareSync(password, user.password)) {
+          return done(null, user);
+        } else {
           return done(null, false);
+
         }
-        return done(null, user);
       }, function (err) {
         if (err) {
           return done(err);
@@ -58,9 +61,9 @@ module.exports = function (app, model) {
         var newUser = {
           username: profile.emails[0].value,
           firstName: profile.name.givenName,
-          lastName:  profile.name.familyName,
+          lastName: profile.name.familyName,
           google: {
-            id:    profile.id
+            id: profile.id
           }
         };
         userModel.createUser(newUser).then(function (user) {
@@ -112,6 +115,7 @@ module.exports = function (app, model) {
   function register(req, res) {
     var user = req.body;
     if (user) {
+      user.password = bcrypt.hashSync(user.password);
       userModel.createUser(user).then(function (user) {
         req.login(user, function (err) {
           if (err) {
