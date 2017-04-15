@@ -59,17 +59,19 @@ module.exports = function () {
   }
 
   function updateUser(userId, user) {
-    return UserModel.findOneAndUpdate({ _id: userId }, { $set: user })
+    return UserModel.findOneAndUpdate({ _id: userId }, { $set: user }, { new: true })
   }
 
   function updateProfile(user) {
-    return UserModel.findOneAndUpdate({ _id: user._id }, {
-      $set: {
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email
-      }
-    });
+    return UserModel.findOneAndUpdate({ _id: user._id },
+      {
+        $set: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email
+        }
+      },
+      { new: true });
   }
 
   function deleteUser(userId) {

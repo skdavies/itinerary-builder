@@ -30,7 +30,7 @@ module.exports = function () {
   }
 
   function updateItinerary(itineraryId, itinerary) {
-    return ItineraryModel.findOneAndUpdate({ _id: itineraryId }, { $set: itinerary })
+    return ItineraryModel.findOneAndUpdate({ _id: itineraryId }, { $set: itinerary }, { new: true })
   }
 
   function deleteItinerary(itineraryId) {
@@ -38,6 +38,6 @@ module.exports = function () {
   }
 
   function reorderPlaces(itineraryId, places) {
-    return ItineraryModel.findOneAndUpdate({ _id: itineraryId }, { $set: { places: places } });
+    return ItineraryModel.findOneAndUpdate({ _id: itineraryId }, { $set: { places: places } }, { new: true });
   }
 };
