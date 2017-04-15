@@ -70,7 +70,7 @@ module.exports = function (app, model) {
     var ad = req.body;
     if (ad && ad.text) {
       if (req.user && req.user.role === 'ADVERTISER') {
-        placeModel.addPlaceReview(req.user._id, req.params.placeId, ad.text).then(function (place) {
+        placeModel.addPlaceAd(req.user._id, req.params.placeId, ad.text).then(function (place) {
           res.json(place);
         }, function (error) {
           res.sendStatus(500);

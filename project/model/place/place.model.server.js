@@ -53,7 +53,7 @@ module.exports = function () {
     return PlaceModel.findOneAndUpdate({ _id: placeId },
       {
         $addToSet: { ads: { advertiser: userId, ad: ad } },
-        $set: { suggested: Date.now }
+        $set: { suggested: new Date() }
       },
       { new: true });
   }

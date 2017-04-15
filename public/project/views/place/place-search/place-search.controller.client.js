@@ -9,7 +9,7 @@
     function init() {
       vm.place = null;
       PlaceService.findMostRecentAds().then(function (response) {
-        //TODO FORMAT THEN DISPLAY THESE
+        vm.placesWithAds = response.data;
       });
       vm.user = loggedIn;
       initAutocomplete();

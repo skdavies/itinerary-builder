@@ -18,8 +18,12 @@ a {
     height: 400px;
 }
 
-#map-place {
-    height: 600px;
+.ad-map {
+    height: 300px;
+}
+
+.user-map {
+    height: 550px;
 }
 
 .form-control {
@@ -81,8 +85,12 @@ a {
 }
 
 .reviews {
+    max-height: 220px;
+}
+
+.review-panel {
+    max-height: 200px;
     overflow-y: scroll;
-    max-height: 250px;
 }
 
 #dark-sky {
@@ -91,6 +99,10 @@ a {
 
 .colored-frame {
     background-color: #dff0d8;
+}
+
+.ad-frame {
+    background-color: #a3ccff;
 }
 
 .datepicker {

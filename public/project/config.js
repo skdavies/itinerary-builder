@@ -67,7 +67,7 @@
       } else if (user.role === 'USER') {
         deferred.resolve(user);
       } else if (user.role === 'ADVERTISER') {
-        $location.url('/pages');
+        $location.url('/place');
         deferred.reject();
       } else if (user.role === 'ADMIN') {
         $location.url('/admin');

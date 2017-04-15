@@ -8,11 +8,12 @@
             </md-input-container>
         </div>
         <div layout="row">
-            <div hide-xs id="map-place" flex="50"></div>
+            <div hide-xs id="map-place" flex="50"
+                 ng-class="vm.user && vm.user.role === 'ADVERTISER' ? 'ad-map' : 'user-map'"></div>
             <div flex-gt-xs="50" flex="100" ng-show="vm.place" layout="column" class="layout-padding">
                 <h2>{{vm.place.formatted_address}}</h2>
-
                 <md-datepicker class="datepicker" layout-margin ng-model="vm.weather.selected"
+                               ng-show="!vm.user || vm.user.role === 'USER'"
                                md-placeholder="Lookup Past Weather"
                                md-open-on-focus md-max-date="vm.weather.maxDate"
                                ng-change="vm.lookupWeather()"></md-datepicker>
@@ -29,24 +30,35 @@
                 </div>
                 <div class="reviews">
                     <h4>User Reviews</h4>
-                    <md-list-item class="md-2-line" ng-repeat="review in vm.place.reviews">
-                        <div class="md-list-item-text">
-                            <h3>{{review.review}}</h3>
-                            <p>{{review.date | date: 'MMM dd, yyyy'}}</p>
-                        </div>
-                    </md-list-item>
+                    <div class="review-panel">
+                        <md-list-item class="md-2-line" ng-repeat="review in vm.place.reviews">
+                            <div class="md-list-item-text">
+                                <h3>{{review.review}}</h3>
+                                <p>{{review.date | date: 'MMM dd, yyyy'}}</p>
+                            </div>
+                        </md-list-item>
+                    </div>
                 </div>
-                <md-button ng-show="vm.user && vm.user.role === 'USER' && vm.place" class="md-raised md-primary"
+                <md-button layout="row" ng-show="vm.user && vm.user.role === 'USER'" class="md-raised md-primary"
                            ng-click="vm.showModal($event, 'REVIEW')">
                     Add Review
                 </md-button>
             </div>
         </div>
+        <h2 flex>Local Advertisements</h2>
+        <div layout="row" ng-show="vm.user && vm.user.role === 'ADVERTISER'">
+            <md-button flex class="md-raised md-primary"
+                       ng-click="vm.showModal($event, 'SUGGESTION')">
+                Add Suggestion
+            </md-button>
+        </div>
+        <div layout="row" ng-show="vm.place.ads.length > 0" layout-padding layout-wrap layout-fill>
+            <md-whiteframe ng-repeat="ad in vm.place.ads" class="md-whiteframe-5dp ad-frame" flex="50" layout layout-align="center center"
+                           flex-gt-xs="33">
+                <div flex>{{ad.ad}}</div>
+            </md-whiteframe>
+        </div>
     </div>
-    <md-button ng-show="vm.user && vm.user.role === 'ADVERTISER' && vm.place" class="md-raised md-primary"
-               ng-click="vm.showModal($event, 'SUGGESTION')">
-        Add Suggestion
-    </md-button>
 </md-content>
 
 <skd-bottom-nav></skd-bottom-nav>

@@ -7,8 +7,14 @@
                 <input type="text" placeholder="Search for a place..." id="autocomplete-place-search">
             </md-input-container>
         </div>
-        <div layout="row">
-            Render Suggestions
+        <h2 flex>Recently Posted Local Advertisements</h2>
+        <div layout="row" ng-show="vm.placesWithAds.length > 0" layout-padding layout-wrap layout-fill>
+            <md-whiteframe ng-repeat="place in vm.placesWithAds" class="md-whiteframe-5dp ad-frame" flex="50" layout="column"
+                           layout-align="center center"
+                           flex-gt-xs="33">
+                <div><strong>{{place.name}}</strong></div>
+                <div flex>{{place.ads[0].ad}}</div>
+            </md-whiteframe>
         </div>
     </div>
 </md-content>
