@@ -76,7 +76,6 @@
           place.googleReviews = place.reviews;
           delete place.reviews;
           vm.place = $.extend({}, myPlace, place);
-          console.log(vm.place);
         } else {
           vm.place = myPlace;
         }
@@ -122,11 +121,11 @@
 
         function post(text) {
           if (action === 'REVIEW') {
-            PlaceService.addPlaceReview(vm.placeId, { text: text }).then(function (response) {
+            PlaceService.addPlaceReview(vm.place._id, { text: text }).then(function (response) {
               $mdDialog.hide(response.data);
             });
           } else if (action === 'SUGGESTION') {
-            PlaceService.addPlaceAd(vm.placeId, {text: text}).then(function (response) {
+            PlaceService.addPlaceAd(vm.place._id, {text: text}).then(function (response) {
               $mdDialog.hide(response.data);
             });
           }

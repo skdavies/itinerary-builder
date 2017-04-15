@@ -37,21 +37,25 @@ module.exports = function () {
   }
 
   function addPlaceReview(userId, placeId, review) {
-    return PlaceModel.findOneAndUpdate({ _id: placeId }, {
-      $addToSet: {
-        reviews: {
-          reviewer: userId,
-          review: review
+    return PlaceModel.findOneAndUpdate({ _id: placeId },
+      {
+        $addToSet: {
+          reviews: {
+            reviewer: userId,
+            review: review
+          }
         }
-      }
-    });
+      },
+      { new: true });
   }
 
   function addPlaceAd(userId, placeId, ad) {
-    return PlaceModel.findOneAndUpdate({ _id: placeId }, {
-      $addToSet: { ads: { advertiser: userId, ad: ad } },
-      $set: { suggested: Date.now }
-    });
+    return PlaceModel.findOneAndUpdate({ _id: placeId },
+      {
+        $addToSet: { ads: { advertiser: userId, ad: ad } },
+        $set: { suggested: Date.now }
+      },
+      { new: true });
   }
 
   function findMostRecentAds() {
@@ -59,7 +63,7 @@ module.exports = function () {
   }
 
   function updatePlace(placeId, place) {
-    return PlaceModel.findOneAndUpdate({ _id: placeId }, { $set: place });
+    return PlaceModel.findOneAndUpdate({ _id: placeId }, { $set: place }, { new: true });
   }
 
   function deletePlace(placeId) {

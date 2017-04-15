@@ -24,7 +24,7 @@
             <md-button ng-click="cancel()">
                 Cancel
             </md-button>
-            <md-button class="md-raised md-primary" ng-click="post(input)">
+            <md-button class="md-raised md-primary" ng-click="post(input)" ng-disabled="!input">
                 Add
             </md-button>
         </md-dialog-actions>

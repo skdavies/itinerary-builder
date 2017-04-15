@@ -19,7 +19,7 @@ a {
 }
 
 #map-place {
-    height: 400px;
+    height: 600px;
 }
 
 .form-control {
@@ -75,8 +75,22 @@ a {
     margin-top: 0;
 }
 
+.place-view h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.reviews {
+    overflow-y: scroll;
+    max-height: 250px;
+}
+
 #dark-sky {
     font-size: 12px;
+}
+
+.colored-frame {
+    background-color: #dff0d8;
 }
 
 .datepicker {

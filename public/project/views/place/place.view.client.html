@@ -11,15 +11,13 @@
             <div hide-xs id="map-place" flex="50"></div>
             <div flex-gt-xs="50" flex="100" ng-show="vm.place" layout="column" class="layout-padding">
                 <h2>{{vm.place.formatted_address}}</h2>
-                <div ng-repeat="review in vm.place.reviews">
-                    {{review.review}}
-                </div>
+
                 <md-datepicker class="datepicker" layout-margin ng-model="vm.weather.selected"
                                md-placeholder="Lookup Past Weather"
                                md-open-on-focus md-max-date="vm.weather.maxDate"
                                ng-change="vm.lookupWeather()"></md-datepicker>
                 <div ng-show="vm.weather.forecast">
-                    <md-whiteframe class="md-whiteframe-5dp" flex-offset="25" flex="50" layout="column">
+                    <md-whiteframe class="md-whiteframe-5dp colored-frame" flex-offset="25" flex="50" layout="column">
                         <div>Summary: {{vm.weather.forecast.hourly.summary}}</div>
                         <div><strong>Weather at 2pm:</strong></div>
                         <div>Temperature: {{vm.weather.forecast.hourly.data[13].temperature}}</div>
@@ -28,6 +26,15 @@
                         <div>Humidity: {{vm.weather.forecast.hourly.data[13].humidity * 100}}%</div>
                         <a id="dark-sky" href="https://darksky.net/poweredby/">Powered By Dark Sky</a>
                     </md-whiteframe>
+                </div>
+                <div class="reviews">
+                    <h4>User Reviews</h4>
+                    <md-list-item class="md-2-line" ng-repeat="review in vm.place.reviews">
+                        <div class="md-list-item-text">
+                            <h3>{{review.review}}</h3>
+                            <p>{{review.date | date: 'MMM dd, yyyy'}}</p>
+                        </div>
+                    </md-list-item>
                 </div>
                 <md-button ng-show="vm.user && vm.user.role === 'USER' && vm.place" class="md-raised md-primary"
                            ng-click="vm.showModal($event, 'REVIEW')">

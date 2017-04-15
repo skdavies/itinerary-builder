@@ -9,7 +9,8 @@ module.exports = function () {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'ProjectUserModel'
       },
-      review: String
+      review: String,
+      date: { type: Date, default: Date.now }
     }],
     ads: [{
       advertiser: {
