@@ -30,16 +30,16 @@
         }
       })
       .when('/place', {
-        templateUrl: 'views/place/place.view.client.html',
-        controller: 'PlaceController',
+        templateUrl: 'views/place/place-search/place-search.view.client.html',
+        controller: 'PlaceSearchController',
         controllerAs: 'vm',
         resolve: {
           loggedIn: checkLogin
         }
       })
       .when('/place/:placeId', {
-        templateUrl: 'views/place/place.view.client.html',
-        controller: 'PlaceController',
+        templateUrl: 'views/place/place-details/place-details.view.client.html',
+        controller: 'PlaceDetailsController',
         controllerAs: 'vm',
         resolve: {
           loggedIn: checkLogin

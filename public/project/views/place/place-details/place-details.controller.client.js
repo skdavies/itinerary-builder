@@ -1,9 +1,9 @@
 (function () {
   angular
     .module('ItineraryPlanner')
-    .controller('PlaceController', placeController);
+    .controller('PlaceDetailsController', placeDetailsController);
 
-  function placeController($location, $routeParams, PlaceService, loggedIn, $scope, DarkSkyService, $mdDialog) {
+  function placeDetailsController($location, $routeParams, PlaceService, loggedIn, $scope, DarkSkyService, $mdDialog) {
     var vm = this;
     vm.lookupWeather = lookupWeather;
     vm.showModal = showModal;
@@ -20,10 +20,6 @@
         PlaceService.findPlaceById(vm.placeId).then(function (response) {
           initMap(response.data);
         });
-      } else {
-        PlaceService.findMostRecentAds().then(function (response) {
-          //TODO FORMAT THEN DISPLAY THESE
-        });
       }
       vm.user = loggedIn;
       initAutocomplete();
@@ -35,19 +31,19 @@
       var options = {
         types: ['(regions)']
       };
-      var input = document.getElementById('autocomplete-place');
+      var input = document.getElementById('autocomplete-place-details');
       var autocomplete = new google.maps.places.Autocomplete(input, options);
       window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
         var place = autocomplete.getPlace();
         PlaceService.findPlaceByGoogleId(place.place_id).then(function (response) {
           var myPlace = response.data;
           if (myPlace) {
-            // $location.url('/place/' + myPlace._id);
-            initMap(myPlace);
+            $location.url('/place/' + myPlace._id);
+            // initMap(myPlace);
           } else {
             PlaceService.createPlace({ googlePlaceId: place.place_id, name: place.name }).then(function (response) {
-              // $location.url('/place/' + response.data._id);
-              initMap(response.data);
+              $location.url('/place/' + response.data._id);
+              // initMap(response.data);
             });
           }
         });
@@ -97,7 +93,7 @@
     function showModal(ev, action) {
       $mdDialog.show({
         controller: AddSuggestionController,
-        templateUrl: '/project/views/place/modals/add-suggestion-review.html',
+        templateUrl: '/project/views/place/place-details/modals/add-suggestion-review.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose: true,
