@@ -14,8 +14,8 @@
         }
       })
       .when('/itinerary/:itinId', {
-        templateUrl: 'views/home/home.view.client.html',
-        controller: 'HomeController',
+        templateUrl: 'views/itinerary/itinerary-details/itinerary-details.view.client.html',
+        controller: 'ItineraryDetailsController',
         controllerAs: 'vm',
         resolve: {
           loggedIn: checkLoginUserRole

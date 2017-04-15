@@ -3,18 +3,15 @@
 <md-content flex class="layout-padding home-view">
     <div layout="column" flex>
         <div layout="row" flex>
-            <md-input-container md-no-float class="md-block" flex>
-                <input type="text" placeholder="Enter a location" id="autocomplete">
+            <md-input-container md-no-float class="md-block" ng-show="vm.canEdit">
+                <input type="text" placeholder="Enter a location" id="autocomplete-itin-details">
             </md-input-container>
         </div>
         <div layout="row" flex>
-            <div hide-xs id="map" flex-gt-xs="66"></div>
-            <div class="right-panel" layout-padding flex flex-gt-xs="33">
+            <div hide-xs flex-gt-xs="66" id="map-itin-details"></div>
+            <div class="right-panel" layout-padding flex-gt-xs="33" flex>
                 <div class="itinerary">
-                    <div ng-show="vm.places.length === 0" class="alert alert-success" id="itin-placeholder">
-                        <h3>Add a place to start your itinerary!</h3>
-                    </div>
-                    <div class="list-group" ng-show="vm.places.length > 0" id="itinerary">
+                    <div class="list-group" id="itinerary-details">
                         <a class="list-group-item list-group-item-action text-left" ng-repeat="place in vm.places"
                            id="{{place._id}}">
                             <i class="fa fa-bars sortable" aria-hidden="true"></i>
@@ -38,11 +35,6 @@
                            ng-click="vm.resetToLastSave()" ng-disabled="!vm.dirty">Reset
                 </md-button>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-3" ng-repeat="suggestion in vm.suggestions">
-            Test
         </div>
     </div>
 </md-content>

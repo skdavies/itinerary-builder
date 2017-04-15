@@ -1,9 +1,9 @@
 (function () {
   angular
     .module('ItineraryPlanner')
-    .controller('HomeController', homeController);
+    .controller('ItineraryDetailsController', ItineraryDetailsController);
 
-  function homeController($location, $routeParams, ItineraryService, PlaceService, UserService, $scope, loggedIn) {
+  function ItineraryDetailsController($location, $routeParams, ItineraryService, PlaceService, UserService, $scope, loggedIn) {
     var vm = this;
     vm.saveItinerary = saveItinerary;
     vm.resetToLastSave = resetToLastSave;
@@ -20,34 +20,23 @@
         $location.url('/place');
         return;
       }
+      initMap();
       vm.canEdit = true;
-      if (vm.itinId) {
-        ItineraryService.findItineraryById(vm.itinId).then(function (response) {
-          vm.itinerary = response.data;
-          vm.places = response.data.places;
-          if (vm.user && vm.user._id !== response.data._user) {
-            vm.canEdit = false;
-          }
-        });
-      } else {
-        vm.itinerary = null;
-        vm.places = [];
-      }
-      PlaceService.findMostRecentAds().then(function (response) {
-        vm.suggestions = response.data;
-        //TODO reformat into array of ads/suggestions
-      }, function () {
-        vm.suggestions = [];
+      ItineraryService.findItineraryById(vm.itinId).then(function (response) {
+        vm.itinerary = response.data;
+        vm.places = response.data.places;
+        if (vm.user && vm.user._id !== response.data._user) {
+          vm.canEdit = false;
+        }
       });
       vm.dirty = false;
       initSortable();
-      initMap()
     }
 
     init();
 
     function initSortable() {
-      $('#itinerary').sortable({
+      $('#itinerary-details').sortable({
         axis: 'y',
         handle: '.sortable'
       });
@@ -55,14 +44,14 @@
 
     function initMap() {
       var fenway = { lat: 42.346268, lng: -71.095764 };
-      var map = new google.maps.Map(document.getElementById('map'), {
+      var map = new google.maps.Map(document.getElementById('map-itin-details'), {
         zoom: 4,
         center: fenway
       });
       var options = {
         types: ['(regions)']
       };
-      var input = document.getElementById('autocomplete');
+      var input = document.getElementById('autocomplete-itin-details');
       var autocomplete = new google.maps.places.Autocomplete(input, options);
       window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
         var place = autocomplete.getPlace();

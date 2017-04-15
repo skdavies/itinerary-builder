@@ -14,7 +14,7 @@ a {
     cursor: pointer;
 }
 
-#map {
+#map, #map-itin-details {
     height: 400px;
 }
 

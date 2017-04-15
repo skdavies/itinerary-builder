@@ -51,12 +51,17 @@ module.exports = function (app, model) {
   }
 
   function updateItinerary(req, res) {
-    if (req.body) {
-      itineraryModel.updateItinerary(req.params.itinId, req.body).then(function (itinerary) {
-        res.json(itinerary);
-      }, function (error) {
-        res.sendStatus(500);
-      });
+    var itinerary = req.body;
+    if (itinerary) {
+      if (req.user && req.user._id === itinerary._user) {
+        itineraryModel.updateItinerary(req.params.itinId, itinerary).then(function (itinerary) {
+          res.json(itinerary);
+        }, function (error) {
+          res.sendStatus(500);
+        });
+      } else {
+        res.status(401).send('You may only edit your own itineraries.');
+      }
     } else {
       res.status(400).send('Invalid request body.');
     }
