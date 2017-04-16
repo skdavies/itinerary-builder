@@ -3,7 +3,7 @@
     .module('ItineraryPlanner')
     .controller('ItineraryDetailsController', ItineraryDetailsController);
 
-  function ItineraryDetailsController($location, $routeParams, ItineraryService, PlaceService, UserService, $scope, loggedIn) {
+  function ItineraryDetailsController($location, $routeParams, ItineraryService, PlaceService, $scope, loggedIn) {
     var vm = this;
     vm.saveItinerary = saveItinerary;
     vm.resetToLastSave = resetToLastSave;
@@ -21,12 +21,12 @@
         return;
       }
       initMap();
-      vm.canEdit = true;
+      vm.canEdit = false;
       ItineraryService.findItineraryById(vm.itinId).then(function (response) {
         vm.itinerary = response.data;
         vm.places = response.data.places;
-        if (vm.user && vm.user._id !== response.data._user) {
-          vm.canEdit = false;
+        if (vm.user && vm.user._id === response.data._user) {
+          vm.canEdit = true;
         }
       });
       vm.dirty = false;
@@ -85,17 +85,11 @@
     }
 
     function saveItinerary() {
-      var placeIds = $("#itinerary").sortable("toArray");
-      if (vm.itinerary) {
-        vm.itinerary.places = placeIds;
-        ItineraryService.updateItinerary(vm.itinerary._id, vm.itinerary).then(function (itinerary) {
-        });
-      } else {
-        ItineraryService.createItinerary(vm.user._id, { places: placeIds }).then(function (response) {
-          vm.itinerary = response.data;
-        });
-      }
-      vm.dirty = false;
+      vm.itinerary.places = $("#itinerary").sortable("toArray");
+      ItineraryService.updateItinerary(vm.itinerary._id, vm.itinerary).then(function (response) {
+        vm.itinerary = response.data;
+        vm.dirty = false;
+      });
     }
 
     function removePlace(index) {

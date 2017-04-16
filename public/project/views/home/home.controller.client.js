@@ -3,15 +3,14 @@
     .module('ItineraryPlanner')
     .controller('HomeController', homeController);
 
-  function homeController($location, $routeParams, ItineraryService, PlaceService, UserService, $scope, loggedIn) {
+  function homeController($location, ItineraryService, PlaceService, $scope, loggedIn) {
     var vm = this;
     vm.saveItinerary = saveItinerary;
-    vm.resetToLastSave = resetToLastSave;
     vm.removePlace = removePlace;
     vm.viewPlace = viewPlace;
 
     function init() {
-      vm.itinId = $routeParams['itinId'];
+      vm.control = {};
       vm.user = loggedIn;
       if (vm.user && vm.user.role === 'ADMIN') {
         $location.url('/admin');
@@ -20,28 +19,14 @@
         $location.url('/place');
         return;
       }
-      vm.canEdit = true;
-      if (vm.itinId) {
-        ItineraryService.findItineraryById(vm.itinId).then(function (response) {
-          vm.itinerary = response.data;
-          vm.places = response.data.places;
-          if (vm.user && vm.user._id !== response.data._user) {
-            vm.canEdit = false;
-          }
-        });
-      } else {
-        vm.itinerary = null;
-        vm.places = [];
-      }
+      vm.places = [];
+      initMap();
       PlaceService.findMostRecentAds().then(function (response) {
-        vm.suggestions = response.data;
-        //TODO reformat into array of ads/suggestions
+        vm.placesWithAds = response.data;
       }, function () {
-        vm.suggestions = [];
+        vm.placesWithAds = [];
       });
-      vm.dirty = false;
       initSortable();
-      initMap()
     }
 
     init();
@@ -78,14 +63,12 @@
           if (response.data) { //that place already exists
             place._id = response.data._id;
             vm.places.push(place);
-            vm.dirty = true;
           } else {
             PlaceService.createPlace({
               googlePlaceId: place.place_id, name: place.name
             }).then(function (response) {
               place._id = response.data._id;
               vm.places.push(place);
-              vm.dirty = true;
             });
           }
         });
@@ -97,28 +80,13 @@
 
     function saveItinerary() {
       var placeIds = $("#itinerary").sortable("toArray");
-      if (vm.itinerary) {
-        vm.itinerary.places = placeIds;
-        ItineraryService.updateItinerary(vm.itinerary._id, vm.itinerary).then(function (itinerary) {
-        });
-      } else {
-        ItineraryService.createItinerary(vm.user._id, { places: placeIds }).then(function (response) {
-          vm.itinerary = response.data;
-        });
-      }
-      vm.dirty = false;
+      ItineraryService.createItinerary(vm.user._id, { places: placeIds }).then(function (response) {
+        $location.url('/itinerary/' + response.data._id);
+      });
     }
 
     function removePlace(index) {
       vm.places = vm.places.slice(index, 1);
-    }
-
-    function resetToLastSave() {
-      ItineraryService.findItineraryById(vm.itinId).then(function (response) {
-        var itinerary = response.data;
-        vm.itinerary = itinerary;
-        vm.places = itinerary.places;
-      });
     }
 
     function viewPlace(place) {

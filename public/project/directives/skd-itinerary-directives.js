@@ -12,6 +12,12 @@
       scope.logout = logout;
       scope.viewProfile = viewProfile;
 
+      if (scope.control) {
+        scope.control = {
+          showRegister: toggleRegister
+        }
+      }
+
       function toggleLogin(ev) {
         $mdDialog.show({
           controller: LoginModalController,
@@ -119,12 +125,13 @@
       templateUrl: 'directives/templates/skd-login-nav.html',
       link: linkFunction,
       scope: {
-        user: '='
+        user: '=',
+        control: '='
       }
     }
   }
 
-  function skdBottomNav($location, $window) {
+  function skdBottomNav($location) {
     function link(scope, element) {
       scope.goPlaces = goPlaces;
       scope.goHome = goHome;
@@ -133,14 +140,10 @@
 
       function goPlaces() {
         $location.url('/place');
-        // $window.location.href = '/project/#/place';
-        // $window.location.reload();
       }
 
       function goHome() {
         $location.url('/');
-        // $window.location.href = '/project/#/';
-        // $window.location.reload(); // verify map reloads
       }
 
       function goItineraries() {

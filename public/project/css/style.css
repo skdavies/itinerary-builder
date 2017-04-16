@@ -14,8 +14,12 @@ a {
     cursor: pointer;
 }
 
-#map, #map-itin-details {
+#map, #map-itin-details, .right-panel {
     height: 400px;
+}
+
+.right-panel {
+    padding-top: 0;
 }
 
 .ad-map {
@@ -34,20 +38,14 @@ a {
     outline: none;
 }
 
-.itinerary {
-    height: 240px;
-}
-
 #itin-placeholder {
+    text-align: center;
+    margin-top: 0;
     height: 100%;
 }
 
 #itinerary {
     overflow-y: scroll;
-}
-
-.right-panel {
-    height: 600px;
 }
 
 .fa {
