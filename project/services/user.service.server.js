@@ -162,14 +162,14 @@ module.exports = function (app, model) {
     var user = req.body;
     if (user) {
       if (req.user.role === 'ADMIN') {
-        userModel.updateUser(req.params.userId, user).then(function () {
-          res.sendStatus(200);
+        userModel.updateUser(req.params.userId, user).then(function (user) {
+          res.json(user);
         }, function () {
           res.sendStatus(500);
         });
       } else if (req.user.role === 'USER' && req.user._id === user._id) {
-        userModel.updateProfile(user).then(function () {
-          res.sendStatus(200);
+        userModel.updateProfile(user).then(function (user) {
+          res.json(user);
         }, function () {
           res.sendStatus(500);
         });

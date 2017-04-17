@@ -30,7 +30,7 @@
                             <td>{{user.followers.length}}</td>
                             <td ng-show="user.role !== 'ADMIN'">
                                 <i class="fa fa-times admin-icon" ng-click="vm.deleteUser(user)"></i>
-                                <i class="fa fa-pencil admin-icon" ng-click="vm.toggleEditUser($event, user)"></i>
+                                <i class="fa fa-pencil admin-icon" ng-click="vm.toggleEditUser($event, user, $index)"></i>
                             </td>
                         </tr>
                         </tbody>
@@ -58,7 +58,7 @@
                             <td>{{place.ads.length}}</td>
                             <td>
                                 <i class="fa fa-times admin-icon" ng-click="vm.deletePlace(place)"></i>
-                                <i class="fa fa-pencil admin-icon" ng-click="vm.toggleEditPlace($event, place)"
+                                <i class="fa fa-pencil admin-icon" ng-click="vm.toggleEditPlace($event, place, $index)"
                                    ng-show="place.ads.length > 0 || place.reviews.length > 0"></i>
                             </td>
                         </tr>
@@ -86,7 +86,7 @@
                             <td>
                                 <i class="fa fa-times admin-icon" ng-click="vm.deleteItinerary(itinerary)"></i>
                                 <i class="fa fa-pencil admin-icon"
-                                   ng-click="vm.toggleEditItinerary($event, itinerary)"></i>
+                                   ng-click="vm.toggleEditItinerary($event, itinerary, $index)"></i>
                             </td>
                         </tr>
                         </tbody>
@@ -102,33 +102,5 @@
         <h2 id="require-lg">
             We're sorry, the admin view requires a bigger screen.
         </h2>
-    </div>
-
-    <div class="modal fade" id="placeModal" tabindex="-1" role="dialog" aria-labelledby="editPlaceModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close"
-                            ng-click="vm.place = null; vm.toggleEditPlace()"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="editPlaceModal">Edit</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="text" class="form-control" placeholder="Name" ng-model="vm.place.name" disabled>
-                    <ul class="list-group">
-                        <li ng-repeat="review in vm.place.reviews" class="list-group-item">{{review.review}}</li>
-                    </ul>
-                    <ul class="list-group">
-                        <li ng-repeat="ad in vm.place.ads" class="list-group-item">{{ad.ad}}</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="vm.place = null; vm.toggleEditPlace()">
-                        Cancel
-                    </button>
-                    <button type="button" class="btn btn-success" ng-click="vm.editPlace()">Update</button>
-                </div>
-            </div>
-        </div>
     </div>
 </md-content>

@@ -87,7 +87,7 @@
       });
     }
 
-    function toggleEditUser(event, user) {
+    function toggleEditUser(event, user, index) {
       vm.success = null;
       vm.error = null;
       $mdDialog.show({
@@ -101,14 +101,14 @@
           place: null,
           itinerary: null
         }
-      }).then(function (response) {
-        // success modal
+      }).then(function (user) {
+        vm.users[index] = user;
       }, function () {
         // cancel modal
       });
     }
     
-    function toggleEditPlace(event, place) {
+    function toggleEditPlace(event, place, index) {
       vm.success = null;
       vm.error = null;
       $mdDialog.show({
@@ -122,14 +122,14 @@
           place: place,
           itinerary: null
         }
-      }).then(function (response) {
-        // success modal
+      }).then(function (place) {
+        vm.places[index] = place;
       }, function () {
         // cancel modal
       });
     }
 
-    function toggleEditItinerary(event, itinerary) {
+    function toggleEditItinerary(event, itinerary, index) {
       vm.success = null;
       vm.error = null;
       $mdDialog.show({
@@ -143,8 +143,8 @@
           place: null,
           itinerary: itinerary
         }
-      }).then(function (response) {
-        // success modal
+      }).then(function (itinerary) {
+        vm.itineraries[index] = itinerary;
       }, function () {
         // cancel modal
       });
@@ -167,13 +167,8 @@
 
       function editUser() {
         UserService.updateUser($scope.usr._id, $scope.usr).then(function (response) {
-          $mdDialog.hide();
+          $mdDialog.hide(response.data);
           vm.success = 'User successfully updated.';
-          UserService.findAllUsers().then(function (response) {
-            vm.users = response.data;
-          }, function (err) {
-            vm.error = 'The data may be out of date, please refresh.';
-          });
         }, function (err) {
           vm.error = 'Something went wrong.';
         });
@@ -181,13 +176,8 @@
       
       function editPlace() {
         PlaceService.updatePlace($scope.place._id, $scope.place).then(function (response) {
-          $mdDialog.hide();
+          $mdDialog.hide(response.data);
           vm.success = 'Place successfully updated.';
-          PlaceService.findAllPlaces().then(function (response) {
-            vm.places = response.data;
-          }, function (err) {
-            vm.error = 'The data may be out of date, please refresh.';
-          });
         }, function (err) {
           vm.error = 'Something went wrong.';
         });
@@ -203,13 +193,8 @@
       
       function editItinerary() {
         ItineraryService.updateItinerary($scope.itinerary._id, $scope.itinerary).then(function (response) {
-          $mdDialog.hide();
+          $mdDialog.hide(response.data);
           vm.success = 'Itinerary successfully updated.';
-          ItineraryService.findAllItineraries().then(function (response) {
-            vm.itineraries = response.data;
-          }, function (err) {
-            vm.error = 'The data may be out of date, please refresh.';
-          });
         }, function (err) {
           vm.error = 'Something went wrong.';
         });
