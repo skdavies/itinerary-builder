@@ -13,6 +13,7 @@
       });
       vm.user = loggedIn;
       initAutocomplete();
+      vm.viewPlace = viewPlace;
     }
 
     init();
@@ -38,6 +39,10 @@
         input.focus();
         input.value = '';
       });
+    }
+
+    function viewPlace(place) {
+      $location.url('/place/' + place._id);
     }
   }
 })();

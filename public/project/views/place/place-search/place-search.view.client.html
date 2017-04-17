@@ -11,7 +11,7 @@
         <div layout="row" ng-show="vm.placesWithAds.length > 0" layout-padding layout-wrap layout-fill>
             <md-whiteframe ng-repeat="place in vm.placesWithAds" class="md-whiteframe-5dp ad-frame" flex="50" layout="column"
                            layout-align="center center"
-                           flex-gt-xs="33">
+                           flex-gt-xs="33" ng-click="vm.viewPlace(place)">
                 <div><strong>{{place.name}}</strong></div>
                 <div flex>{{place.ads[place.ads.length - 1].ad}}</div>
             </md-whiteframe>

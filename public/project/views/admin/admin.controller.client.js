@@ -28,7 +28,6 @@
       });
       ItineraryService.findAllItineraries().then(function (response) {
         vm.itineraries = response.data;
-        console.log(response.data);
       });
       $('#myTab a:first').tab('show');
     }
