@@ -85,7 +85,7 @@
     }
 
     function saveItinerary() {
-      vm.itinerary.places = $("#itinerary").sortable("toArray");
+      vm.itinerary.places = $("#itinerary-details").sortable("toArray");
       ItineraryService.updateItinerary(vm.itinerary._id, vm.itinerary).then(function (response) {
         vm.itinerary = response.data;
         vm.dirty = false;
@@ -93,7 +93,7 @@
     }
 
     function removePlace(index) {
-      vm.places = vm.places.slice(index, 1);
+      vm.places.splice(index, 1);
     }
 
     function resetToLastSave() {

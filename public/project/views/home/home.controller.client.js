@@ -3,7 +3,7 @@
     .module('ItineraryPlanner')
     .controller('HomeController', homeController);
 
-  function homeController($location, ItineraryService, PlaceService, $scope, loggedIn) {
+  function homeController($location, ItineraryService, PlaceService, $scope, loggedIn, $mdDialog) {
     var vm = this;
     vm.saveItinerary = saveItinerary;
     vm.removePlace = removePlace;
@@ -32,9 +32,22 @@
     init();
 
     function initSortable() {
+      var startIndex = -1;
+
+      function onStart(event, ui) {
+        startIndex = ui.item.index();
+      }
+
+      function onStop(event, ui) {
+        var finalIndex = ui.item.index();
+        vm.places.splice(finalIndex, 0, vm.places.splice(startIndex, 1)[0]);
+      }
+
       $('#itinerary').sortable({
         axis: 'y',
-        handle: '.sortable'
+        handle: '.sortable',
+        start: onStart,
+        stop: onStop
       });
     }
 
@@ -86,11 +99,20 @@
     }
 
     function removePlace(index) {
-      vm.places = vm.places.slice(index, 1);
+      vm.places.splice(index, 1);
     }
 
-    function viewPlace(place) {
-      $location.url('/place/' + place._id);
+    function viewPlace(place, event) {
+      var confirm = $mdDialog.confirm()
+        .title('Are you sure?')
+        .textContent('Any unsaved changes to your itinerary will be lost when you leave the page.')
+        .targetEvent(event)
+        .ok('Yes, I\'m sure')
+        .cancel('Never Mind');
+
+      $mdDialog.show(confirm).then(function () {
+        $location.url('/place/' + place._id);
+      });
     }
 
     function _formatPlacesToIds(places) {

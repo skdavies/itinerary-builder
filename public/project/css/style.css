@@ -20,6 +20,16 @@ a {
 
 .right-panel {
     padding-top: 0;
+    padding-right: 0;
+}
+
+.place-item {
+    background-color: white;
+    border: 1px solid black;
+}
+
+.place-item .fa {
+    font-size: 18px;
 }
 
 .ad-map {
@@ -46,6 +56,13 @@ a {
 
 #itinerary {
     overflow-y: scroll;
+    padding-top: 0;
+}
+
+.itin-icon {
+    height: 100%;
+    text-align: center;
+    color: black;
 }
 
 .fa {

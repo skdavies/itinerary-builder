@@ -45,7 +45,7 @@
                 </md-button>
             </div>
         </div>
-        <h2 flex>Local Advertisements</h2>
+        <h2 flex ng-show="vm.place.ads.length > 0">Local Advertisements</h2>
         <div layout="row" ng-show="vm.user && vm.user.role === 'ADVERTISER'">
             <md-button flex class="md-raised md-primary"
                        ng-click="vm.showModal($event, 'SUGGESTION')">
