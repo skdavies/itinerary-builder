@@ -25,7 +25,7 @@ module.exports = function () {
   }
 
   function findAllPlaces() {
-    return PlaceModel.find();
+    return PlaceModel.find().sort({ name: 'asc' });
   }
 
   function findPlaceById(placeId) {

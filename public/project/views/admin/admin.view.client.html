@@ -1,4 +1,4 @@
-<skd-login-nav user="vm.user"></skd-login-nav>
+<skd-login-nav user="vm.admin"></skd-login-nav>
 <md-content class="admin-view layout-padding">
     <div hide-xs>
         <div ng-show="vm.error" class="alert alert-danger" role="alert">
@@ -30,7 +30,7 @@
                             <td>{{user.followers.length}}</td>
                             <td ng-show="user.role !== 'ADMIN'">
                                 <i class="fa fa-times admin-icon" ng-click="vm.deleteUser(user)"></i>
-                                <i class="fa fa-pencil admin-icon" ng-click="vm.user = user; vm.toggleEditUser()"></i>
+                                <i class="fa fa-pencil admin-icon" ng-click="vm.toggleEditUser($event, user)"></i>
                             </td>
                         </tr>
                         </tbody>
@@ -58,7 +58,7 @@
                             <td>{{place.ads.length}}</td>
                             <td>
                                 <i class="fa fa-times admin-icon" ng-click="vm.deletePlace(place)"></i>
-                                <i class="fa fa-pencil admin-icon" ng-click="vm.place = place; vm.toggleEditPlace()"
+                                <i class="fa fa-pencil admin-icon" ng-click="vm.toggleEditPlace($event, place)"
                                    ng-show="place.ads.length > 0 || place.reviews.length > 0"></i>
                             </td>
                         </tr>
@@ -86,7 +86,7 @@
                             <td>
                                 <i class="fa fa-times admin-icon" ng-click="vm.deleteItinerary(itinerary)"></i>
                                 <i class="fa fa-pencil admin-icon"
-                                   ng-click="vm.itinerary = itinerary; vm.toggleEditPlace()"></i>
+                                   ng-click="vm.toggleEditItinerary($event, itinerary)"></i>
                             </td>
                         </tr>
                         </tbody>
@@ -102,33 +102,6 @@
         <h2 id="require-lg">
             We're sorry, the admin view requires a bigger screen.
         </h2>
-    </div>
-
-    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="editUserModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" ng-click="vm.user=null; vm.toggleEditUser()"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="editUserModal">Edit</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="text" class="form-control" placeholder="Username" ng-model="vm.user.username" disabled>
-                    <input type="text" class="form-control" placeholder="First Name" ng-model="vm.user.firstName">
-                    <input type="text" class="form-control" placeholder="Last Name" ng-model="vm.user.lastName">
-                    <select class="selectpicker form-control" title="Role" ng-model="vm.user.role">
-                        <option value="USER">User</option>
-                        <option value="ADVERTISER">Advertiser</option>
-                        <option value="ADMIN" disabled>Admin</option>
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" ng-click="vm.user=null; vm.toggleEditUser()">Cancel
-                    </button>
-                    <button type="button" class="btn btn-success" ng-click="vm.editUser()">Update</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="modal fade" id="placeModal" tabindex="-1" role="dialog" aria-labelledby="editPlaceModal">

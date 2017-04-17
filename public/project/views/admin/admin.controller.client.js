@@ -3,23 +3,21 @@
     .module('ItineraryPlanner')
     .controller('AdminController', adminController);
 
-  function adminController(admin, UserService, PlaceService, ItineraryService, $location) {
+  function adminController(admin, UserService, PlaceService, ItineraryService, $location, $mdDialog) {
     var vm = this;
     vm.logout = logout;
-    vm.editUser = editUser;
     vm.deleteUser = deleteUser;
-    vm.editPlace = editPlace;
     vm.deletePlace = deletePlace;
-    vm.editItinerary = editItinerary;
     vm.deleteItinerary = deleteItinerary;
     vm.toggleEditUser = toggleEditUser;
     vm.toggleEditPlace = toggleEditPlace;
+    vm.toggleEditItinerary = toggleEditItinerary;
 
     function init() {
       if (!admin || admin.role !== 'ADMIN') {
         $location.url('/');
       }
-      vm.user = admin;
+      vm.admin = admin;
       UserService.findAllUsers().then(function (response) {
         vm.users = response.data;
       });
@@ -29,7 +27,11 @@
       ItineraryService.findAllItineraries().then(function (response) {
         vm.itineraries = response.data;
       });
-      $('#myTab a:first').tab('show');
+      vm.confirm = $mdDialog.confirm()
+        .title('Are you sure?')
+        .textContent('This action cannot be undone once completed.')
+        .ok('Yes, I\'m sure')
+        .cancel('Never Mind');
     }
 
     init();
@@ -40,23 +42,8 @@
       });
     }
 
-    function editUser() {
-      UserService.updateUser(vm.user._id, vm.user).then(function (response) {
-        toggleEditUser();
-        vm.success = 'User successfully updated.';
-        UserService.findAllUsers().then(function (response) {
-          vm.users = response.data;
-        }, function (err) {
-          vm.error = 'The data may be out of date, please refresh.';
-        });
-      }, function (err) {
-        vm.error = 'Something went wrong.';
-      });
-    }
-
     function deleteUser(user) {
-      var sure = confirm('Are you sure? This cannot be undone.');
-      if (sure) {
+      $mdDialog.show(vm.confirm).then(function () {
         UserService.deleteUser(user._id).then(function () {
           vm.success = 'User successfully deleted.';
           UserService.findAllUsers().then(function (response) {
@@ -67,16 +54,11 @@
         }, function (err) {
           vm.error = err.message;
         });
-      }
-    }
-
-    function editPlace() {
-
+      });
     }
 
     function deletePlace(place) {
-      var sure = confirm('Are you sure? This cannot be undone.');
-      if (sure) {
+      $mdDialog.show(vm.confirm).then(function () {
         PlaceService.deletePlace(place._id).then(function () {
           vm.success = 'Place successfully deleted.';
           PlaceService.findAllPlaces().then(function (response) {
@@ -87,27 +69,151 @@
         }, function (err) {
           vm.error = err.message;
         });
-      }
-    }
-
-    function editItinerary() {
-
+      });
     }
 
     function deleteItinerary(itinerary) {
-
+      $mdDialog.show(vm.confirm).then(function () {
+        ItineraryService.deleteItinerary(itinerary._id).then(function () {
+          vm.success = 'Itinerary successfully deleted.';
+          ItineraryService.findAllItineraries().then(function (response) {
+            vm.itineraries = response.data;
+          }, function (err) {
+            vm.error = 'The data may be out of date, please refresh.';
+          });
+        }, function (err) {
+          vm.error = err.message;
+        });
+      });
     }
 
-    function toggleEditUser() {
+    function toggleEditUser(event, user) {
       vm.success = null;
       vm.error = null;
-      $('#userModal').modal('toggle');
+      $mdDialog.show({
+        controller: EditModalController,
+        templateUrl: '/project/views/admin/modals/user-edit-modal.html',
+        parent: angular.element(document.body),
+        targetEvent: event,
+        clickOutsideToClose: true,
+        locals: {
+          user: user,
+          place: null,
+          itinerary: null
+        }
+      }).then(function (response) {
+        // success modal
+      }, function () {
+        // cancel modal
+      });
     }
     
-    function toggleEditPlace() {
+    function toggleEditPlace(event, place) {
       vm.success = null;
       vm.error = null;
-      $('#placeModal').modal('toggle');
+      $mdDialog.show({
+        controller: EditModalController,
+        templateUrl: '/project/views/admin/modals/place-edit-modal.html',
+        parent: angular.element(document.body),
+        targetEvent: event,
+        clickOutsideToClose: true,
+        locals: {
+          user: null,
+          place: place,
+          itinerary: null
+        }
+      }).then(function (response) {
+        // success modal
+      }, function () {
+        // cancel modal
+      });
+    }
+
+    function toggleEditItinerary(event, itinerary) {
+      vm.success = null;
+      vm.error = null;
+      $mdDialog.show({
+        controller: EditModalController,
+        templateUrl: '/project/views/admin/modals/itinerary-edit-modal.html',
+        parent: angular.element(document.body),
+        targetEvent: event,
+        clickOutsideToClose: true,
+        locals: {
+          user: null,
+          place: null,
+          itinerary: itinerary
+        }
+      }).then(function (response) {
+        // success modal
+      }, function () {
+        // cancel modal
+      });
+    }
+
+    function EditModalController($scope, $mdDialog, user, place, itinerary) {
+      $scope.cancel = cancel;
+      $scope.editUser = editUser;
+      $scope.editPlace = editPlace;
+      $scope.editItinerary = editItinerary;
+      $scope.removeAd = removeAd;
+      $scope.removeReview = removeReview;
+      $scope.usr = angular.copy(user);
+      $scope.place = angular.copy(place);
+      $scope.itinerary = angular.copy(itinerary);
+
+      function cancel() {
+        $mdDialog.cancel();
+      }
+
+      function editUser() {
+        UserService.updateUser($scope.usr._id, $scope.usr).then(function (response) {
+          $mdDialog.hide();
+          vm.success = 'User successfully updated.';
+          UserService.findAllUsers().then(function (response) {
+            vm.users = response.data;
+          }, function (err) {
+            vm.error = 'The data may be out of date, please refresh.';
+          });
+        }, function (err) {
+          vm.error = 'Something went wrong.';
+        });
+      }
+      
+      function editPlace() {
+        PlaceService.updatePlace($scope.place._id, $scope.place).then(function (response) {
+          $mdDialog.hide();
+          vm.success = 'Place successfully updated.';
+          PlaceService.findAllPlaces().then(function (response) {
+            vm.places = response.data;
+          }, function (err) {
+            vm.error = 'The data may be out of date, please refresh.';
+          });
+        }, function (err) {
+          vm.error = 'Something went wrong.';
+        });
+      }
+
+      function removeAd(index) {
+        $scope.place.ads.splice(index, 1);
+      }
+
+      function removeReview(index) {
+        $scope.place.reviews.splice(index, 1);
+      }
+      
+      function editItinerary() {
+        ItineraryService.updateItinerary($scope.itinerary._id, $scope.itinerary).then(function (response) {
+          $mdDialog.hide();
+          vm.success = 'Itinerary successfully updated.';
+          ItineraryService.findAllItineraries().then(function (response) {
+            vm.itineraries = response.data;
+          }, function (err) {
+            vm.error = 'The data may be out of date, please refresh.';
+          });
+        }, function (err) {
+          vm.error = 'Something went wrong.';
+        });
+      }
     }
 
   }

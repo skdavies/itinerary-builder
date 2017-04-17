@@ -69,6 +69,10 @@ a {
     cursor: pointer;
 }
 
+.fa:focus {
+    outline: none;
+}
+
 .tab-content {
     padding-top: 10px;
 }
@@ -147,6 +151,10 @@ a {
 
 .md-padding {
     background-color: #e4e4e4 !important;
+}
+
+md-input-container {
+    margin: 0;
 }
 
 .skd-sticky-footer {

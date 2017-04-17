@@ -39,7 +39,7 @@ module.exports = function () {
   }
 
   function findAllUsers() {
-    return UserModel.find();
+    return UserModel.find().sort({ username: 'asc' });
   }
 
   function findUserByGoogleId(googleId) {
