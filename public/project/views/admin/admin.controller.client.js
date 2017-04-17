@@ -3,13 +3,15 @@
     .module('ItineraryPlanner')
     .controller('AdminController', adminController);
 
-  function adminController(admin, UserService, PlaceService, $location) {
+  function adminController(admin, UserService, PlaceService, ItineraryService, $location) {
     var vm = this;
     vm.logout = logout;
     vm.editUser = editUser;
     vm.deleteUser = deleteUser;
     vm.editPlace = editPlace;
     vm.deletePlace = deletePlace;
+    vm.editItinerary = editItinerary;
+    vm.deleteItinerary = deleteItinerary;
     vm.toggleEditUser = toggleEditUser;
     vm.toggleEditPlace = toggleEditPlace;
 
@@ -17,11 +19,16 @@
       if (!admin || admin.role !== 'ADMIN') {
         $location.url('/');
       }
+      vm.user = admin;
       UserService.findAllUsers().then(function (response) {
         vm.users = response.data;
       });
       PlaceService.findAllPlaces().then(function (response) {
         vm.places = response.data;
+      });
+      ItineraryService.findAllItineraries().then(function (response) {
+        vm.itineraries = response.data;
+        console.log(response.data);
       });
       $('#myTab a:first').tab('show');
     }
@@ -82,6 +89,14 @@
           vm.error = err.message;
         });
       }
+    }
+
+    function editItinerary() {
+
+    }
+
+    function deleteItinerary(itinerary) {
+
     }
 
     function toggleEditUser() {

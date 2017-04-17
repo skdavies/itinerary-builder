@@ -4,6 +4,7 @@ module.exports = function () {
     createItinerary: createItinerary,
     findItineraryById: findItineraryById,
     findItinerariesForUser: findItinerariesForUser,
+    findAllItineraries: findAllItineraries,
     updateItinerary: updateItinerary,
     deleteItinerary: deleteItinerary,
     reorderPlaces: reorderPlaces
@@ -16,6 +17,10 @@ module.exports = function () {
   var ItineraryModel = mongoose.model('ItineraryModel', ItinerarySchema);
 
   return api;
+
+  function findAllItineraries() {
+    return ItineraryModel.find().populate('_user', 'username');
+  }
 
   function createItinerary(itinerary) {
     return ItineraryModel.create(itinerary);

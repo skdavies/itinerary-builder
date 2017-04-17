@@ -6,7 +6,7 @@
             <md-button class="md-raised" ng-click="toggleLogin($event)">Login</md-button>
         </div>
         <div ng-show="user">
-            <md-button ng-click="viewProfile()">Profile</md-button>
+            <md-button ng-click="viewProfile()" ng-show="user.role !== 'ADMIN'">Profile</md-button>
             <md-button class="md-raised" ng-click="logout()">Logout</md-button>
         </div>
     </div>

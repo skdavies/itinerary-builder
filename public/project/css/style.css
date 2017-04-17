@@ -82,7 +82,6 @@ a {
 }
 
 .admin-view {
-    margin-top: 10px;
 }
 
 .place-view {
@@ -140,6 +139,14 @@ a {
 #require-lg {
     margin-top: 40px;
     text-align: center;
+}
+
+.skd-table th, .skd-table td{
+    padding-right: 60px;
+}
+
+.md-padding {
+    background-color: #e4e4e4 !important;
 }
 
 .skd-sticky-footer {

@@ -5,6 +5,7 @@ module.exports = function (app, model) {
 
   app.post('/project/api/users/:userId/itineraries', createItinerary);
   app.get('/project/api/users/:userId/itineraries', findItinerariesForUser);
+  app.get('/project/api/itineraries', findAllItineraries);
   app.get('/project/api/itineraries/:itinId', findItineraryById);
   app.put('/project/api/itineraries/:itinId', updateItinerary);
   app.delete('/project/api/itineraries/:itinId', deleteItinerary);
@@ -28,6 +29,14 @@ module.exports = function (app, model) {
     } else {
       res.status(400).send('Invalid request body.');
     }
+  }
+
+  function findAllItineraries(req, res) {
+    itineraryModel.findAllItineraries().then(function (itineraries) {
+      res.json(itineraries);
+    }, function (error) {
+      res.sendStatus(500);
+    });
   }
 
   function findItinerariesForUser(req, res) {

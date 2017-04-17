@@ -6,6 +6,7 @@
   function itineraryService($http) {
     return {
       'createItinerary': createItinerary,
+      'findAllItineraries': findAllItineraries,
       'findItineraryById': findItineraryById,
       'findItinerariesForUser': findItinerariesForUser,
       'updateItinerary': updateItinerary,
@@ -15,6 +16,10 @@
 
     function createItinerary(userId, itinerary) {
       return $http.post('/project/api/users/' + userId + '/itineraries', itinerary);
+    }
+
+    function findAllItineraries() {
+      return $http.get('/project/api/itineraries');
     }
 
     function findItineraryById(itineraryId) {
