@@ -3,29 +3,19 @@
 <md-content flex class="layout-padding home-view">
     <div layout="column" flex>
         <div layout="row" flex>
-            <md-input-container md-no-float class="md-block" ng-show="vm.canEdit">
+            <md-input-container md-no-float class="md-block" ng-show="vm.user && vm.user._id === vm.itinerary._user" flex>
                 <input type="text" placeholder="Add a place" id="autocomplete-itin-details">
             </md-input-container>
         </div>
         <div layout="row" flex>
             <div hide-xs flex-gt-xs="66" id="map-itin-details"></div>
-            <div class="right-panel" layout-padding flex-gt-xs="33" flex>
-                <div class="list-group" id="itinerary-details">
-                    <a class="list-group-item list-group-item-action text-left" ng-repeat="place in vm.places"
-                       id="{{place._id}}">
-                        <i class="fa fa-bars sortable" aria-hidden="true"></i>
-                        {{place.name}}
-                        <div class="pull-right">
-                            <i class="fa fa-info-circle" aria-hidden="true" ng-click="vm.viewPlace(place)"></i>
-                            <i class="fa fa-times" aria-hidden="true" ng-click="vm.removePlace($index)"
-                               ng-if="vm.canEdit"></i>
-                        </div>
-                    </a>
-                </div>
-                <md-button class="md-raised md-primary" ng-show="vm.canEdit"
-                           ng-click="vm.saveItinerary()" ng-disabled="!vm.dirty">Save
+            <div class="right-panel" layout-padding flex-gt-xs="33" flex layout="column">
+                <skd-sortable-itinerary places="vm.places" dirty="vm.dirty"></skd-sortable-itinerary>
+                <md-button class="md-raised md-primary" ng-show="vm.user && vm.user._id === vm.itinerary._user" layout="row"
+                           ng-click="vm.saveItinerary()" ng-disabled="!vm.dirty">
+                    Save
                 </md-button>
-                <md-button class="md-raised md-warn" ng-show="vm.canEdit"
+                <md-button class="md-raised md-warn" ng-show="vm.user && vm.user._id === vm.itinerary._user" layout="row"
                            ng-click="vm.resetToLastSave()" ng-disabled="!vm.dirty">Reset
                 </md-button>
             </div>

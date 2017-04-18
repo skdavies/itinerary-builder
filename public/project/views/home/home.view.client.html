@@ -15,20 +15,7 @@
                         <h3>Add a place to start your itinerary!</h3>
                     </md-card-title>
                 </md-card>
-                <div ng-show="vm.places.length > 0" id="itinerary">
-                    <md-list-item class="place-item" ng-repeat="place in vm.places" id="{{place._id}}">
-                        <md-icon class="itin-icon">
-                            <i class="fa fa-bars sortable" aria-hidden="true"></i>
-                        </md-icon>
-                        <p>{{place.name}}</p>
-                        <md-icon  ng-click="vm.viewPlace(place, $event)" class="itin-icon">
-                            <i class="fa fa-info-circle" aria-hidden="true"></i>
-                        </md-icon>
-                        <md-icon ng-click="vm.removePlace($index)" class="itin-icon">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </md-icon>
-                    </md-list-item>
-                </div>
+                <skd-sortable-itinerary places="vm.places" dirty="false"></skd-sortable-itinerary>
                 <md-button class="md-raised md-primary" ng-show="!vm.user && vm.places.length > 0" layout="row"
                            ng-click="vm.control.showRegister($event)">
                     Sign Up or Login to Save

@@ -157,6 +157,10 @@ md-input-container {
     margin: 0;
 }
 
+skd-sortable-itinerary {
+    padding-top: 0 !important;
+}
+
 .skd-sticky-footer {
     position: fixed;
     bottom: 0;

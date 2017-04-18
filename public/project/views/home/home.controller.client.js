@@ -6,8 +6,6 @@
   function homeController($location, ItineraryService, PlaceService, $scope, loggedIn, $mdDialog) {
     var vm = this;
     vm.saveItinerary = saveItinerary;
-    vm.removePlace = removePlace;
-    vm.viewPlace = viewPlace;
 
     function init() {
       vm.control = {};
@@ -26,30 +24,9 @@
       }, function () {
         vm.placesWithAds = [];
       });
-      initSortable();
     }
 
     init();
-
-    function initSortable() {
-      var startIndex = -1;
-
-      function onStart(event, ui) {
-        startIndex = ui.item.index();
-      }
-
-      function onStop(event, ui) {
-        var finalIndex = ui.item.index();
-        vm.places.splice(finalIndex, 0, vm.places.splice(startIndex, 1)[0]);
-      }
-
-      $('#itinerary').sortable({
-        axis: 'y',
-        handle: '.sortable',
-        start: onStart,
-        stop: onStop
-      });
-    }
 
     function initMap() {
       var fenway = { lat: 42.346268, lng: -71.095764 };
@@ -92,26 +69,9 @@
     }
 
     function saveItinerary() {
-      var placeIds = $("#itinerary").sortable("toArray");
+      var placeIds = $('.sortable-itinerary').sortable("toArray");
       ItineraryService.createItinerary(vm.user._id, { places: placeIds }).then(function (response) {
         $location.url('/itinerary/' + response.data._id);
-      });
-    }
-
-    function removePlace(index) {
-      vm.places.splice(index, 1);
-    }
-
-    function viewPlace(place, event) {
-      var confirm = $mdDialog.confirm()
-        .title('Are you sure?')
-        .textContent('Any unsaved changes to your itinerary will be lost when you leave the page.')
-        .targetEvent(event)
-        .ok('Yes, I\'m sure')
-        .cancel('Never Mind');
-
-      $mdDialog.show(confirm).then(function () {
-        $location.url('/place/' + place._id);
       });
     }
 

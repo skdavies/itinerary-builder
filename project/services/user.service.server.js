@@ -167,7 +167,7 @@ module.exports = function (app, model) {
         }, function () {
           res.sendStatus(500);
         });
-      } else if (req.user.role === 'USER' && req.user._id === user._id) {
+      } else if (req.user.role === 'USER' && req.user._id.toString() === user._id) {
         userModel.updateProfile(user).then(function (user) {
           res.json(user);
         }, function () {

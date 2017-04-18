@@ -62,7 +62,7 @@ module.exports = function (app, model) {
   function updateItinerary(req, res) {
     var itinerary = req.body;
     if (itinerary) {
-      if (req.user && (req.user._id === itinerary._user || req.user.role === 'ADMIN')) {
+      if (req.user && (req.user._id.toString() === itinerary._user || req.user.role === 'ADMIN')) {
         itineraryModel.updateItinerary(req.params.itinId, itinerary).then(function (itinerary) {
           res.json(itinerary);
         }, function (error) {

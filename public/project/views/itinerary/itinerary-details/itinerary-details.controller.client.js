@@ -7,8 +7,6 @@
     var vm = this;
     vm.saveItinerary = saveItinerary;
     vm.resetToLastSave = resetToLastSave;
-    vm.removePlace = removePlace;
-    vm.viewPlace = viewPlace;
 
     function init() {
       vm.itinId = $routeParams['itinId'];
@@ -21,26 +19,14 @@
         return;
       }
       initMap();
-      vm.canEdit = false;
       ItineraryService.findItineraryById(vm.itinId).then(function (response) {
         vm.itinerary = response.data;
         vm.places = response.data.places;
-        if (vm.user && vm.user._id === response.data._user) {
-          vm.canEdit = true;
-        }
       });
       vm.dirty = false;
-      initSortable();
     }
 
     init();
-
-    function initSortable() {
-      $('#itinerary-details').sortable({
-        axis: 'y',
-        handle: '.sortable'
-      });
-    }
 
     function initMap() {
       var fenway = { lat: 42.346268, lng: -71.095764 };
@@ -85,28 +71,23 @@
     }
 
     function saveItinerary() {
-      vm.itinerary.places = $("#itinerary-details").sortable("toArray");
+      vm.itinerary.places = $('.sortable-itinerary').sortable("toArray");
       ItineraryService.updateItinerary(vm.itinerary._id, vm.itinerary).then(function (response) {
         vm.itinerary = response.data;
         vm.dirty = false;
       });
     }
 
-    function removePlace(index) {
-      vm.places.splice(index, 1);
-    }
 
     function resetToLastSave() {
       ItineraryService.findItineraryById(vm.itinId).then(function (response) {
         var itinerary = response.data;
         vm.itinerary = itinerary;
         vm.places = itinerary.places;
+        vm.dirty = false;
       });
     }
 
-    function viewPlace(place) {
-      $location.url('/place/' + place._id);
-    }
 
     function _formatPlacesToIds(places) {
       var placeIds = [];
