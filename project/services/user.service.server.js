@@ -137,9 +137,7 @@ module.exports = function (app, model) {
   }
 
   function findUser(req, res) {
-    if (req.query.username && req.query.password) {
-      findUserByCredentials(req, res);
-    } else if (req.query.username) {
+    if (req.query.username) {
       findUserByUsername(req, res);
     } else {
       findAllUsers(req, res);
@@ -185,14 +183,6 @@ module.exports = function (app, model) {
     }, function () {
       res.sendStatus(500);
     })
-  }
-
-  function findUserByCredentials(req, res) {
-    userModel.findUserByCredentials(req.query.username, req.query.password).then(function (user) {
-      res.json(user);
-    }, function () {
-      res.sendStatus(500);
-    });
   }
 
   function findUserByUsername(req, res) {

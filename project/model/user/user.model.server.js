@@ -4,7 +4,6 @@ module.exports = function () {
     createUser: createUser,
     findUserById: findUserById,
     findUserByUsername: findUserByUsername,
-    findUserByCredentials: findUserByCredentials,
     findAllUsers: findAllUsers,
     findUserByGoogleId: findUserByGoogleId,
     findUserByFacebookId: findUserByFacebookId,
@@ -34,12 +33,8 @@ module.exports = function () {
     return UserModel.findOne({ username: username });
   }
 
-  function findUserByCredentials(username, password) {
-    return UserModel.findOne({ username: username, password: password });
-  }
-
   function findAllUsers() {
-    return UserModel.find().sort({ username: 'asc' });
+    return UserModel.find().sort({ username: 'asc' }).select('-password google facebook');
   }
 
   function findUserByGoogleId(googleId) {
