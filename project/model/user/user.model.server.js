@@ -34,7 +34,7 @@ module.exports = function () {
   }
 
   function findAllUsers() {
-    return UserModel.find().sort({ username: 'asc' }).select('-password google facebook');
+    return UserModel.find().sort({ username: 'asc' }).select('-password -google -facebook');
   }
 
   function findUserByGoogleId(googleId) {
