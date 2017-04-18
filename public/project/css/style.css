@@ -19,8 +19,9 @@ a {
 }
 
 .right-panel {
-    padding-top: 0;
-    padding-right: 0;
+    /*padding-top: 0;*/
+    /*padding-right: 0;*/
+    padding: 0;
 }
 
 .place-item {
@@ -155,6 +156,10 @@ a {
 
 md-input-container {
     margin: 0;
+}
+
+md-card {
+    margin-bottom: 0;
 }
 
 skd-sortable-itinerary {
