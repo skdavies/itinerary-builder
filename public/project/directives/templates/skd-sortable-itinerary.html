@@ -1,0 +1,14 @@
+<div ng-show="places.length > 0" class="sortable-itinerary">
+    <md-list-item class="place-item" ng-repeat="place in places" id="{{place._id}}">
+        <md-icon class="itin-icon">
+            <i class="fa fa-bars sortable" aria-hidden="true"></i>
+        </md-icon>
+        <p>{{place.name}}</p>
+        <md-icon ng-click="viewPlace(place, $event)" class="itin-icon">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+        </md-icon>
+        <md-icon ng-click="removePlace($index)" class="itin-icon">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </md-icon>
+    </md-list-item>
+</div>
