@@ -149,7 +149,9 @@ module.exports = function (app, model) {
 
   function findFollowingItineraries(req, res) {
     userModel.findFollowingItineraries(req.params.userId).then(function (user) {
-      console.log(user);
+      res.json(user);
+    }, function (err) {
+      res.sendStatus(500);
     });
   }
 

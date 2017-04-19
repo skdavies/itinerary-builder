@@ -10,6 +10,9 @@
                         <h3>{{itinerary.itinerary.name}}</h3>
                         <p>{{itinerary.username}}</p>
                     </div>
+                    <md-button>
+                        View
+                    </md-button>
                     <md-divider></md-divider>
                 </md-list-item>
             </md-content>
@@ -17,11 +20,45 @@
 
         <md-tab label="Following">
             <md-content class="md-padding">
+                <h3 ng-show="!vm.user">
+                    Login in to see itineraries from users you follow!
+                </h3>
+                <h3 ng-show="vm.user && !vm.followingItineraries.length">
+                    Follow users to see their itineraries here!
+                </h3>
+                <md-list-item class="md-2-line" ng-repeat="itinerary in vm.followingItineraries"
+                              ng-click="vm.viewItinerary(itinerary.itinerary._id)">
+                    <div class="md-list-item-text">
+                        <h3>{{itinerary.itinerary.name}}</h3>
+                        <p>{{itinerary.username}}</p>
+                    </div>
+                    <md-button>
+                        View
+                    </md-button>
+                    <md-divider></md-divider>
+                </md-list-item>
             </md-content>
         </md-tab>
 
         <md-tab label="Your">
             <md-content class="md-padding">
+                <h3 ng-show="!vm.user">
+                    Login in to see your itineraries!
+                </h3>
+                <h3 ng-show="vm.user && !vm.userItineraries.length">
+                    You itineraries will appear here!
+                </h3>
+                <md-list-item class="md-2-line" ng-repeat="itinerary in vm.userItineraries"
+                              ng-click="vm.viewItinerary(itinerary._id)">
+                    <div class="md-list-item-text">
+                        <h3>{{itinerary.name}}</h3>
+                        <p>{{itinerary.dateCreated | date: 'MMM dd, yyyy'}}</p>
+                    </div>
+                    <md-button>
+                        View
+                    </md-button>
+                    <md-divider></md-divider>
+                </md-list-item>
             </md-content>
         </md-tab>
     </md-tabs>

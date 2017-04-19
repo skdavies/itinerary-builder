@@ -3,7 +3,7 @@
     .module('ItineraryPlanner')
     .controller('ItineraryListController', itineraryListController);
 
-  function itineraryListController($location, ItineraryService, loggedIn, UserService) {
+  function itineraryListController($location, ItineraryService, loggedIn, UserService, $scope) {
     var vm = this;
     vm.viewItinerary = viewItinerary;
 
@@ -20,12 +20,7 @@
       vm.followingItineraries = [];
       vm.trending = [];
       if (vm.user) {
-        ItineraryService.findItinerariesForUser(vm.user._id).then(function (response) {
-          vm.userItineraries = response.data;
-        });
-        // UserService.findFollowingItineraries(vm.user._id).then(function (response) {
-        //   vm.followingItineraries = response.data;
-        // });
+        initUserData();
       }
       UserService.findTrendingUsers().then(function (response) {
         var users = response.data;
@@ -34,12 +29,47 @@
             vm.trending.push({ itinerary: users[i].itineraries[0], username: users[i].username });
           }
         }
-      }, function (err) {
-        console.log(err);
       });
+      $scope.$watch('vm.user', function(newVal, oldVal) {
+        if (newVal && !oldVal) {
+          initUserData();
+        }
+      }, true);
     }
 
     init();
+
+    function initUserData() {
+      ItineraryService.findItinerariesForUser(vm.user._id).then(function (response) {
+        vm.userItineraries = response.data;
+      });
+      vm.followingItineraries = [];
+      UserService.findFollowingItineraries(vm.user._id).then(function (response) {
+        var following = response.data.following.users;
+        if (following.length) {
+          for (var i = 0; i < following.length; i++) {
+            var follow = following[i];
+            if (follow.itineraries.length) {
+              for (var j = 0; j < follow.itineraries.length; j++) {
+                vm.followingItineraries.push({username: follow.username, itinerary: follow.itineraries[j]});
+              }
+            }
+          }
+          vm.followingItineraries.sort(compare);
+
+          // TODO CHECK THIS WORKS WITH MORE ITINERARIES AND FOLLOWING
+          function compare(a, b) {
+            if (a.itinerary.dateCreated.getTime() > b.itinerary.dateCreated.getTime()) {
+              return 1;
+            } else if (a.itinerary.dateCreated.getTime() < b.itinerary.dateCreated.getTime()){
+              return -1;
+            } else {
+              return 0;
+            }
+          }
+        }
+      });
+    }
 
     function viewItinerary(itineraryId) {
       $location.url('/itinerary/' + itineraryId);

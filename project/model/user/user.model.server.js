@@ -41,7 +41,13 @@ module.exports = function () {
   }
 
   function findFollowingItineraries(userId) {
-    return UserModel.findById(userId).populate('following');
+    return UserModel.findById(userId).populate({
+      path: 'following.users',
+      populate: {
+        path: 'itineraries',
+        model: 'ItineraryModel'
+      }
+    });
   }
 
   function findTrendingUsers() {
