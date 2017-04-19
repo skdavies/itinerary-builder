@@ -38,6 +38,7 @@ module.exports = function (app, model) {
   app.put('/project/api/users/:userId', updateUser);
   app.delete('/project/api/users/:userId', deleteUser);
   app.put('/project/api/users/:userId/follow/:followId', followUser);
+  app.put('/project/api/users/:userId/unfollow/:unfollowId', unfollowUser);
 
   function localStrategy(username, password, done) {
     userModel.findUserByUsername(username).then(function (user) {
@@ -215,16 +216,43 @@ module.exports = function (app, model) {
         res.sendStatus(500);
       });
     } else {
-      res.status(409).send('You do not have permission to do that.');
+      res.status(401).send('You do not have permission to do that.');
     }
   }
 
   function followUser(req, res) {
-    userModel.followUser(req.params.userId, req.params.followId).then(function (user) {
-      console.log(user);
-      res.json(user);
-    }, function () {
-      res.sendStatus(500);
-    });
+    var userId = req.params.userId;
+    var followId = req.params.followId;
+    if (req.user && req.user._id.toString() === userId) {
+      if (userId !== followId) {
+        userModel.followUser(userId, followId).then(function (user) {
+          res.json(user);
+        }, function () {
+          res.sendStatus(500);
+        });
+      } else {
+        res.status(400).send('You can\'t follow yourself.')
+      }
+    } else {
+      res.status(401).send('You do not have permission to do that.');
+    }
+  }
+
+  function unfollowUser(req, res) {
+    var userId = req.params.userId;
+    var unfollowId = req.params.unfollowId;
+    if (req.user && req.user._id.toString() === userId) {
+      if (userId !== unfollowId) {
+        userModel.unfollowUser(userId, unfollowId).then(function (user) {
+          res.json(user);
+        }, function () {
+          res.sendStatus(500);
+        });
+      } else {
+        res.status(400).send('You can\'t follow yourself.')
+      }
+    } else {
+      res.status(401).send('You do not have permission to do that.');
+    }
   }
 };

@@ -73,7 +73,8 @@
 
       if (scope.control) {
         scope.control = {
-          showRegister: toggleRegister
+          showRegister: toggleRegister,
+          showLogin: toggleLogin
         }
       }
 
@@ -121,7 +122,7 @@
       }
 
       function viewProfile() {
-        // TODO go to profile
+        $location.url('/user/' + scope.user._id);
       }
 
       function LoginModalController($scope, $mdDialog) {
@@ -211,7 +212,7 @@
       }
 
       function goUsers() {
-        $location.url('/');
+        $location.url('/user');
       }
     }
 

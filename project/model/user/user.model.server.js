@@ -10,6 +10,7 @@ module.exports = function () {
     findFollowingItineraries: findFollowingItineraries,
     findTrendingUsers: findTrendingUsers,
     followUser: followUser,
+    unfollowUser: unfollowUser,
     updateUser: updateUser,
     updateProfile: updateProfile,
     deleteUser: deleteUser
@@ -28,7 +29,7 @@ module.exports = function () {
   }
 
   function findUserById(userId) {
-    return UserModel.findById(userId);
+    return UserModel.findById(userId).populate('followers.users following.users');
   }
 
   function findUserByUsername(username) {
@@ -44,7 +45,7 @@ module.exports = function () {
   }
 
   function findTrendingUsers() {
-    return UserModel.find({ role: 'USER' }).populate('itineraries').sort({ 'followers.count': 1 });
+    return UserModel.find({ role: 'USER' }).populate('itineraries').sort({ 'followers.count': -1 });
   }
 
   function findUserByGoogleId(googleId) {
@@ -55,25 +56,28 @@ module.exports = function () {
     return UserModel.findOne({ 'facebook.id': facebookId });
   }
 
-  function followUser(userId, userIdToFollow) {
-    return UserModel.findOneAndUpdate({ _id: userIdToFollow }, {
+  function followUser(userId, followId) {
+    return UserModel.findOneAndUpdate({ _id: followId }, {
       $addToSet: { 'followers.users': userId },
       $inc: { 'followers.count': 1 }
     }, { new: true }).then(function () {
-      UserModel.findOneAndUpdate({ _id: userId }, {
-        $addToSet: { 'following.users': userIdToFollow },
+      return UserModel.findOneAndUpdate({ _id: userId }, {
+        $addToSet: { 'following.users': followId },
         $inc: { 'following.count': 1 }
       }, { new: true });
     });
-    // return UserModel.findOneAndUpdate({ _id: userId }, {
-    //   $addToSet: { 'following.users': userIdToFollow },
-    //   $inc: { 'following.count': 1 }
-    // }, { new: true }).then(function () {
-    //   UserModel.findOneAndUpdate({ _id: userIdToFollow }, {
-    //     $addToSet: { 'followers.users': userId },
-    //     $inc: { 'followers.count': 1 }
-    //   }, { new: true });
-    // });
+  }
+
+  function unfollowUser(userId, unfollowId) {
+    return UserModel.findOneAndUpdate({ _id: unfollowId }, {
+      $pullAll: { 'followers.users': [userId] },
+      $inc: { 'followers.count': -1 }
+    }, { new: true }).then(function () {
+      return UserModel.findOneAndUpdate({ _id: userId }, {
+        $pullAll: { 'following.users': [unfollowId] },
+        $inc: { 'following.count': -1 }
+      }, { new: true });
+    });
   }
 
   function updateUser(userId, user) {

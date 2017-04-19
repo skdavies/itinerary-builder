@@ -14,6 +14,7 @@
       'updateUser': updateUser,
       'deleteUser': deleteUser,
       'followUser': followUser,
+      'unfollowUser': unfollowUser,
       'login': login,
       'logout': logout,
       'loggedin': loggedin,
@@ -54,6 +55,10 @@
 
     function followUser(userId, followId) {
       return $http.put('/project/api/users/' + userId + '/follow/' + followId);
+    }
+
+    function unfollowUser(userId, unfollowId) {
+      return $http.put('/project/api/users/' + userId + '/unfollow/' + unfollowId);
     }
 
     function login(user) {

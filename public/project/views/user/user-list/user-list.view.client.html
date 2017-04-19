@@ -1,0 +1,72 @@
+<skd-login-nav user="vm.user" control="vm.control"></skd-login-nav>
+<md-content class="layout-padding">
+    <h1 layout="row" flex layout-align="center center">Users</h1>
+    <md-tabs md-dynamic-height>
+        <md-tab label="Trending">
+            <md-content class="md-padding" layouy-align="center center">
+                <md-list-item class="md-2-line" ng-repeat="user in vm.trending"
+                              ng-click="vm.viewUser(user._id)">
+                    <div class="md-list-item-text">
+                        <h3>{{user.username}}</h3>
+                        <p>{{user.itineraries.length}} Itinerar{{user.itineraries.length === 1 ? 'y' : 'ies'}}</p>
+                    </div>
+                    <md-button class="md-raised"
+                               ng-class="{'md-primary': !vm.user || !vm.followingYn(user._id),
+                               'md-warn': vm.user && vm.followingYn(user._id)}"
+                               ng-click="vm.toggleFollowing(user._id, $index, $event, 'TRENDING')"
+                               ng-disabled="vm.user && user._id === vm.user._id">
+                        {{vm.user && vm.followingYn(user._id) ? 'Un' : ''}}Follow
+                    </md-button>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-content>
+        </md-tab>
+
+        <md-tab label="Following">
+            <md-content class="md-padding">
+                <h3 ng-show="!vm.user">
+                    Login in to start following users
+                </h3>
+                <h3 ng-show="vm.user && vm.following.length === 0">
+                    Start following users!
+                </h3>
+                <md-list-item class="md-2-line" ng-repeat="user in vm.following"
+                              ng-click="vm.viewUser(user._id)">
+                    <div class="md-list-item-text">
+                        <h3>{{user.username}}</h3>
+                        <p>{{user.itineraries.length}} Itinerar{{user.itineraries.length === 1 ? 'y' : 'ies'}}</p>
+                    </div>
+                    <md-button class="md-raised md-warn" ng-click="vm.unfollowUser(user._id, $index, $event)">
+                        Unfollow
+                    </md-button>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-content>
+        </md-tab>
+
+        <md-tab label="Followers">
+            <md-content class="md-padding">
+                <h3 ng-show="!vm.user">
+                    Login in to begin gathering followers
+                </h3>
+                <h3 ng-show="vm.user && vm.followers.length === 0">
+                    Be interesting so people follow you!
+                </h3>
+                <md-list-item class="md-2-line" ng-repeat="user in vm.followers"
+                              ng-click="vm.viewUser(user._id)">
+                    <div class="md-list-item-text">
+                        <h3>{{user.username}}</h3>
+                        <p>{{user.itineraries.length}} Itinerar{{user.itineraries.length === 1 ? 'y' : 'ies'}}</p>
+                    </div>
+                    <md-button class="md-raised" ng-click="vm.toggleFollowing(user._id, $index, $event, 'FOLLOWERS')"
+                               ng-class="{'md-primary': !vm.followingYn(user._id),
+                               'md-warn': vm.followingYn(user._id)}">
+                        {{vm.followingYn(user._id) ? 'Un' : ''}}Follow
+                    </md-button>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</md-content>
+<skd-bottom-nav></skd-bottom-nav>

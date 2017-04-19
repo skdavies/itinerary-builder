@@ -54,8 +54,16 @@
         }
       })
       .when('/user/:userId', {
-        templateUrl: 'views/user/user.view.client.html',
-        controller: 'UserController',
+        templateUrl: 'views/user/profile/profile.view.client.html',
+        controller: 'ProfileController',
+        controllerAs: 'vm',
+        resolve: {
+          loggedIn: checkLogin
+        }
+      })
+      .when('/user', {
+        templateUrl: 'views/user/user-list/user-list.view.client.html',
+        controller: 'UserListController',
         controllerAs: 'vm',
         resolve: {
           loggedIn: checkLogin
