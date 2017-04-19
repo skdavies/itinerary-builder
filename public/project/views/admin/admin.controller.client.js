@@ -7,7 +7,6 @@
     var vm = this;
     vm.logout = logout;
     vm.deleteUser = deleteUser;
-    vm.deletePlace = deletePlace;
     vm.deleteItinerary = deleteItinerary;
     vm.toggleEditUser = toggleEditUser;
     vm.toggleEditPlace = toggleEditPlace;
@@ -48,21 +47,6 @@
           vm.success = 'User successfully deleted.';
           UserService.findAllUsers().then(function (response) {
             vm.users = response.data;
-          }, function (err) {
-            vm.error = 'The data may be out of date, please refresh.';
-          });
-        }, function (err) {
-          vm.error = err.message;
-        });
-      });
-    }
-
-    function deletePlace(place) {
-      $mdDialog.show(vm.confirm).then(function () {
-        PlaceService.deletePlace(place._id).then(function () {
-          vm.success = 'Place successfully deleted.';
-          PlaceService.findAllPlaces().then(function (response) {
-            vm.places = response.data;
           }, function (err) {
             vm.error = 'The data may be out of date, please refresh.';
           });

@@ -57,7 +57,6 @@
                             <td>{{place.reviews.length}}</td>
                             <td>{{place.ads.length}}</td>
                             <td>
-                                <i class="fa fa-times admin-icon" ng-click="vm.deletePlace(place)"></i>
                                 <i class="fa fa-pencil admin-icon" ng-click="vm.toggleEditPlace($event, place, $index)"
                                    ng-show="place.ads.length > 0 || place.reviews.length > 0"></i>
                             </td>
