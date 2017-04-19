@@ -17,7 +17,7 @@ module.exports = function (app, model) {
       itinerary._user = req.params.userId;
       itineraryModel.createItinerary(itinerary).then(function (itinerary) {
         userModel.findUserById(req.params.userId).then(function (user) {
-          user.itineraries.push(user._id);
+          user.itineraries.push(itinerary._id);
           user.save();
           res.json(itinerary);
         }, function (error) {

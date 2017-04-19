@@ -9,8 +9,14 @@ module.exports = function () {
     email: String,
     role: { type: String, required: true, enum: ['ADMIN', 'USER', 'ADVERTISER'], default: 'USER' },
     itineraries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ItineraryModel' }],
-    following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProjectUserModel' }],
-    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProjectUserModel' }],
+    following: {
+      users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProjectUserModel' }],
+      count: { type: Number, default: 0 }
+    },
+    followers: {
+      users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProjectUserModel' }],
+      count: { type: Number, default: 0 }
+    },
     dateCreated: { type: Date, default: Date.now },
     google: {
       id: String

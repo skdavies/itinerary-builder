@@ -7,6 +7,8 @@ module.exports = function () {
     findAllUsers: findAllUsers,
     findUserByGoogleId: findUserByGoogleId,
     findUserByFacebookId: findUserByFacebookId,
+    findFollowingItineraries: findFollowingItineraries,
+    findTrendingUsers: findTrendingUsers,
     followUser: followUser,
     updateUser: updateUser,
     updateProfile: updateProfile,
@@ -37,6 +39,14 @@ module.exports = function () {
     return UserModel.find().sort({ username: 'asc' }).select('-password -google -facebook');
   }
 
+  function findFollowingItineraries(userId) {
+    return UserModel.findById(userId).populate('following');
+  }
+
+  function findTrendingUsers() {
+    return UserModel.find({ role: 'USER' }).populate('itineraries').sort({ 'followers.count': 1 });
+  }
+
   function findUserByGoogleId(googleId) {
     return UserModel.findOne({ 'google.id': googleId });
   }
@@ -46,11 +56,24 @@ module.exports = function () {
   }
 
   function followUser(userId, userIdToFollow) {
-    return UserModel.findOneAndUpdate({ _id: userId }, { $addToSet: { following: userIdToFollow } }, { new: true }).then(function (user) {
-      user.followers.push(userId);
-      user.save();
-      // UserModel.findOneAndUpdate({ _id: userIdToFollow }, { $addToSet: { followers: userId } });
+    return UserModel.findOneAndUpdate({ _id: userIdToFollow }, {
+      $addToSet: { 'followers.users': userId },
+      $inc: { 'followers.count': 1 }
+    }, { new: true }).then(function () {
+      UserModel.findOneAndUpdate({ _id: userId }, {
+        $addToSet: { 'following.users': userIdToFollow },
+        $inc: { 'following.count': 1 }
+      }, { new: true });
     });
+    // return UserModel.findOneAndUpdate({ _id: userId }, {
+    //   $addToSet: { 'following.users': userIdToFollow },
+    //   $inc: { 'following.count': 1 }
+    // }, { new: true }).then(function () {
+    //   UserModel.findOneAndUpdate({ _id: userIdToFollow }, {
+    //     $addToSet: { 'followers.users': userId },
+    //     $inc: { 'followers.count': 1 }
+    //   }, { new: true });
+    // });
   }
 
   function updateUser(userId, user) {

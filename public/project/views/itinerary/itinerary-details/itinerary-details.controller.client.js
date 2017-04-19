@@ -1,9 +1,9 @@
 (function () {
   angular
     .module('ItineraryPlanner')
-    .controller('ItineraryDetailsController', ItineraryDetailsController);
+    .controller('ItineraryDetailsController', itineraryDetailsController);
 
-  function ItineraryDetailsController($location, $routeParams, ItineraryService, PlaceService, $scope, loggedIn) {
+  function itineraryDetailsController($location, $routeParams, ItineraryService, PlaceService, $scope, loggedIn) {
     var vm = this;
     vm.saveItinerary = saveItinerary;
     vm.resetToLastSave = resetToLastSave;

@@ -33,6 +33,8 @@ module.exports = function (app, model) {
   app.post('/project/api/users/register', register);
   app.get('/project/api/users', findUser);
   app.get('/project/api/users/:userId', findUserById);
+  app.get('/project/api/users/:userId/following/itineraries', findFollowingItineraries);
+  app.get('/project/api/users/trending/hot', findTrendingUsers);
   app.put('/project/api/users/:userId', updateUser);
   app.delete('/project/api/users/:userId', deleteUser);
   app.put('/project/api/users/:userId/follow/:followId', followUser);
@@ -43,7 +45,6 @@ module.exports = function (app, model) {
           return done(null, user);
         } else {
           return done(null, false);
-
         }
       }, function (err) {
         if (err) {
@@ -144,6 +145,19 @@ module.exports = function (app, model) {
     }
   }
 
+
+  function findFollowingItineraries(req, res) {
+    userModel.findFollowingItineraries(req.params.userId).then(function (user) {
+      console.log(user);
+    });
+  }
+
+  function findTrendingUsers(req, res) {
+    userModel.findTrendingUsers().then(function (users) {
+      res.json(users);
+    });
+  }
+
   function findUserById(req, res) {
     userModel.findUserById(req.params.userId).then(function (user) {
       if (user) {
@@ -207,6 +221,7 @@ module.exports = function (app, model) {
 
   function followUser(req, res) {
     userModel.followUser(req.params.userId, req.params.followId).then(function (user) {
+      console.log(user);
       res.json(user);
     }, function () {
       res.sendStatus(500);

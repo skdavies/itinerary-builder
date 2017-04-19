@@ -21,6 +21,14 @@
           loggedIn: checkLoginUserRole
         }
       })
+      .when('/itinerary', {
+        templateUrl: 'views/itinerary/itinerary-list/itinerary-list.view.client.html',
+        controller: 'ItineraryListController',
+        controllerAs: 'vm',
+        resolve: {
+          loggedIn: checkLoginUserRole
+        }
+      })
       .when('/admin', {
         templateUrl: 'views/admin/admin.view.client.html',
         controller: 'AdminController',

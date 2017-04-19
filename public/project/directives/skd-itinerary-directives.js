@@ -207,7 +207,7 @@
       }
 
       function goItineraries() {
-        $location.url('/');
+        $location.url('/itinerary');
       }
 
       function goUsers() {

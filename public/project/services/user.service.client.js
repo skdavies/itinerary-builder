@@ -8,6 +8,8 @@
       'register': register,
       'findUserById': findUserById,
       'findUserByUsername': findUserByUsername,
+      'findFollowingItineraries': findFollowingItineraries,
+      'findTrendingUsers': findTrendingUsers,
       'findAllUsers': findAllUsers,
       'updateUser': updateUser,
       'deleteUser': deleteUser,
@@ -28,6 +30,14 @@
 
     function findUserByUsername(username) {
       return $http.get('/project/api/users?username=' + username);
+    }
+
+    function findFollowingItineraries(userId) {
+      return $http.get('/project/api/users/' + userId + '/following/itineraries');
+    }
+
+    function findTrendingUsers() {
+      return $http.get('/project/api/users/trending/hot');
     }
 
     function findAllUsers() {
