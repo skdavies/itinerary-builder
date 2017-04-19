@@ -10,6 +10,10 @@
         <div layout="row" flex>
             <div hide-xs flex-gt-xs="66" id="map-itin-details"></div>
             <div class="right-panel" layout-padding flex-gt-xs="33" flex layout="column">
+                <md-input-container md-no-float flex layout="row" class="itin-title">
+                    <input type="text" placeholder="Itinerary Name" ng-model="vm.itinerary.name"
+                           ng-disabled="!vm.user || vm.user._id !== vm.itinerary._user" ng-change="vm.dirty = true">
+                </md-input-container>
                 <skd-sortable-itinerary places="vm.places" dirty="vm.dirty"></skd-sortable-itinerary>
                 <md-button class="md-raised md-primary" ng-show="vm.user && vm.user._id === vm.itinerary._user" layout="row"
                            ng-click="vm.saveItinerary()" ng-disabled="!vm.dirty">

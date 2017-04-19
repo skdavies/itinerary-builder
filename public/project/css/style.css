@@ -19,8 +19,6 @@ a {
 }
 
 .right-panel {
-    /*padding-top: 0;*/
-    /*padding-right: 0;*/
     padding: 0;
 }
 
@@ -167,6 +165,11 @@ md-card {
 }
 
 skd-sortable-itinerary {
+    padding-top: 0 !important;
+}
+
+.itin-title {
+    max-height: 45px;
     padding-top: 0 !important;
 }
 
