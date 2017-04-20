@@ -14,7 +14,6 @@
     function init() {
       var userId = $routeParams['userId'];
       vm.user = loggedIn;
-      console.log(vm.user);
       vm.userCopy = angular.copy(vm.user);
       vm.viewing = {};
       vm.isEditing = false;

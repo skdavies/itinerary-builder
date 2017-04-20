@@ -41,12 +41,12 @@
       var autocomplete = new google.maps.places.Autocomplete(input, options);
       window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
         var place = autocomplete.getPlace();
+        var coordinates = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
+        new google.maps.Marker({
+          position: coordinates,
+          map: map
+        });
         if (vm.places.length === 0) {
-          var coordinates = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
-          new google.maps.Marker({
-            position: coordinates,
-            map: map
-          });
           map.setCenter(coordinates)
         }
         PlaceService.findPlaceByGoogleId(place.place_id).then(function (response) {
