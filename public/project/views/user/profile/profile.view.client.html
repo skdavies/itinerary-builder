@@ -1,5 +1,65 @@
 <skd-login-nav user="vm.user"></skd-login-nav>
-<md-content class="layout-padding">
-    Profile Page
+<md-content class="layout-padding profile-view" layout="column">
+    <h3 ng-show="!vm.viewing" flex layout="row">
+        We're sorry, the user could not be loaded. Please try again!
+    </h3>
+    <div ng-show="vm.viewing" layout="row" flex>
+        <md-card layout layout-align="center center" flex>
+            <md-card-content layout="column" layout-align="center center">
+                <h1 layout="row" flex>{{vm.viewing.username}}</h1>
+                <h4 ng-show="vm.viewing.firstName && vm.viewing.lastName && !vm.isEditing" layout="row" flex>
+                    {{vm.viewing.firstName}} {{vm.viewing.lastName}}
+                </h4>
+                <md-input-container ng-show="vm.isEditing">
+                    <input ng-model="vm.userCopy.firstName" type="text" placeholder="First Name"
+                           ng-pattern="/^[a-zA-Z\s]*$/">
+                </md-input-container>
+                <md-input-container ng-show="vm.isEditing">
+                    <input ng-model="vm.userCopy.lastName" type="text" placeholder="Last Name"
+                           ng-pattern="/^[a-zA-Z\s]*$/">
+                </md-input-container>
+                <h6 layout="row" flex>
+                    Followed by {{vm.viewing.followers.count}} User{{vm.viewing.followers.count === 1 ? '' : 's'}}
+                </h6>
+                <h6 layout="row" flex>
+                    Follows {{vm.viewing.following.count}} User{{vm.viewing.following.count === 1 ? '' : 's'}}
+                </h6>
+                <md-button class="md-primary md-raised profile-btn"
+                           ng-show="vm.user && vm.user._id === vm.viewing._id && !vm.isEditing"
+                           ng-click="vm.isEditing = true">
+                    Edit
+                </md-button>
+                <md-button class="md-primary md-raised profile-btn"
+                           ng-show="vm.user && vm.user._id === vm.viewing._id && vm.isEditing"
+                           ng-click="vm.saveProfile()"
+                           ng-disabled="vm.userCopy.firstName === vm.user.firstName
+                           && vm.userCopy.lastName === vm.user.lastName">
+                    Save
+                </md-button>
+                <md-list-item class="md-2-line profile-itin" ng-repeat="itinerary in vm.itineraries"
+                              ng-click="vm.viewItinerary(itinerary._id)">
+                    <div class="md-list-item-text">
+                        <h3>{{itinerary.name}}</h3>
+                        <p>{{itinerary.dateCreated | date: 'MMM dd, yyyy'}}</p>
+                    </div>
+                    <md-button class="md-icon-button" ng-show="vm.user && vm.user._id === vm.viewing._id">
+                        <i class="fa fa-times close-btn"
+                           ng-click="vm.deleteItinerary(itinerary._id, $index, $event)"></i>
+                    </md-button>
+                    <md-button class="md-default" ng-show="!vm.user || vm.user._id !== vm.viewing._id">
+                        View
+                    </md-button>
+                    <md-divider></md-divider>
+                </md-list-item>
+                <md-button class="md-raised profile-btn" ng-click="vm.toggleFollow(vm.viewing._id)"
+                           ng-show="vm.user && vm.user._id !== vm.viewing._id"
+                           ng-class="{'md-primary': !vm.followingYn(vm.viewing._id),
+                               'md-warn': vm.followingYn(vm.viewing._id)}">
+                    {{vm.followingYn(vm.viewing._id) ? 'Un' : ''}}Follow
+                </md-button>
+            </md-card-content>
+        </md-card>
+    </div>
+
 </md-content>
 <skd-bottom-nav></skd-bottom-nav>

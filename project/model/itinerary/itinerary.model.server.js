@@ -6,8 +6,7 @@ module.exports = function () {
     findItinerariesForUser: findItinerariesForUser,
     findAllItineraries: findAllItineraries,
     updateItinerary: updateItinerary,
-    deleteItinerary: deleteItinerary,
-    reorderPlaces: reorderPlaces
+    deleteItinerary: deleteItinerary
   };
 
   var mongoose = require('mongoose');
@@ -40,9 +39,5 @@ module.exports = function () {
 
   function deleteItinerary(itineraryId) {
     return ItineraryModel.findOneAndRemove({ _id: itineraryId });
-  }
-
-  function reorderPlaces(itineraryId, places) {
-    return ItineraryModel.findOneAndUpdate({ _id: itineraryId }, { $set: { places: places } }, { new: true });
   }
 };

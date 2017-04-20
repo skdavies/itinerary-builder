@@ -95,8 +95,7 @@ module.exports = function () {
       {
         $set: {
           firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email
+          lastName: user.lastName
         }
       },
       { new: true });

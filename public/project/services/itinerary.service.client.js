@@ -11,7 +11,6 @@
       'findItinerariesForUser': findItinerariesForUser,
       'updateItinerary': updateItinerary,
       'deleteItinerary': deleteItinerary,
-      'reorderPlaces': reorderPlaces
     };
 
     function createItinerary(userId, itinerary) {
@@ -36,10 +35,6 @@
 
     function deleteItinerary(itineraryId) {
       return $http.delete('/project/api/itineraries/' + itineraryId);
-    }
-
-    function reorderPlaces(itineraryId, places) {
-      return $http.put('/project/api/itineraries/' + itineraryId + '/places/reorder', places);
     }
   }
 

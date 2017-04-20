@@ -6,7 +6,6 @@ module.exports = function () {
     password: { type: String },
     firstName: String,
     lastName: String,
-    email: String,
     role: { type: String, required: true, enum: ['ADMIN', 'USER', 'ADVERTISER'], default: 'USER' },
     itineraries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ItineraryModel' }],
     following: {

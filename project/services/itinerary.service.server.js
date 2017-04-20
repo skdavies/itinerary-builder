@@ -9,7 +9,6 @@ module.exports = function (app, model) {
   app.get('/project/api/itineraries/:itinId', findItineraryById);
   app.put('/project/api/itineraries/:itinId', updateItinerary);
   app.delete('/project/api/itineraries/:itinId', deleteItinerary);
-  app.put('/project/api/itineraries/:itinId/places/reorder', reorderPlaces);
 
   function createItinerary(req, res) {
     var itinerary = req.body;
@@ -77,30 +76,23 @@ module.exports = function (app, model) {
   }
 
   function deleteItinerary(req, res) {
-    itineraryModel.deleteItinerary(req.params.itinId).then(function (itinerary) {
-      userModel.findUserById(itinerary._user).then(function (user) {
-        var index = user.itineraries.indexOf(itinerary._id);
-        user.itineraries.splice(index, 1);
-        user.save();
-        res.sendStatus(200);
+    var itinId = req.params.itinId;
+    if (req.user && (req.user.role === 'ADMIN' || req.user.itineraries.indexOf(itinId) !== -1)) {
+      itineraryModel.deleteItinerary(itinId).then(function (itinerary) {
+        userModel.findUserById(itinerary._user).then(function (user) {
+          var index = user.itineraries.indexOf(itinerary._id);
+          user.itineraries.splice(index, 1);
+          user.save();
+          res.sendStatus(200);
+        }, function (error) {
+          console.log(error);
+          res.sendStatus(500);
+        });
       }, function (error) {
         res.sendStatus(500);
-      });
-    }, function (error) {
-      res.sendStatus(500);
-    })
-  }
-
-  function reorderPlaces(req, res) {
-    var body = req.body;
-    if (body && body.places && body.places.constructor === Array) {
-      itineraryModel.reorderPlaces(req.params.itinId, req.body.places).then(function (itinerary) {
-        res.json(itinerary);
-      }, function (error) {
-        res.sendStatus(500);
-      });
+      })
     } else {
-      res.status(400).send('Invalid request body.');
+      res.status(401).send('You do not have permission to do that.');
     }
   }
 };

@@ -173,6 +173,22 @@ skd-sortable-itinerary {
     padding-top: 0 !important;
 }
 
+.close-btn {
+    font-size: 20px;
+}
+
+.profile-btn {
+    width: 200px;
+}
+
+.profile-view h1 {
+    margin: 10px 0 20px 0;
+}
+
+.profile-itin {
+    min-width: 250px;
+}
+
 .skd-sticky-footer {
     position: fixed;
     bottom: 0;
