@@ -26,7 +26,7 @@ module.exports = function () {
   }
 
   function findItineraryById(itineraryId) {
-    return ItineraryModel.findById(itineraryId).populate('places');
+    return ItineraryModel.findById(itineraryId).populate('places _user');
   }
 
   function findItinerariesForUser(userId) {

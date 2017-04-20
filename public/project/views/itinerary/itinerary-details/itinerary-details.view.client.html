@@ -3,7 +3,8 @@
 <md-content flex class="layout-padding home-view">
     <div layout="column" flex>
         <div layout="row" flex>
-            <md-input-container md-no-float class="md-block" ng-show="vm.user && vm.user._id === vm.itinerary._user" flex>
+            <md-input-container md-no-float class="md-block" ng-show="vm.user && vm.user._id === vm.itinerary._user"
+                                flex>
                 <input type="text" placeholder="Add a place" id="autocomplete-itin-details">
             </md-input-container>
         </div>
@@ -15,18 +16,23 @@
                            ng-disabled="!vm.user || vm.user._id !== vm.itinerary._user" ng-change="vm.dirty = true">
                 </md-input-container>
                 <skd-sortable-itinerary places="vm.places" dirty="vm.dirty"></skd-sortable-itinerary>
-                <md-button class="md-raised md-primary" ng-show="vm.user && vm.user._id === vm.itinerary._user" layout="row"
+                <h6 layout="row">
+                    Created by: {{vm.itinerary._user.username}}
+                </h6>
+                <md-button class="md-raised md-primary" ng-show="vm.user && vm.user._id === vm.itinerary._user"
+                           layout="row"
                            ng-click="vm.saveItinerary()" ng-disabled="!vm.dirty">
                     Save
                 </md-button>
-                <md-button class="md-raised md-warn" ng-show="vm.user && vm.user._id === vm.itinerary._user" layout="row"
+                <md-button class="md-raised md-warn" ng-show="vm.user && vm.user._id === vm.itinerary._user"
+                           layout="row"
                            ng-click="vm.resetToLastSave()" ng-disabled="!vm.dirty">Reset
                 </md-button>
                 <md-button class="md-raised" ng-click="vm.toggleFollow(vm.itinerary._user)" layout="row"
                            ng-show="vm.user && vm.user._id !== vm.itinerary._user"
                            ng-class="{'md-primary': !vm.followingYn(vm.itinerary._user),
                                'md-warn': vm.followingYn(vm.itinerary._user)}">
-                    {{vm.followingYn(vm.itinerary._user) ? 'Un' : ''}}Follow
+                    {{vm.followingYn(vm.itinerary._user) ? 'Un' : ''}}Follow User
                 </md-button>
             </div>
         </div>

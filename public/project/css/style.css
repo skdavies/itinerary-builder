@@ -22,6 +22,10 @@ a {
     padding: 0;
 }
 
+.right-panel h6 {
+    margin: 0 0 0 2px;
+}
+
 .place-item {
     background-color: white;
     border: 1px solid black;
