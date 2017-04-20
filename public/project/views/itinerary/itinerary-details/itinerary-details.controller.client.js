@@ -3,14 +3,21 @@
     .module('ItineraryPlanner')
     .controller('ItineraryDetailsController', itineraryDetailsController);
 
-  function itineraryDetailsController($location, $routeParams, ItineraryService, PlaceService, $scope, loggedIn) {
+  function itineraryDetailsController($location, $routeParams, ItineraryService, PlaceService, $scope, loggedIn,
+                                      $route, UserService) {
     var vm = this;
     vm.saveItinerary = saveItinerary;
     vm.resetToLastSave = resetToLastSave;
+    vm.followingYn = followingYn;
+    vm.toggleFollow = toggleFollow;
+
 
     function init() {
       vm.itinId = $routeParams['itinId'];
       vm.user = loggedIn;
+      vm.places = [];
+      vm.itinerary = {};
+
       if (vm.user && vm.user.role === 'ADMIN') {
         $location.url('/admin');
         return;
@@ -18,10 +25,14 @@
         $location.url('/place');
         return;
       }
+
       initMap();
+
       ItineraryService.findItineraryById(vm.itinId).then(function (response) {
         vm.itinerary = response.data;
         vm.places = response.data.places;
+      }, function () {
+        $route.reload();
       });
       vm.dirty = false;
     }
@@ -69,6 +80,33 @@
         input.focus();
         input.value = '';
       });
+    }
+
+    function followingYn(followId) {
+      if (!vm.user || !vm.user.following.count) {
+        return false;
+      } else {
+        var followingUsers = vm.user.following.users;
+        if (typeof followingUsers[0] === 'string' || followingUsers[0] instanceof String) {
+          return vm.user.following.users.includes(followId)
+        } else {
+          return vm.user.following.users.filter(function (u) {
+              return u.followers.users.includes(followId)
+            }).length === 0;
+        }
+      }
+    }
+
+    function toggleFollow(followId) {
+      if (followingYn(followId)) {
+        UserService.unfollowUser(vm.user._id, followId).then(function (response) {
+          vm.user = response.data;
+        });
+      } else {
+        UserService.followUser(vm.user._id, followId).then(function (response) {
+          vm.user = response.data;
+        });
+      }
     }
 
     function saveItinerary() {

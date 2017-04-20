@@ -22,6 +22,12 @@
                 <md-button class="md-raised md-warn" ng-show="vm.user && vm.user._id === vm.itinerary._user" layout="row"
                            ng-click="vm.resetToLastSave()" ng-disabled="!vm.dirty">Reset
                 </md-button>
+                <md-button class="md-raised" ng-click="vm.toggleFollow(vm.itinerary._user)" layout="row"
+                           ng-show="vm.user && vm.user._id !== vm.itinerary._user"
+                           ng-class="{'md-primary': !vm.followingYn(vm.itinerary._user),
+                               'md-warn': vm.followingYn(vm.itinerary._user)}">
+                    {{vm.followingYn(vm.itinerary._user) ? 'Un' : ''}}Follow
+                </md-button>
             </div>
         </div>
     </div>
