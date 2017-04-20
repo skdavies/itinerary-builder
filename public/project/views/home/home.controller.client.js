@@ -74,13 +74,5 @@
         $location.url('/itinerary/' + response.data._id);
       });
     }
-
-    function _formatPlacesToIds(places) {
-      var placeIds = [];
-      for (var i = 0; i < places.length; i++) {
-        placeIds.push(places[i]._id);
-      }
-      return placeIds;
-    }
   }
 })();
