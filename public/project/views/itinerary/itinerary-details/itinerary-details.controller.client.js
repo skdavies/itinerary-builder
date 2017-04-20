@@ -55,6 +55,7 @@
             vm.places.push(place);
             vm.dirty = true;
           } else {
+            //TODO IMPLEMENT LAT LON
             PlaceService.createPlace({
               googlePlaceId: place.place_id, name: place.name
             }).then(function (response) {
