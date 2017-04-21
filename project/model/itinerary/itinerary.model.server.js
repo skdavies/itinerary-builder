@@ -34,7 +34,7 @@ module.exports = function () {
   }
 
   function updateItinerary(itineraryId, itinerary) {
-    return ItineraryModel.findOneAndUpdate({ _id: itineraryId }, { $set: itinerary }, { new: true })
+    return ItineraryModel.findOneAndUpdate({ _id: itineraryId }, { $set: itinerary }, { new: true }).populate('_user');
   }
 
   function deleteItinerary(itineraryId) {
