@@ -12,12 +12,25 @@
 
         <md-dialog-content>
             <div class="md-dialog-content" layout="column">
-                <md-input-container>
-                    <input ng-model="usr.username" type="text" placeholder="Username">
-                </md-input-container>
-                <md-input-container>
-                    <input ng-model="usr.password" type="password" placeholder="Password">
-                </md-input-container>
+                <form name="loginForm">
+                    <div class="login-field">
+                        <md-input-container>
+                            <input ng-model="usr.username" type="text" name="username" placeholder="Username" required>
+                            <div ng-messages="loginForm.username.$error">
+                                <div ng-message="required" ng-show="!usr.username.length">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div class="login-field">
+                        <md-input-container>
+                            <input ng-model="usr.password" type="password" name="password" placeholder="Password"
+                                   required>
+                            <div ng-messages="loginForm.password.$error">
+                                <div ng-message="required" ng-show="!usr.password.length">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </form>
                 <div class="login-auth">
                     Or, login with:
                     <br>
@@ -37,7 +50,7 @@
             <md-button ng-click="cancel()">
                 Cancel
             </md-button>
-            <md-button class="md-raised md-primary" ng-click="login(usr)">
+            <md-button class="md-raised md-primary" ng-click="login(usr)" ng-disabled="!usr.username || !usr.password">
                 Login
             </md-button>
         </md-dialog-actions>

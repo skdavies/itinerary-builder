@@ -164,16 +164,16 @@ md-whiteframe {
     padding-right: 60px;
 }
 
+.login-field {
+    margin-bottom: 10px;
+}
+
 .md-padding {
     background-color: #e4e4e4 !important;
 }
 
 md-content {
     background-color: #e4e4e4 !important;
-}
-
-md-input-container {
-    margin: 0;
 }
 
 md-card {
