@@ -66,10 +66,12 @@
   function skdLoginNav(UserService, $location, $mdDialog) {
 
     function linkFunction(scope, element) {
+      // var vm = scope;
       scope.toggleRegister = toggleRegister;
       scope.toggleLogin = toggleLogin;
       scope.logout = logout;
       scope.viewProfile = viewProfile;
+      // console.log(vm);
 
       if (scope.control) {
         scope.control = {

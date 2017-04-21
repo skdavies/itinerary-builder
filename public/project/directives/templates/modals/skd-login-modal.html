@@ -18,6 +18,16 @@
                 <md-input-container>
                     <input ng-model="usr.password" type="password" placeholder="Password">
                 </md-input-container>
+                <div class="login-auth">
+                    Or, login with:
+                    <br>
+                    <a href="/project/api/users/auth/google">
+                        <i class="fa fa-google-plus-square"></i>
+                    </a>
+                    <a href="">
+                        <i class="fa fa-facebook-square"></i>
+                    </a>
+                </div>
                 Don't have an account yet? <a class="login" ng-click="showRegister()">Sign up!</a>
             </div>
         </md-dialog-content>

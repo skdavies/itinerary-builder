@@ -18,6 +18,14 @@ a {
     height: 400px;
 }
 
+.login-auth .fa{
+    font-size: 36px;
+}
+
+.login-auth {
+    margin-bottom: 15px;
+}
+
 .right-panel {
     padding: 0;
 }
