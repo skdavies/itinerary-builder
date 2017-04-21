@@ -12,6 +12,8 @@ module.exports = function () {
       review: String,
       date: { type: Date, default: Date.now }
     }],
+    lat: { type: Number, required: true },
+    lng: { type: Number, required: true },
     ads: [{
       advertiser: {
         type: mongoose.Schema.Types.ObjectId,

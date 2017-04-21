@@ -55,7 +55,7 @@
             vm.places.push(place);
           } else {
             PlaceService.createPlace({
-              googlePlaceId: place.place_id, name: place.name
+              googlePlaceId: place.place_id, name: place.name, lat: coordinates.lat, lng: coordinates.lng
             }).then(function (response) {
               place._id = response.data._id;
               vm.places.push(place);

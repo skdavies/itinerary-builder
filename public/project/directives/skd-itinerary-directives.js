@@ -37,6 +37,7 @@
 
       function removePlace(index) {
         scope.places.splice(index, 1);
+        scope.dirty = true;
       }
 
       function viewPlace(place, event) {

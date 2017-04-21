@@ -26,11 +26,10 @@
         return;
       }
 
-      initMap();
-
       ItineraryService.findItineraryById(vm.itinId).then(function (response) {
         vm.itinerary = response.data;
         vm.places = response.data.places;
+        initMap();
       }, function () {
         $route.reload();
       });
@@ -43,11 +42,21 @@
       var fenway = { lat: 42.346268, lng: -71.095764 };
       var map = new google.maps.Map(document.getElementById('map-itin-details'), {
         zoom: 4,
-        center: fenway
+        center: vm.places.length ? { lat: vm.places[0].lat, lng: vm.places[0].lng } : fenway
       });
+      for (var i = 0; i < vm.places.length; i++) {
+        new google.maps.Marker({
+          position: {
+            lat: vm.places[i].lat,
+            lng: vm.places[i].lng
+          },
+          map: map
+        });
+      }
       var options = {
         types: ['(regions)']
       };
+      //TODO ADD PREVIOUS MARKERS
       var input = document.getElementById('autocomplete-itin-details');
       var autocomplete = new google.maps.places.Autocomplete(input, options);
       window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
