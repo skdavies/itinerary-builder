@@ -6,6 +6,7 @@
   function homeController($location, ItineraryService, PlaceService, $scope, loggedIn, $mdDialog) {
     var vm = this;
     vm.saveItinerary = saveItinerary;
+    vm.viewPlace = viewPlace;
 
     function init() {
       vm.control = {};
@@ -73,6 +74,10 @@
       ItineraryService.createItinerary(vm.user._id, { places: placeIds }).then(function (response) {
         $location.url('/itinerary/' + response.data._id);
       });
+    }
+
+    function viewPlace(placeId) {
+      $location.url('/place/' + placeId);
     }
   }
 })();

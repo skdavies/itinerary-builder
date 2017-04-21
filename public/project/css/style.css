@@ -100,7 +100,7 @@ a {
 }
 
 .place-view {
-    margin-bottom: 60px;
+    margin-bottom: 50px;
     text-align: center;
 }
 
@@ -141,6 +141,10 @@ a {
 
 .md-datepicker-input-container {
     width: 50%;
+}
+
+md-whiteframe {
+    outline: none;
 }
 
 .md-datepicker-input {
