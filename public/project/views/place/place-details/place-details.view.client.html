@@ -37,6 +37,7 @@
                                 <p>{{review.date | date: 'MMM dd, yyyy'}}</p>
                             </div>
                         </md-list-item>
+                        <p ng-show="vm.user && !vm.place.reviews.length">Be the first to review it!</p>
                     </div>
                 </div>
                 <md-button layout="row" ng-show="vm.user && vm.user.role === 'USER'" class="md-raised md-primary"
