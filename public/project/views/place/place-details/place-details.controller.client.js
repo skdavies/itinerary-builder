@@ -35,12 +35,18 @@
       var autocomplete = new google.maps.places.Autocomplete(input, options);
       window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
         var place = autocomplete.getPlace();
+        var coordinates = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
         PlaceService.findPlaceByGoogleId(place.place_id).then(function (response) {
           var myPlace = response.data;
           if (myPlace) {
             $location.url('/place/' + myPlace._id);
           } else {
-            PlaceService.createPlace({ googlePlaceId: place.place_id, name: place.name }).then(function (response) {
+            PlaceService.createPlace({
+              googlePlaceId: place.place_id,
+              name: place.name,
+              lat: coordinates.lat,
+              lng: coordinates.lng
+            }).then(function (response) {
               $location.url('/place/' + response.data._id);
             });
           }
@@ -119,7 +125,7 @@
               $mdDialog.hide(response.data);
             });
           } else if (action === 'SUGGESTION') {
-            PlaceService.addPlaceAd(vm.place._id, {text: text}).then(function (response) {
+            PlaceService.addPlaceAd(vm.place._id, { text: text }).then(function (response) {
               $mdDialog.hide(response.data);
             });
           }

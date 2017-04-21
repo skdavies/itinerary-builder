@@ -9,8 +9,6 @@ if (!process.env.GOOGLE_CLIENT_ID_ITINERARY_PLANNER) {
   require('dotenv').config();
 }
 
-//TODO UNCOMMIT .ENV FILE AFTER GRADING
-
 app.use(cookieParser());
 app.use(session({
   secret: 'this is the secret', // process.env.SESSION_SECRET

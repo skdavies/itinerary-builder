@@ -56,7 +56,6 @@
       var options = {
         types: ['(regions)']
       };
-      //TODO ADD PREVIOUS MARKERS
       var input = document.getElementById('autocomplete-itin-details');
       var autocomplete = new google.maps.places.Autocomplete(input, options);
       window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -75,9 +74,8 @@
             vm.places.push(place);
             vm.dirty = true;
           } else {
-            //TODO IMPLEMENT LAT LON
             PlaceService.createPlace({
-              googlePlaceId: place.place_id, name: place.name
+              googlePlaceId: place.place_id, name: place.name, lat: coordinates.lat, lng: coordinates.lng
             }).then(function (response) {
               place._id = response.data._id;
               vm.places.push(place);
