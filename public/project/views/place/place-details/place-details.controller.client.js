@@ -39,7 +39,7 @@
         PlaceService.findPlaceByGoogleId(place.place_id).then(function (response) {
           var myPlace = response.data;
           if (myPlace) {
-            $location.url('/place/' + myPlace._id);
+            initMap(myPlace);
           } else {
             PlaceService.createPlace({
               googlePlaceId: place.place_id,
@@ -47,7 +47,7 @@
               lat: coordinates.lat,
               lng: coordinates.lng
             }).then(function (response) {
-              $location.url('/place/' + response.data._id);
+              initMap(response.data);
             });
           }
         });
