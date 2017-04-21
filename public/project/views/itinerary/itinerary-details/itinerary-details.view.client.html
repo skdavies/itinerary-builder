@@ -13,26 +13,26 @@
             <div class="right-panel" layout-padding flex-gt-xs="33" flex layout="column">
                 <md-input-container md-no-float flex layout="row" class="itin-title">
                     <input type="text" placeholder="Itinerary Name" ng-model="vm.itinerary.name"
-                           ng-disabled="!vm.user || vm.user._id !== vm.itinerary._user" ng-change="vm.dirty = true">
+                           ng-disabled="!vm.user || vm.user._id !== vm.itinerary._user._id" ng-change="vm.dirty = true">
                 </md-input-container>
                 <skd-sortable-itinerary places="vm.places" dirty="vm.dirty"></skd-sortable-itinerary>
                 <h6 layout="row">
                     Created by: {{vm.itinerary._user.username}}
                 </h6>
-                <md-button class="md-raised md-primary" ng-show="vm.user && vm.user._id === vm.itinerary._user"
+                <md-button class="md-raised md-primary" ng-show="vm.user && vm.user._id === vm.itinerary._user._id"
                            layout="row"
                            ng-click="vm.saveItinerary()" ng-disabled="!vm.dirty">
                     Save
                 </md-button>
-                <md-button class="md-raised md-warn" ng-show="vm.user && vm.user._id === vm.itinerary._user"
+                <md-button class="md-raised md-warn" ng-show="vm.user && vm.user._id === vm.itinerary._user._id"
                            layout="row"
                            ng-click="vm.resetToLastSave()" ng-disabled="!vm.dirty">Reset
                 </md-button>
-                <md-button class="md-raised" ng-click="vm.toggleFollow(vm.itinerary._user)" layout="row"
-                           ng-show="vm.user && vm.user._id !== vm.itinerary._user"
-                           ng-class="{'md-primary': !vm.followingYn(vm.itinerary._user),
-                               'md-warn': vm.followingYn(vm.itinerary._user)}">
-                    {{vm.followingYn(vm.itinerary._user) ? 'Un' : ''}}Follow User
+                <md-button class="md-raised" ng-click="vm.toggleFollow(vm.itinerary._user._id)" layout="row"
+                           ng-show="vm.user && vm.user._id !== vm.itinerary._user._id"
+                           ng-class="{'md-primary': !vm.followingYn(vm.itinerary._user._id),
+                               'md-warn': vm.followingYn(vm.itinerary._user._id)}">
+                    {{vm.followingYn(vm.itinerary._user._id) ? 'Un' : ''}}Follow User
                 </md-button>
             </div>
         </div>
