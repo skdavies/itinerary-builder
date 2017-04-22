@@ -1,0 +1,41 @@
+<skd-login-nav user="vm.user" control="vm.control"></skd-login-nav>
+
+<md-content flex class="layout-padding home-view">
+    <div layout="column" flex>
+        <div layout="row" flex>
+            <md-input-container md-no-float class="md-block" flex>
+                <input type="text" placeholder="Add a place" id="autocomplete">
+            </md-input-container>
+        </div>
+        <div layout="row" flex>
+            <div hide-xs id="map" flex-gt-xs="66"></div>
+            <div class="right-panel" layout-padding flex flex-gt-xs="33" layout="column">
+                <md-card ng-show="vm.places.length === 0" id="itin-placeholder" layout layout-align="center center">
+                    <md-card-title>
+                        <h3>Add a place to start your itinerary!</h3>
+                    </md-card-title>
+                </md-card>
+                <skd-sortable-itinerary places="vm.places" dirty="false"></skd-sortable-itinerary>
+                <md-button class="md-raised md-primary" ng-show="!vm.user && vm.places.length > 0" layout="row"
+                           ng-click="vm.control.showRegister($event)">
+                    Sign Up or Login to Save
+                </md-button>
+                <md-button class="md-raised md-primary" ng-show="vm.user && vm.places.length > 0"
+                           ng-click="vm.saveItinerary()">Save
+                </md-button>
+            </div>
+        </div>
+    </div>
+    <h2 layout="row" flex layout-align="center center">Recently Posted Local Advertisements</h2>
+    <div layout="row" ng-show="vm.placesWithAds.length > 0" layout-padding layout-wrap layout-fill>
+        <md-whiteframe ng-repeat="place in vm.placesWithAds" class="md-whiteframe-5dp ad-frame" flex="50"
+                       layout="column" ng-click="vm.viewPlace(place._id)"
+                       layout-align="center center"
+                       flex-gt-xs="33">
+            <div><strong>{{place.name}}</strong></div>
+            <div flex>{{place.ads[place.ads.length - 1].ad}}</div>
+        </md-whiteframe>
+    </div>
+</md-content>
+
+<skd-bottom-nav></skd-bottom-nav>

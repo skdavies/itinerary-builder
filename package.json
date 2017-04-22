@@ -4,17 +4,26 @@
   "description": "Web Dev at Northeastern University",
   "main": "server.js",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.1",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
     "express": "^4.13.4",
+    "express-session": "^1.15.2",
     "mongoose": "^4.4.15",
+    "mongoose-unique-validator": "^1.0.5",
     "multer": "^1.3.0",
-    "q": "^1.4.1"
+    "passport": "^0.3.2",
+    "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "q": "^1.4.1",
+    "request": "^2.81.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Jose G. Annunziato",
+  "author": "Samuel Davies",
   "license": "ISC"
 }

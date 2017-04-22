@@ -1,0 +1,58 @@
+<md-dialog aria-label="Login">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Login</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()" aria-label="cancel">
+                    <i class="fa fa-times"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="column">
+                <form name="loginForm">
+                    <div class="login-field">
+                        <md-input-container>
+                            <input ng-model="usr.username" type="text" name="username" placeholder="Username" required>
+                            <div ng-messages="loginForm.username.$error">
+                                <div ng-message="required" ng-show="!usr.username.length">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div class="login-field">
+                        <md-input-container>
+                            <input ng-model="usr.password" type="password" name="password" placeholder="Password"
+                                   required>
+                            <div ng-messages="loginForm.password.$error">
+                                <div ng-message="required" ng-show="!usr.password.length">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </form>
+                <div class="login-auth">
+                    Or, login with:
+                    <br>
+                    <a href="/project/api/users/auth/google">
+                        <i class="fa fa-google-plus-square"></i>
+                    </a>
+                    <a href="">
+                        <i class="fa fa-facebook-square"></i>
+                    </a>
+                </div>
+                Don't have an account yet? <a class="login" ng-click="showRegister()">Sign up!</a>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel()">
+                Cancel
+            </md-button>
+            <md-button class="md-raised md-primary" ng-click="login(usr)" ng-disabled="!usr.username || !usr.password">
+                Login
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

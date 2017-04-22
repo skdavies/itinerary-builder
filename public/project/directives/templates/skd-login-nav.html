@@ -1,0 +1,13 @@
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h1 flex>Vacation Builder</h1>
+        <div ng-show="!user">
+            <md-button ng-click="toggleRegister($event)">Sign Up</md-button>
+            <md-button class="md-raised" ng-click="toggleLogin($event)">Login</md-button>
+        </div>
+        <div ng-show="user">
+            <md-button ng-click="viewProfile()" ng-show="user.role !== 'ADMIN'">Profile</md-button>
+            <md-button class="md-raised" ng-click="logout()">Logout</md-button>
+        </div>
+    </div>
+</md-toolbar>

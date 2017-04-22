@@ -1,0 +1,73 @@
+<md-dialog aria-label="Register">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Register</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()" aria-label="cancel">
+                    <i class="fa fa-times"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="column">
+                <form name="registerForm">
+                    <div class="login-field">
+                        <md-input-container>
+                            <input ng-model="usr.username" type="text" name="username" placeholder="Username" required>
+                            <div ng-messages="registerForm.username.$error">
+                                <div ng-message="required" ng-show="!usr.username">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div class="login-field">
+                        <md-input-container>
+                            <input ng-model="usr.password" type="password" name="password" placeholder="Password"
+                                   required>
+                            <div ng-messages="registerForm.password.$error">
+                                <div ng-message="required" ng-show="!usr.password">This is required.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <div class="login-field">
+                        <md-input-container>
+                            <input ng-model="usr.confirm" type="password" name="confirm" placeholder="Confirm Password"
+                                   required ng-pattern="{{usr.password}}">
+                            <div ng-messages="registerForm.confirm.$error">
+                                <div ng-message-exp="['required', 'pattern']" ng-show="usr.confirm !== usr.password">
+                                    You must provide a matching password
+                                </div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                </form>
+                <md-checkbox ng-model="usr.advertiser" aria-label="Checkbox 1">
+                    Register as local activity advertiser
+                </md-checkbox>
+                <div class="login-auth">
+                    Or, login with:
+                    <br>
+                    <a href="/project/api/users/auth/google">
+                        <i class="fa fa-google-plus-square"></i>
+                    </a>
+                    <a href="">
+                        <i class="fa fa-facebook-square"></i>
+                    </a>
+                </div>
+                Already have an account? <a class="login" ng-click="showLogin()">Login!</a>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel()">
+                Cancel
+            </md-button>
+            <md-button class="md-raised md-primary" ng-click="register(usr)"
+                       ng-disabled="!usr.username || !usr.password || !usr.confirm || usr.confirm!==usr.password">
+                Register
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -1,0 +1,105 @@
+<skd-login-nav user="vm.admin"></skd-login-nav>
+<md-content class="admin-view layout-padding">
+    <div hide-xs>
+        <div ng-show="vm.error" class="alert alert-danger" role="alert">
+            {{vm.error}}
+            <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.error = null"></span>
+        </div>
+        <div ng-show="vm.success" class="alert alert-success" role="alert">
+            {{vm.success}}
+            <span class="glyphicon glyphicon-remove pull-right" ng-click="vm.success = null"></span>
+        </div>
+        <md-tabs md-dynamic-height>
+            <md-tab label="Users">
+                <md-content class="md-padding" layouy-align="center center">
+                    <table class="skd-table">
+                        <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Itineraries</th>
+                            <th>Followers</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="user in vm.users">
+                            <td>{{user.username}}</td>
+                            <td>{{user.role}}</td>
+                            <td>{{user.itineraries.length}}</td>
+                            <td>{{user.followers.length}}</td>
+                            <td ng-show="user.role !== 'ADMIN'">
+                                <i class="fa fa-times admin-icon" ng-click="vm.deleteUser(user)"></i>
+                                <i class="fa fa-pencil admin-icon" ng-click="vm.toggleEditUser($event, user, $index)"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-content>
+            </md-tab>
+
+            <md-tab label="Places">
+                <md-content class="md-padding">
+                    <table class="skd-table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Google Place ID</th>
+                            <th>Reviews</th>
+                            <th>Ads</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="place in vm.places">
+                            <td>{{place.name}}</td>
+                            <td>{{place.googlePlaceId}}</td>
+                            <td>{{place.reviews.length}}</td>
+                            <td>{{place.ads.length}}</td>
+                            <td>
+                                <i class="fa fa-pencil admin-icon" ng-click="vm.toggleEditPlace($event, place, $index)"
+                                   ng-show="place.ads.length > 0 || place.reviews.length > 0"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-content>
+            </md-tab>
+
+            <md-tab label="Itineraries">
+                <md-content class="md-padding">
+                    <table class="skd-table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Owned By</th>
+                            <th>Places</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="itinerary in vm.itineraries">
+                            <td>{{itinerary.name}}</td>
+                            <td>{{itinerary._user.username}}</td>
+                            <td>{{itinerary.places.length}}</td>
+                            <td>
+                                <i class="fa fa-times admin-icon" ng-click="vm.deleteItinerary(itinerary)"></i>
+                                <i class="fa fa-pencil admin-icon"
+                                   ng-click="vm.toggleEditItinerary($event, itinerary, $index)"></i>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-content>
+            </md-tab>
+
+        </md-tabs>
+
+    </div>
+
+    <div class="layout-padding" hide-gt-xs>
+        <h2 id="require-lg">
+            We're sorry, the admin view requires a bigger screen.
+        </h2>
+    </div>
+</md-content>

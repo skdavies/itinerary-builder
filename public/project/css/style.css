@@ -1,0 +1,214 @@
+body {
+    background-color: #e4e4e4;
+}
+
+.layout-padding {
+    background-color: #e4e4e4;
+}
+
+.md-block, .md-icon-float {
+    margin: 0 !important;
+}
+
+a {
+    cursor: pointer;
+}
+
+#map, #map-itin-details, .right-panel {
+    height: 400px;
+}
+
+.login-auth .fa{
+    font-size: 36px;
+}
+
+.login-auth {
+    margin-bottom: 15px;
+}
+
+.right-panel {
+    padding: 0;
+}
+
+.right-panel h6 {
+    margin: 0 0 0 2px;
+}
+
+.place-item {
+    background-color: white;
+    border: 1px solid black;
+}
+
+.place-item .fa {
+    font-size: 18px;
+}
+
+.ad-map {
+    height: 300px;
+}
+
+.user-map {
+    height: 550px;
+}
+
+.form-control {
+    margin-bottom: 5px;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+#itin-placeholder {
+    text-align: center;
+    margin-top: 0;
+    height: 100%;
+}
+
+#itinerary {
+    overflow-y: scroll;
+    padding-top: 0;
+}
+
+.itin-icon {
+    height: 100%;
+    text-align: center;
+    color: black;
+}
+
+.fa {
+    cursor: pointer;
+}
+
+.fa:focus {
+    outline: none;
+}
+
+.tab-content {
+    padding-top: 10px;
+}
+
+.admin-icon {
+    font-size: 24px;
+}
+
+.nav-icon {
+    font-size: 28px;
+}
+
+.admin-view {
+}
+
+.place-view {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.place-view h2 {
+    margin-top: 0;
+}
+
+.place-view h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.reviews {
+    max-height: 220px;
+}
+
+.review-panel {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+#dark-sky {
+    font-size: 12px;
+}
+
+.colored-frame {
+    background-color: #dff0d8;
+}
+
+.ad-frame {
+    background-color: #a3ccff;
+}
+
+.datepicker {
+    background-color: #e4e4e4 !important;
+    margin: 0 !important;
+}
+
+.md-datepicker-input-container {
+    width: 50%;
+}
+
+md-whiteframe {
+    outline: none;
+}
+
+.md-datepicker-input {
+    width: 100%;
+}
+
+.home-view {
+    margin-bottom: 60px;
+}
+
+#require-lg {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.skd-table th, .skd-table td{
+    padding-right: 60px;
+}
+
+.login-field {
+    margin-bottom: 10px;
+}
+
+.md-padding {
+    background-color: #e4e4e4 !important;
+}
+
+md-content {
+    background-color: #e4e4e4 !important;
+}
+
+md-card {
+    margin-bottom: 0;
+}
+
+skd-sortable-itinerary {
+    padding-top: 0 !important;
+}
+
+.itin-title {
+    max-height: 45px;
+    padding-top: 0 !important;
+}
+
+.close-btn {
+    font-size: 20px;
+}
+
+.profile-btn {
+    width: 200px;
+}
+
+.profile-view h1 {
+    margin: 10px 0 20px 0;
+}
+
+.profile-itin {
+    min-width: 250px;
+}
+
+.skd-sticky-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 25;
+}

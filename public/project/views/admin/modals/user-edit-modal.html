@@ -1,0 +1,47 @@
+<md-dialog aria-label="user-edit">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Edit User</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()" aria-label="cancel">
+                    <i class="fa fa-times"></i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="column">
+                <md-input-container>
+                    <input ng-model="usr.username" type="text" placeholder="Username" disabled>
+                </md-input-container>
+                <md-input-container>
+                    <input ng-model="usr.firstName" type="text" placeholder="First Name">
+                </md-input-container>
+                <md-input-container>
+                    <input ng-model="usr.lastName" type="text" placeholder="Last Name">
+                </md-input-container>
+                <md-input-container>
+                    <md-select ng-model="usr.role" placeholder="Role">
+                        <md-option ng-value="'USER'">
+                            User
+                        </md-option>
+                        <md-option ng-value="'ADVERTISER'">
+                            Advertiser
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="cancel()">
+                Cancel
+            </md-button>
+            <md-button class="md-raised md-primary" ng-click="editUser()">
+                Okay
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
