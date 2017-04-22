@@ -1,6 +1,6 @@
 <skd-login-nav user="vm.user"></skd-login-nav>
 
-<md-content flex class="layout-padding home-view">
+<md-content flex class="layout-padding itin-view">
     <div layout="column" flex>
         <div layout="row" flex>
             <md-input-container md-no-float class="md-block" ng-show="vm.user && vm.user._id === vm.itinerary._user._id"
@@ -11,11 +11,14 @@
         <div layout="row" flex>
             <div hide-xs flex-gt-xs="66" id="map-itin-details"></div>
             <div class="right-panel" layout-padding flex-gt-xs="33" flex layout="column">
-                <md-input-container md-no-float flex layout="row" class="itin-title">
-                    <input type="text" placeholder="Itinerary Name" ng-model="vm.itinerary.name"
-                           ng-disabled="!vm.user || vm.user._id !== vm.itinerary._user._id" ng-change="vm.dirty = true"
-                           ng-focus="vm.clearName()">
-                </md-input-container>
+                <div class="itin-title">
+                    <md-input-container md-no-float flex layout="row">
+                        <input type="text" placeholder="Itinerary Name" ng-model="vm.itinerary.name"
+                               ng-disabled="!vm.user || vm.user._id !== vm.itinerary._user._id"
+                               ng-change="vm.dirty = true"
+                               ng-focus="vm.clearName()">
+                    </md-input-container>
+                </div>
                 <skd-sortable-itinerary places="vm.places" dirty="vm.dirty"></skd-sortable-itinerary>
                 <h6 layout="row">
                     Created by: {{vm.itinerary._user.username}}
@@ -37,6 +40,7 @@
                 </md-button>
             </div>
         </div>
+    </div>
     </div>
 </md-content>
 

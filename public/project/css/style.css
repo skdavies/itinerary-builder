@@ -15,7 +15,7 @@ a {
 }
 
 #map, #map-itin-details, .right-panel {
-    height: 400px;
+    height: 450px;
 }
 
 .login-auth .fa{
@@ -28,6 +28,7 @@ a {
 
 .right-panel {
     padding: 0;
+    overflow-y: scroll;
 }
 
 .right-panel h6 {
@@ -184,9 +185,25 @@ skd-sortable-itinerary {
     padding-top: 0 !important;
 }
 
+.sortable-itinerary {
+    overflow-y: scroll;
+}
+
+.home-view .sortable-itinerary {
+    max-height: 390px;
+}
+
+
+.itin-view .sortable-itinerary {
+    max-height: 270px;
+}
+
 .itin-title {
-    max-height: 45px;
-    padding-top: 0 !important;
+    padding-top: 0;
+}
+
+.itin-title md-input-container {
+    margin: 0;
 }
 
 .close-btn {
