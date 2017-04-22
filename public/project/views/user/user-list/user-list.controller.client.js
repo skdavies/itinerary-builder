@@ -46,7 +46,7 @@
       event.stopPropagation();
       if (vm.user) {
         if (vm.following.length && followingYn(followId)) {
-          unfollowUser(followId, index, event)
+          unfollowUser(followId, event)
         } else {
           UserService.followUser(vm.user._id, followId).then(function (response) {
             if (view === 'TRENDING') {
@@ -61,10 +61,10 @@
       }
     }
 
-    function unfollowUser(unfollowId, index, event) {
+    function unfollowUser(unfollowId, event) {
       event.stopPropagation();
       UserService.unfollowUser(vm.user._id, unfollowId).then(function (response) {
-        for(var i = 0; i < vm.following; i++) {
+        for(var i = 0; i < vm.following.length; i++) {
           if (vm.following[i]._id === unfollowId) {
             vm.following.splice(i, 1);
             break;
@@ -78,8 +78,8 @@
         return false;
       } else {
         return vm.following.length && vm.following.filter(function (u) {
-            return u.followers.users.includes(followId)
-          }).length === 0;
+            return u._id === followId;
+          }).length > 0;
       }
     }
 

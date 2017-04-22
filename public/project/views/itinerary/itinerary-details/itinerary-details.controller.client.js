@@ -10,7 +10,7 @@
     vm.resetToLastSave = resetToLastSave;
     vm.followingYn = followingYn;
     vm.toggleFollow = toggleFollow;
-
+    vm.clearName = clearName;
 
     function init() {
       vm.itinId = $routeParams['itinId'];
@@ -53,9 +53,7 @@
           map: map
         });
       }
-      var options = {
-        types: ['(regions)']
-      };
+      var options = {};
       var input = document.getElementById('autocomplete-itin-details');
       var autocomplete = new google.maps.places.Autocomplete(input, options);
       window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
@@ -98,8 +96,8 @@
           return vm.user.following.users.includes(followId)
         } else {
           return vm.user.following.users.filter(function (u) {
-              return u.followers.users.includes(followId)
-            }).length === 0;
+              return u._id === followId;
+            }).length > 0;
         }
       }
     }
@@ -132,6 +130,12 @@
         vm.places = itinerary.places;
         vm.dirty = false;
       });
+    }
+
+    function clearName() {
+      if (vm.itinerary.name === 'Untitled Trip') {
+        vm.itinerary.name = '';
+      }
     }
   }
 })();

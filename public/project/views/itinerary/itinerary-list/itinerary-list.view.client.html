@@ -1,7 +1,29 @@
 <skd-login-nav user="vm.user"></skd-login-nav>
-<md-content class="itin-list-view" layout="column">
+<md-content class="itin-list-view layout-padding" layout="column">
     <h1 layout="row" flex layout-align="center center">Itineraries</h1>
     <md-tabs md-dynamic-height>
+        <md-tab label="Your">
+            <md-content class="md-padding">
+                <h3 ng-show="!vm.user">
+                    Login in to see your itineraries!
+                </h3>
+                <h3 ng-show="vm.user && !vm.userItineraries.length">
+                    You itineraries will appear here!
+                </h3>
+                <md-list-item class="md-2-line" ng-repeat="itinerary in vm.userItineraries"
+                              ng-click="vm.viewItinerary(itinerary._id)">
+                    <div class="md-list-item-text">
+                        <h3>{{itinerary.name}}</h3>
+                        <p>{{itinerary.dateCreated | date: 'MMM dd, yyyy'}}</p>
+                    </div>
+                    <md-button>
+                        View
+                    </md-button>
+                    <md-divider></md-divider>
+                </md-list-item>
+            </md-content>
+        </md-tab>
+
         <md-tab label="Trending">
             <md-content class="md-padding" layouy-align="center center">
                 <md-list-item class="md-2-line" ng-repeat="itinerary in vm.trending"
@@ -31,28 +53,6 @@
                     <div class="md-list-item-text">
                         <h3>{{itinerary.itinerary.name}}</h3>
                         <p>{{itinerary.username}}</p>
-                    </div>
-                    <md-button>
-                        View
-                    </md-button>
-                    <md-divider></md-divider>
-                </md-list-item>
-            </md-content>
-        </md-tab>
-
-        <md-tab label="Your">
-            <md-content class="md-padding">
-                <h3 ng-show="!vm.user">
-                    Login in to see your itineraries!
-                </h3>
-                <h3 ng-show="vm.user && !vm.userItineraries.length">
-                    You itineraries will appear here!
-                </h3>
-                <md-list-item class="md-2-line" ng-repeat="itinerary in vm.userItineraries"
-                              ng-click="vm.viewItinerary(itinerary._id)">
-                    <div class="md-list-item-text">
-                        <h3>{{itinerary.name}}</h3>
-                        <p>{{itinerary.dateCreated | date: 'MMM dd, yyyy'}}</p>
                     </div>
                     <md-button>
                         View

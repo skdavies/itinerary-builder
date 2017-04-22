@@ -57,11 +57,12 @@
           }
           vm.followingItineraries.sort(compare);
 
-          // TODO CHECK THIS WORKS WITH MORE ITINERARIES AND FOLLOWING
           function compare(a, b) {
-            if (a.itinerary.dateCreated.getTime() > b.itinerary.dateCreated.getTime()) {
+            var dateA = new Date(a.itinerary.dateCreated);
+            var dateB = new Date(b.itinerary.dateCreated);
+            if (dateA.getTime() > dateB.getTime()) {
               return 1;
-            } else if (a.itinerary.dateCreated.getTime() < b.itinerary.dateCreated.getTime()){
+            } else if (dateA.getTime() < dateB.getTime()){
               return -1;
             } else {
               return 0;

@@ -35,9 +35,7 @@
         zoom: 4,
         center: fenway
       });
-      var options = {
-        types: ['(regions)']
-      };
+      var options = {};
       var input = document.getElementById('autocomplete');
       var autocomplete = new google.maps.places.Autocomplete(input, options);
       window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
