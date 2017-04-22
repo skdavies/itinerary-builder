@@ -66,8 +66,8 @@
           return vm.user.following.users.includes(followId);
         } else {
           return vm.user.following.users.filter(function (u) {
-              return u.followers.users.includes(followId)
-            }).length === 0;
+              return u._id === followId;
+            }).length > 0;
         }
       }
     }
@@ -76,10 +76,12 @@
       if (followingYn(followId)) {
         UserService.unfollowUser(vm.user._id, followId).then(function (response) {
           vm.user = response.data;
+          vm.viewing.followers.count -= 1;
         });
       } else {
         UserService.followUser(vm.user._id, followId).then(function (response) {
           vm.user = response.data;
+          vm.viewing.followers.count += 1;
         });
       }
     }

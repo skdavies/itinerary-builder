@@ -98,8 +98,8 @@
           return vm.user.following.users.includes(followId)
         } else {
           return vm.user.following.users.filter(function (u) {
-              return u.followers.users.includes(followId)
-            }).length === 0;
+              return u._id === followId;
+            }).length > 0;
         }
       }
     }

@@ -36,7 +36,7 @@
                         <h3>{{user.username}}</h3>
                         <p>{{user.itineraries.length}} Itinerar{{user.itineraries.length === 1 ? 'y' : 'ies'}}</p>
                     </div>
-                    <md-button class="md-raised md-warn" ng-click="vm.unfollowUser(user._id, $index, $event)">
+                    <md-button class="md-raised md-warn" ng-click="vm.unfollowUser(user._id, $event)">
                         Unfollow
                     </md-button>
                     <md-divider></md-divider>
