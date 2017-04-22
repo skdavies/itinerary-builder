@@ -32,7 +32,7 @@
     init();
 
     function viewItinerary(itinId) {
-      $location.url('/itineraries/' + itinId);
+      $location.url('/itinerary/' + itinId);
     }
 
     function deleteItinerary(itinId, index, event) {
