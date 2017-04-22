@@ -10,7 +10,7 @@
     vm.resetToLastSave = resetToLastSave;
     vm.followingYn = followingYn;
     vm.toggleFollow = toggleFollow;
-
+    vm.clearName = clearName;
 
     function init() {
       vm.itinId = $routeParams['itinId'];
@@ -132,6 +132,12 @@
         vm.places = itinerary.places;
         vm.dirty = false;
       });
+    }
+
+    function clearName() {
+      if (vm.itinerary.name === 'Untitled Trip') {
+        vm.itinerary.name = '';
+      }
     }
   }
 })();

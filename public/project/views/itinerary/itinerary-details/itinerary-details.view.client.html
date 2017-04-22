@@ -13,7 +13,8 @@
             <div class="right-panel" layout-padding flex-gt-xs="33" flex layout="column">
                 <md-input-container md-no-float flex layout="row" class="itin-title">
                     <input type="text" placeholder="Itinerary Name" ng-model="vm.itinerary.name"
-                           ng-disabled="!vm.user || vm.user._id !== vm.itinerary._user._id" ng-change="vm.dirty = true">
+                           ng-disabled="!vm.user || vm.user._id !== vm.itinerary._user._id" ng-change="vm.dirty = true"
+                           ng-focus="vm.clearName()">
                 </md-input-container>
                 <skd-sortable-itinerary places="vm.places" dirty="vm.dirty"></skd-sortable-itinerary>
                 <h6 layout="row">
