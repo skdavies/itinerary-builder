@@ -8,7 +8,6 @@ module.exports = function (app, model) {
     clientID: process.env.GOOGLE_CLIENT_ID_ITINERARY_PLANNER,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET_ITINERARY_PLANNER,
     callbackURL: process.env.GOOGLE_CALLBACK_URL_ITINERARY_PLANNER
-    //TODO SET THESE IN HEROKU BEFORE DEPLOYING
   };
 
   passport.use(new LocalStrategy(localStrategy));
@@ -23,9 +22,8 @@ module.exports = function (app, model) {
   app.post('/project/api/users/login', passport.authenticate('local'), login);
   app.get('/project/api/users/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
   app.get('/project/google/auth/cb', passport.authenticate('google', {
-    successRedirect: 'http://localhost:3000/project/#/',
-    failureRedirect: 'http://localhost:3000/project/#/'
-    //TODO CHANGE FOR DEPLOY
+    successRedirect: process.env.HOST + '/project/#/',
+    failureRedirect: process.env.HOST + '/project/#/'
   }));
   app.post('/project/api/users/logout', logout);
   app.get('/project/api/users/loggedin', loggedin);
