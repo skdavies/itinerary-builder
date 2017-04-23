@@ -29,6 +29,7 @@
     <h2 layout="row" flex layout-align="center center">Recently Posted Local Advertisements</h2>
     <div layout="row" ng-show="vm.placesWithAds.length > 0" layout-padding layout-wrap layout-fill>
         <md-whiteframe ng-repeat="place in vm.placesWithAds" class="md-whiteframe-5dp ad-frame" flex="50"
+                       ng-show="place.ads.length"
                        layout="column" ng-click="vm.viewPlace(place._id)"
                        layout-align="center center"
                        flex-gt-xs="33">
