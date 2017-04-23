@@ -4,7 +4,7 @@
             <div class="md-toolbar-tools">
                 <h2>Edit Place</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()" aria-label="cancel">
+                <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
                     <i class="fa fa-times"></i>
                 </md-button>
             </div>
@@ -13,20 +13,20 @@
         <md-dialog-content>
             <div class="md-dialog-content" layout="column">
                 <md-input-container>
-                    <input ng-model="place.name" type="text" placeholder="Name" disabled>
+                    <input ng-model="vm.place.name" type="text" placeholder="Name" disabled>
                 </md-input-container>
                 <h3>Local Ads</h3>
-                <md-list-item ng-repeat="ad in place.ads">
+                <md-list-item ng-repeat="ad in vm.place.ads">
                     <p>{{ad.ad}}</p>
-                    <md-icon ng-click="removeAd($index)">
+                    <md-icon ng-click="vm.removeAd($index)">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </md-icon>
                     <md-divider></md-divider>
                 </md-list-item>
                 <h3>User Reviews</h3>
-                <md-list-item ng-repeat="review in place.reviews">
+                <md-list-item ng-repeat="review in vm.place.reviews">
                     <p>{{review.review}}</p>
-                    <md-icon ng-click="removeReview($index)">
+                    <md-icon ng-click="vm.removeReview($index)">
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </md-icon>
                     <md-divider></md-divider>
@@ -36,10 +36,10 @@
 
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-click="cancel()">
+            <md-button ng-click="vm.cancel()">
                 Cancel
             </md-button>
-            <md-button class="md-raised md-primary" ng-click="editPlace()">
+            <md-button class="md-raised md-primary" ng-click="vm.editPlace()">
                 Okay
             </md-button>
         </md-dialog-actions>
