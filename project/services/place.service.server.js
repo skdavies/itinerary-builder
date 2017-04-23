@@ -87,9 +87,9 @@ module.exports = function (app, model) {
     var place = req.body;
     if (place) {
       if (req.user.role === 'ADMIN') {
-        placeModel.updatePlace(req.params.placeId, place).then(function () {
-          res.sendStatus(200);
-        }, function () {
+        placeModel.updatePlace(req.params.placeId, place).then(function (place) {
+          res.json(place);
+        }, function (err) {
           res.sendStatus(500);
         });
       } else {
@@ -116,7 +116,6 @@ module.exports = function (app, model) {
     placeModel.findMostRecentAds().then(function (places) {
       res.json(places);
     }, function (err) {
-      console.log(err);
       res.sendStatus(500);
     });
   }

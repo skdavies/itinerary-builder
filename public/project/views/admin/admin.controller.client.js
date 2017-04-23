@@ -168,6 +168,9 @@
       }
 
       function removeAd(index) {
+        if ($scope.place.ads.length === 1) {
+          $scope.place.suggested = null;
+        }
         $scope.place.ads.splice(index, 1);
       }
 

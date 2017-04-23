@@ -85,7 +85,6 @@ module.exports = function (app, model) {
           user.save();
           res.sendStatus(200);
         }, function (error) {
-          console.log(error);
           res.sendStatus(500);
         });
       }, function (error) {
