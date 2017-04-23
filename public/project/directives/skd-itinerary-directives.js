@@ -219,7 +219,8 @@
 
     return {
       templateUrl: 'directives/templates/skd-bottom-nav.html',
-      link: link
+      link: link,
+      scope: {}
     }
   }
 })();

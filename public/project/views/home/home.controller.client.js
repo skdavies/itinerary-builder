@@ -3,7 +3,7 @@
     .module('ItineraryPlanner')
     .controller('HomeController', homeController);
 
-  function homeController($location, ItineraryService, PlaceService, $scope, loggedIn, $mdDialog) {
+  function homeController($location, ItineraryService, PlaceService, $scope, loggedIn) {
     var vm = this;
     vm.saveItinerary = saveItinerary;
     vm.viewPlace = viewPlace;
