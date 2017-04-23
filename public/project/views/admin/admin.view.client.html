@@ -51,7 +51,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="place in vm.places">
+                        <tr ng-repeat="place in vm.places track by $index">
                             <td>{{place.name}}</td>
                             <td>{{place.googlePlaceId}}</td>
                             <td>{{place.reviews.length}}</td>
