@@ -76,6 +76,7 @@
       vm.error = null;
       $mdDialog.show({
         controller: EditModalController,
+        controllerAs: 'vm',
         templateUrl: '/project/views/admin/modals/user-edit-modal.html',
         parent: angular.element(document.body),
         targetEvent: event,
@@ -97,6 +98,7 @@
       vm.error = null;
       $mdDialog.show({
         controller: EditModalController,
+        controllerAs: 'vm',
         templateUrl: '/project/views/admin/modals/place-edit-modal.html',
         parent: angular.element(document.body),
         targetEvent: event,
@@ -118,6 +120,7 @@
       vm.error = null;
       $mdDialog.show({
         controller: EditModalController,
+        controllerAs: 'vm',
         templateUrl: '/project/views/admin/modals/itinerary-edit-modal.html',
         parent: angular.element(document.body),
         targetEvent: event,
@@ -134,23 +137,24 @@
       });
     }
 
-    function EditModalController($scope, $mdDialog, user, place, itinerary) {
-      $scope.cancel = cancel;
-      $scope.editUser = editUser;
-      $scope.editPlace = editPlace;
-      $scope.editItinerary = editItinerary;
-      $scope.removeAd = removeAd;
-      $scope.removeReview = removeReview;
-      $scope.usr = angular.copy(user);
-      $scope.place = angular.copy(place);
-      $scope.itinerary = angular.copy(itinerary);
+    function EditModalController($mdDialog, user, place, itinerary) {
+      var modalVm = this;
+      modalVm.cancel = cancel;
+      modalVm.editUser = editUser;
+      modalVm.editPlace = editPlace;
+      modalVm.editItinerary = editItinerary;
+      modalVm.removeAd = removeAd;
+      modalVm.removeReview = removeReview;
+      modalVm.usr = angular.copy(user);
+      modalVm.place = angular.copy(place);
+      modalVm.itinerary = angular.copy(itinerary);
 
       function cancel() {
         $mdDialog.cancel();
       }
 
       function editUser() {
-        UserService.updateUser($scope.usr._id, $scope.usr).then(function (response) {
+        UserService.updateUser(modalVm.usr._id, modalVm.usr).then(function (response) {
           $mdDialog.hide(response.data);
           vm.success = 'User successfully updated.';
         }, function (err) {
@@ -159,7 +163,7 @@
       }
       
       function editPlace() {
-        PlaceService.updatePlace($scope.place._id, $scope.place).then(function (response) {
+        PlaceService.updatePlace(modalVm.place._id, modalVm.place).then(function (response) {
           $mdDialog.hide(response.data);
           vm.success = 'Place successfully updated.';
         }, function (err) {
@@ -168,15 +172,18 @@
       }
 
       function removeAd(index) {
-        $scope.place.ads.splice(index, 1);
+        if (modalVm.place.ads.length === 1) {
+          modalVm.place.suggested = null;
+        }
+        modalVm.place.ads.splice(index, 1);
       }
 
       function removeReview(index) {
-        $scope.place.reviews.splice(index, 1);
+        modalVm.place.reviews.splice(index, 1);
       }
       
       function editItinerary() {
-        ItineraryService.updateItinerary($scope.itinerary._id, $scope.itinerary).then(function (response) {
+        ItineraryService.updateItinerary(modalVm.itinerary._id, modalVm.itinerary).then(function (response) {
           $mdDialog.hide(response.data);
           vm.success = 'Itinerary successfully updated.';
         }, function (err) {

@@ -4,7 +4,7 @@
             <div class="md-toolbar-tools">
                 <h2>Edit User</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()" aria-label="cancel">
+                <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
                     <i class="fa fa-times"></i>
                 </md-button>
             </div>
@@ -13,16 +13,16 @@
         <md-dialog-content>
             <div class="md-dialog-content" layout="column">
                 <md-input-container>
-                    <input ng-model="usr.username" type="text" placeholder="Username" disabled>
+                    <input ng-model="vm.usr.username" type="text" placeholder="Username" disabled>
                 </md-input-container>
                 <md-input-container>
-                    <input ng-model="usr.firstName" type="text" placeholder="First Name">
+                    <input ng-model="vm.usr.firstName" type="text" placeholder="First Name">
                 </md-input-container>
                 <md-input-container>
-                    <input ng-model="usr.lastName" type="text" placeholder="Last Name">
+                    <input ng-model="vm.usr.lastName" type="text" placeholder="Last Name">
                 </md-input-container>
                 <md-input-container>
-                    <md-select ng-model="usr.role" placeholder="Role">
+                    <md-select ng-model="vm.usr.role" placeholder="Role">
                         <md-option ng-value="'USER'">
                             User
                         </md-option>
@@ -36,10 +36,10 @@
 
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-click="cancel()">
+            <md-button ng-click="vm.cancel()">
                 Cancel
             </md-button>
-            <md-button class="md-raised md-primary" ng-click="editUser()">
+            <md-button class="md-raised md-primary" ng-click="vm.editUser()">
                 Okay
             </md-button>
         </md-dialog-actions>

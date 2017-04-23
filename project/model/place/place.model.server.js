@@ -59,7 +59,7 @@ module.exports = function () {
   }
 
   function findMostRecentAds() {
-    return PlaceModel.find({ suggested: { $exists: true } }).sort({ suggested: -1 });
+    return PlaceModel.find({ suggested: { $ne: null } }).sort({ suggested: -1 });
   }
 
   function updatePlace(placeId, place) {
