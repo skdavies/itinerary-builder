@@ -14,7 +14,7 @@
                 <h2>{{vm.place.formatted_address}}</h2>
                 <md-datepicker class="datepicker" layout-margin ng-model="vm.weather.selected"
                                ng-show="!vm.user || vm.user.role === 'USER'"
-                               md-placeholder="Lookup Past Weather"
+                               md-placeholder="What was the weather on..."
                                md-open-on-focus md-max-date="vm.weather.maxDate"
                                ng-change="vm.lookupWeather()"></md-datepicker>
                 <div ng-show="vm.weather.forecast">

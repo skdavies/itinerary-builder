@@ -214,6 +214,7 @@
       scope.goHome = goHome;
       scope.goItineraries = goItineraries;
       scope.goUsers = goUsers;
+      scope.location = $location.$$path;
 
       function goPlaces() {
         $location.url('/place');

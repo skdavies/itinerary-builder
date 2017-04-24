@@ -101,6 +101,10 @@ a {
     font-size: 28px;
 }
 
+.selected-nav {
+    color: hotpink;
+}
+
 .admin-view {
 }
 
