@@ -15,10 +15,9 @@ module.exports = function (app, model) {
   };
 
   var facebookConfig = {
-    clientID     : process.env.FACEBOOK_CLIENT_ID,
-    clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL  : process.env.FACEBOOK_CALLBACK_URL
-    //TODO SET IN HEROKU
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL
   };
 
   passport.use(new LocalStrategy(localStrategy));
@@ -36,8 +35,14 @@ module.exports = function (app, model) {
     failureRedirect: '/project/#/'
   }));
 
-  app.get('/project/api/users/auth/fb', passport.authenticate('facebook', { scope : 'email' }));
-  app.get('/project/facebook/auth/cb',
+  app.get('/project/api/users/auth/fb', function (req, res, next) {
+    if (process.env.HOST === 'http://localhost:3000') {
+      res.status(403).send('Cannot use Facebook Auth from local build.');
+    } else {
+      next();
+    }
+  }, passport.authenticate('facebook', { scope: 'public_profile' }));
+  app.get('/project/fb/auth/cb',
     passport.authenticate('facebook', {
       successRedirect: '/project/#/',
       failureRedirect: '/project/#/'
@@ -93,9 +98,29 @@ module.exports = function (app, model) {
       done(err, null);
     });
   }
-  
+
   function facebookStrategy(token, refreshToken, profile, done) {
-    console.log(profile);
+    userModel.findUserByFacebookId(profile.id).then(function (user) {
+      if (user) {
+        done(null, user);
+      } else {
+        var newUser = {
+          //TODO FIX
+          // since username is unique, if two facebook users with the same displayName sign up, it breaks
+          username: profile.displayName,
+          facebook: {
+            id: profile.id
+          }
+        };
+        userModel.createUser(newUser).then(function (user) {
+          done(null, user);
+        }, function (err) {
+          done(err, null);
+        });
+      }
+    }, function (err) {
+      done(err, null);
+    });
   }
 
   function serializeUser(user, done) {
