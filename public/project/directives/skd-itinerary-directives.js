@@ -36,21 +36,27 @@
       }
 
       function removePlace(index) {
-        scope.places.splice(index, 1);
-        scope.dirty = true;
+        if (scope.canEdit) {
+          scope.places.splice(index, 1);
+          scope.dirty = true;
+        }
       }
 
       function viewPlace(place, event) {
-        var confirm = $mdDialog.confirm()
-          .title('Are you sure?')
-          .textContent('Any unsaved changes to your itinerary will be lost when you leave the page.')
-          .targetEvent(event)
-          .ok('Yes, I\'m sure')
-          .cancel('Never Mind');
+        if (scope.canEdit && scope.dirty) {
+          var confirm = $mdDialog.confirm()
+            .title('Do you want to further investigate this place?')
+            .textContent('Any unsaved changes to your itinerary will be lost upon leaving the page.')
+            .targetEvent(event)
+            .ok('Investigate')
+            .cancel('Never Mind');
 
-        $mdDialog.show(confirm).then(function () {
+          $mdDialog.show(confirm).then(function () {
+            $location.url('/place/' + place._id);
+          });
+        } else {
           $location.url('/place/' + place._id);
-        });
+        }
       }
     }
 
@@ -59,7 +65,8 @@
       link: link,
       scope: {
         places: '=',
-        dirty: '='
+        dirty: '=',
+        canEdit: '='
       }
     }
   }

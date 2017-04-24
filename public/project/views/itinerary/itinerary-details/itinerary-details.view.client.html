@@ -14,21 +14,23 @@
                 <div class="itin-title">
                     <md-input-container md-no-float flex layout="row">
                         <input type="text" placeholder="Itinerary Name" ng-model="vm.itinerary.name"
-                               ng-disabled="!vm.user || vm.user._id !== vm.itinerary._user._id"
+                               ng-disabled="!vm.canEdit"
                                ng-change="vm.dirty = true"
                                ng-focus="vm.clearName()">
                     </md-input-container>
                 </div>
-                <skd-sortable-itinerary places="vm.places" dirty="vm.dirty"></skd-sortable-itinerary>
+                <skd-sortable-itinerary places="vm.places" dirty="vm.dirty"
+                                        can-edit="vm.canEdit">
+                </skd-sortable-itinerary>
                 <h6 layout="row">
                     Created by: {{vm.itinerary._user.username}}
                 </h6>
-                <md-button class="md-raised md-primary" ng-show="vm.user && vm.user._id === vm.itinerary._user._id"
+                <md-button class="md-raised md-primary" ng-show="vm.canEdit"
                            layout="row"
-                           ng-click="vm.saveItinerary()" ng-disabled="!vm.dirty">
+                           ng-click="vm.saveItinerary()" ng-disabled="!vm.dirty || !vm.places.length">
                     Save
                 </md-button>
-                <md-button class="md-raised md-warn" ng-show="vm.user && vm.user._id === vm.itinerary._user._id"
+                <md-button class="md-raised md-warn" ng-show="vm.canEdit"
                            layout="row"
                            ng-click="vm.resetToLastSave()" ng-disabled="!vm.dirty">Reset
                 </md-button>

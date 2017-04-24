@@ -29,6 +29,7 @@
       ItineraryService.findItineraryById(vm.itinId).then(function (response) {
         vm.itinerary = response.data;
         vm.places = response.data.places;
+        vm.canEdit = vm.user && vm.user._id === vm.itinerary._user._id;
         initMap();
       }, function () {
         $route.reload();

@@ -15,7 +15,7 @@
                         <h3>Add a place to start your itinerary!</h3>
                     </md-card-title>
                 </md-card>
-                <skd-sortable-itinerary places="vm.places" dirty="false"></skd-sortable-itinerary>
+                <skd-sortable-itinerary places="vm.places" dirty="true" can-edit="true"></skd-sortable-itinerary>
                 <md-button class="md-raised md-primary" ng-show="!vm.user && vm.places.length > 0" layout="row"
                            ng-click="vm.control.showRegister($event)">
                     Sign Up or Login to Save
