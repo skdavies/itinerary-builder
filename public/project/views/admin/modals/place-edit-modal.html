@@ -15,7 +15,7 @@
                 <md-input-container>
                     <input ng-model="vm.place.name" type="text" placeholder="Name" disabled>
                 </md-input-container>
-                <h3>Local Ads</h3>
+                <h3 ng-show="vm.place.ads.length">Local Ads</h3>
                 <md-list-item ng-repeat="ad in vm.place.ads">
                     <p>{{ad.ad}}</p>
                     <md-icon ng-click="vm.removeAd($index)">
@@ -23,7 +23,7 @@
                     </md-icon>
                     <md-divider></md-divider>
                 </md-list-item>
-                <h3>User Reviews</h3>
+                <h3 ng-show="vm.place.reviews.length">User Reviews</h3>
                 <md-list-item ng-repeat="review in vm.place.reviews">
                     <p>{{review.review}}</p>
                     <md-icon ng-click="vm.removeReview($index)">
