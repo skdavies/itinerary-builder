@@ -4,7 +4,7 @@
             <div class="md-toolbar-tools">
                 <h2>Login</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()" aria-label="cancel">
+                <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
                     <i class="fa fa-times"></i>
                 </md-button>
             </div>
@@ -12,6 +12,10 @@
 
         <md-dialog-content>
             <div class="md-dialog-content" layout="column">
+                <div ng-show="vm.error" class="alert alert-danger" role="alert">
+                    {{vm.error}}
+                    <i class="fa fa-times pull-right" ng-click="vm.error = null"></i>
+                </div>
                 <form name="loginForm">
                     <div class="login-field">
                         <md-input-container>
@@ -41,16 +45,16 @@
                         <i class="fa fa-facebook-square"></i>
                     </a>
                 </div>
-                Don't have an account yet? <a class="login" ng-click="showRegister()">Sign up!</a>
+                Don't have an account yet? <a class="login" ng-click="vm.showRegister()">Sign up!</a>
             </div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-click="cancel()">
+            <md-button ng-click="vm.cancel()">
                 Cancel
             </md-button>
-            <md-button class="md-raised md-primary" ng-click="login(usr)" ng-disabled="!usr.username || !usr.password">
+            <md-button class="md-raised md-primary" ng-click="vm.login(usr)" ng-disabled="!usr.username || !usr.password">
                 Login
             </md-button>
         </md-dialog-actions>
