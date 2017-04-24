@@ -95,6 +95,7 @@
     function showModal(ev, action) {
       $mdDialog.show({
         controller: AddSuggestionController,
+        controllerAs: 'vm',
         templateUrl: '/project/views/place/place-details/modals/add-suggestion-review.html',
         parent: angular.element(document.body),
         targetEvent: ev,
@@ -107,11 +108,12 @@
         vm.place.ads = place.ads;
       });
 
-      function AddSuggestionController($scope, $mdDialog, action) {
-        $scope.cancel = cancel;
-        $scope.post = post;
-        $scope.action = action;
-        $scope.title = action === 'REVIEW' ? 'Review' : 'Suggestion';
+      function AddSuggestionController($mdDialog, action) {
+        var modalVm = this;
+        modalVm.cancel = cancel;
+        modalVm.post = post;
+        modalVm.action = action;
+        modalVm.title = action === 'REVIEW' ? 'Review' : 'Suggestion';
 
         function cancel() {
           $mdDialog.cancel();
