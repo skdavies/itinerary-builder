@@ -82,6 +82,7 @@
       function toggleLogin(ev) {
         $mdDialog.show({
           controller: LoginModalController,
+          controllerAs: 'vm',
           templateUrl: '/project/directives/templates/modals/skd-login-modal.html',
           parent: angular.element(document.body),
           targetEvent: ev,
@@ -100,6 +101,7 @@
       function toggleRegister(ev) {
         $mdDialog.show({
           controller: RegisterModalController,
+          controllerAs: 'vm',
           templateUrl: '/project/directives/templates/modals/skd-register-modal.html',
           parent: angular.element(document.body),
           targetEvent: ev,
@@ -126,10 +128,11 @@
         $location.url('/user/' + scope.user._id);
       }
 
-      function LoginModalController($scope, $mdDialog) {
-        $scope.cancel = cancel;
-        $scope.showRegister = showRegister;
-        $scope.login = login;
+      function LoginModalController($mdDialog) {
+        var vm = this;
+        vm.cancel = cancel;
+        vm.showRegister = showRegister;
+        vm.login = login;
 
         function showRegister() {
           $mdDialog.hide('REGISTER');
@@ -148,14 +151,17 @@
             } else if (user.role === 'ADVERTISER') {
               $location.url('/place');
             }
+          }, function () {
+            vm.error = 'Username and password combination do not match.';
           });
         }
       }
 
-      function RegisterModalController($scope, $mdDialog) {
-        $scope.cancel = cancel;
-        $scope.showLogin = showLogin;
-        $scope.register = register;
+      function RegisterModalController($mdDialog) {
+        var vm = this;
+        vm.cancel = cancel;
+        vm.showLogin = showLogin;
+        vm.register = register;
 
         function showLogin() {
           $mdDialog.hide('LOGIN');
@@ -177,6 +183,8 @@
               } else if (user.role === 'ADVERTISER') {
                 $location.url('/place');
               }
+            }, function (err) {
+              vm.error = err.data;
             });
           }
         }

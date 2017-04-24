@@ -1,8 +1,12 @@
 module.exports = function (app, model) {
+
+  var userModel = model.userModel;
+
   var passport = require('passport');
   var bcrypt = require("bcrypt-nodejs");
   var LocalStrategy = require('passport-local').Strategy;
   var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+  var FacebookStrategy = require('passport-facebook').Strategy;
 
   var googleConfig = {
     clientID: process.env.GOOGLE_CLIENT_ID_ITINERARY_PLANNER,
@@ -10,21 +14,39 @@ module.exports = function (app, model) {
     callbackURL: process.env.GOOGLE_CALLBACK_URL_ITINERARY_PLANNER
   };
 
+  var facebookConfig = {
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL
+  };
+
   passport.use(new LocalStrategy(localStrategy));
   passport.use(new GoogleStrategy(googleConfig, googleStrategy));
-
-
-  var userModel = model.userModel;
+  passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
 
   passport.serializeUser(serializeUser);
   passport.deserializeUser(deserializeUser);
 
   app.post('/project/api/users/login', passport.authenticate('local'), login);
+
   app.get('/project/api/users/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
   app.get('/project/google/auth/cb', passport.authenticate('google', {
-    successRedirect: process.env.HOST + '/project/#/',
-    failureRedirect: process.env.HOST + '/project/#/'
+    successRedirect: '/project/#/',
+    failureRedirect: '/project/#/'
   }));
+
+  app.get('/project/api/users/auth/fb', function (req, res, next) {
+    if (process.env.HOST === 'http://localhost:3000') {
+      res.status(403).send('Cannot use Facebook Auth from local build.');
+    } else {
+      next();
+    }
+  }, passport.authenticate('facebook', { scope: 'public_profile' }));
+  app.get('/project/fb/auth/cb',
+    passport.authenticate('facebook', {
+      successRedirect: '/project/#/',
+      failureRedirect: '/project/#/'
+    }));
   app.post('/project/api/users/logout', logout);
   app.get('/project/api/users/loggedin', loggedin);
   app.get('/project/api/users/isadmin', isAdmin);
@@ -67,7 +89,31 @@ module.exports = function (app, model) {
           }
         };
         userModel.createUser(newUser).then(function (user) {
+          done(null, user);
+        }, function (err) {
+          done(err, null);
+        });
+      }
+    }, function (err) {
+      done(err, null);
+    });
+  }
 
+  function facebookStrategy(token, refreshToken, profile, done) {
+    userModel.findUserByFacebookId(profile.id).then(function (user) {
+      if (user) {
+        done(null, user);
+      } else {
+        var newUser = {
+          //TODO FIX
+          // since username is unique, if two facebook users with the same displayName sign up, it breaks
+          username: profile.displayName,
+          facebook: {
+            id: profile.id
+          }
+        };
+        userModel.createUser(newUser).then(function (user) {
+          done(null, user);
         }, function (err) {
           done(err, null);
         });

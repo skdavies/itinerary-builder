@@ -4,7 +4,7 @@
             <div class="md-toolbar-tools">
                 <h2>Register</h2>
                 <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()" aria-label="cancel">
+                <md-button class="md-icon-button" ng-click="vm.cancel()" aria-label="cancel">
                     <i class="fa fa-times"></i>
                 </md-button>
             </div>
@@ -12,6 +12,10 @@
 
         <md-dialog-content>
             <div class="md-dialog-content" layout="column">
+                <div ng-show="vm.error" class="alert alert-danger" role="alert">
+                    {{vm.error}}
+                    <i class="fa fa-times pull-right" ng-click="vm.error = null"></i>
+                </div>
                 <form name="registerForm">
                     <div class="login-field">
                         <md-input-container>
@@ -51,20 +55,20 @@
                     <a href="/project/api/users/auth/google">
                         <i class="fa fa-google-plus-square"></i>
                     </a>
-                    <a href="">
+                    <a href="/project/api/users/auth/fb">
                         <i class="fa fa-facebook-square"></i>
                     </a>
                 </div>
-                Already have an account? <a class="login" ng-click="showLogin()">Login!</a>
+                Already have an account? <a class="login" ng-click="vm.showLogin()">Login!</a>
             </div>
         </md-dialog-content>
 
         <md-dialog-actions layout="row">
             <span flex></span>
-            <md-button ng-click="cancel()">
+            <md-button ng-click="vm.cancel()">
                 Cancel
             </md-button>
-            <md-button class="md-raised md-primary" ng-click="register(usr)"
+            <md-button class="md-raised md-primary" ng-click="vm.register(usr)"
                        ng-disabled="!usr.username || !usr.password || !usr.confirm || usr.confirm!==usr.password">
                 Register
             </md-button>
