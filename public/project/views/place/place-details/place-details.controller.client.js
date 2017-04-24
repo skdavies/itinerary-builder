@@ -112,8 +112,13 @@
         var modalVm = this;
         modalVm.cancel = cancel;
         modalVm.post = post;
-        modalVm.action = action;
-        modalVm.title = action === 'REVIEW' ? 'Review' : 'Suggestion';
+
+        function init() {
+          modalVm.action = action;
+          modalVm.title = action === 'REVIEW' ? 'Review' : 'Suggestion';
+        }
+
+        init();
 
         function cancel() {
           $mdDialog.cancel();
