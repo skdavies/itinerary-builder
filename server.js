@@ -39,7 +39,6 @@ if (process.env.MLAB_USERNAME) {
 
 mongoose.connect(connectionString);
 
-require('./assignment/app.js')(app);
 require('./project/app.js')(app);
 
 var port = process.env.PORT || 3000;
