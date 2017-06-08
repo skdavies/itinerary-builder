@@ -90,7 +90,7 @@
         $mdDialog.show({
           controller: LoginModalController,
           controllerAs: 'vm',
-          templateUrl: '/project/directives/templates/modals/skd-login-modal.html',
+          templateUrl: 'directives/templates/modals/skd-login-modal.html',
           parent: angular.element(document.body),
           targetEvent: ev,
           clickOutsideToClose: true
@@ -109,7 +109,7 @@
         $mdDialog.show({
           controller: RegisterModalController,
           controllerAs: 'vm',
-          templateUrl: '/project/directives/templates/modals/skd-register-modal.html',
+          templateUrl: 'directives/templates/modals/skd-register-modal.html',
           parent: angular.element(document.body),
           targetEvent: ev,
           clickOutsideToClose: true

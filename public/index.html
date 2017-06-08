@@ -1,145 +1,50 @@
 <!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns#" lang="en">
+<html lang="en" ng-app="ItineraryPlanner">
 <head>
-    <!-- Template By Christopher Briddock http://behance.net/Chris-B-->
-    <title>Sam Davies</title>
     <meta charset="UTF-8">
-    <!-- Facebook meta tags-->
-    <meta property="og:title" content="Sam Davies">
-    <meta property="og:image" content="">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Sam Davies">
-    <!-- Responsive meta tag-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-compatible" content="IE=Edge">
-    <!-- Description and keywords for search engines-->
-    <meta name="description" content="Sam Davies Portfolio">
-    <meta name="keywords" content="Portfolio Sam Davies Full Stack Developer">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Style sheets-->
-    <link rel="stylesheet" href="./landing-template/css/all.css">
-    <!-- font link here, change to another google font if you wish!-->
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700" rel="stylesheet"
-          type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <script src="./landing-template/js/jquery-2.1.4.min.js"></script>
+    <title>Itinerary Builder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAp7_-5FNRg8F9uu6zI8u-i3ruhUc-Lw-I&libraries=places"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <!--jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="directives/skd-itinerary-directives.js"></script>
+    <!--Declare Angular Module-->
+    <script src="app.js"></script>
+    <!--Controllers-->
+    <script src="views/home/home.controller.client.js"></script>
+    <script src="views/itinerary/itinerary-details/itinerary-details.controller.client.js"></script>
+    <script src="views/itinerary/itinerary-list/itinerary-list.controller.client.js"></script>
+    <script src="views/admin/admin.controller.client.js"></script>
+    <script src="views/place/place-details/place-details.controller.client.js"></script>
+    <script src="views/place/place-search/place-search.controller.client.js"></script>
+    <script src="views/user/user-list/user-list.controller.client.js"></script>
+    <script src="views/user/profile/profile.controller.client.js"></script>
+    <!--Angular Routing-->
+    <script src="config.js"></script>
+    <!--Services-->
+    <script src="services/itinerary.service.client.js"></script>
+    <script src="services/place.service.client.js"></script>
+    <script src="services/user.service.client.js"></script>
+    <script src="services/dark-sky.service.client.js"></script>
+    <!--CSS Styling-->
+    <link href="css/style.css" rel="stylesheet"/>
+
 </head>
 <body>
-<header>
-    <div class="overlay-nav hidden">
-        <ul class="mobile">
-            <li><a href="/">HOME</a></li>
-        </ul>
-        <ul class="mobile">
-            <li><a href="#" class="about">ABOUT</a></li>
-        </ul>
-        <ul class="mobile">
-            <li><a href="#" class="work">WORK</a></li>
-        </ul>
-        <ul class="mobile">
-            <li><a href="#" class="contact-nav">CONTACT</a></li>
-        </ul>
-        <div class="close"></div>
-    </div>
-    <div class="container">
-        <div id="logo">SAM DAVIES</div>
-        <nav><a id="toggle" href="#"><i class="fa fa-bars fa-2x"></i></a>
-            <ul class="in">
-                <li><a href="/">HOME</a></li>
-            </ul>
-            <ul class="in">
-                <li><a href="#" class="about">ABOUT</a></li>
-            </ul>
-            <ul class="in">
-                <li><a href="#" class="work">WORK</a></li>
-            </ul>
-            <ul class="in">
-                <li><a href="#" class="contact-nav">CONTACT</a></li>
-            </ul>
-        </nav>
-        <h1 id="jumbotron">Full Stack Developer</h1>
-        <h2 id="supporting-header">Boston, MA</h2>
-        <a href="#" class="btn work">See Work</a>
-    </div>
-</header>
-<section>
-    <div class="container">
-        <h1 class="port">About Me</h1>
-        <div class="self-pic"></div>
-        <p class="about-para">
-            I am currently a senior at Northeastern University, and will be graduating with a dual major in computer
-            science and mathematics on May 5, 2017. I have a love for algorithm development as well as full stack web
-            development and will continue pursuing both of these interests in my personal projects and professional
-            career. Outside of my technical interests, I am an avid Boston sports fan and look forward to the next
-            championship for this city (probably this year). I also love biking, snowboarding, surfing, traveling
-            anywhere, and am slowly learning to play the piano.
-        </p>
-        <p class="about-para">
-            Below, you will find links to some of the projects I have worked on recently. The Itinerary Builder is a web
-            app I developed as a social media platform for sharing travel plans. You can also view the assignments from
-            my graduate level web development class as well as the GitHub for the project and assignments. Kinto is the
-            company where I completed my latest co-op. I continue to work there part time and will begin full time there
-            this summer as a full stack developer once I graduate college and become an adult. We are building a hybrid
-            app (using Cordova) at Kinto to assist caregivers who are caring for aging loved ones. You can learn more
-            about our team and the project through the link below.
-        </p>
-    </div>
-</section>
-<section>
-    <h2 class="port">My Projects</h2>
-    <div class="container">
-        <div class="flex">
-            <figure id="one">
-                <figcaption id="img1" class="overlay">
-                    Vacation Builder
-                </figcaption>
-                <a href="project/#" target="_blank">
-                    <img src="./landing-template/img/itin-project.png">
-                </a>
-            </figure>
-            <figure id="two">
-                <figcaption id="img2" class="overlay">
-                    Web Dev Assignment
-                </figcaption>
-                <a href="assignment/#" target="_blank">
-                    <img src="./landing-template/img/web-dev-assignment.png">
-                </a>
-            </figure>
-            <figure id="three">
-                <figcaption id="img3" class="overlay">
-                    My Project's GitHub
-                </figcaption>
-                <a href="https://github.com/skdavies/davies-samuel-webdev" target="_blank">
-                    <img src="./landing-template/img/github-icon.png">
-                </a>
-            </figure>
-            <figure id="four">
-                <figcaption id="img4" class="overlay">
-                    Kinto
-                </figcaption>
-                <a href="http://www.kinto.care/team/" target="_blank">
-                    <img src="./landing-template/img/kinto.png" alt="">
-                </a>
-            </figure>
-        </div>
-    </div>
-</section>
-<section class="grey">
-    <div class="container">
-        <h2 class="contact">Contact Me</h2>
-        <p class="contact">
-            Feel free to reach out to me about anything related to this page. Or any reason at all for that matter!
-        </p>
-        <a href="mailto:ssam.daviess@gmail.com" class="contact-button">Email Me</a>
-        <div class="flex">
-            <div class="social-media">
-                <a href="https://www.facebook.com/sam.davies.1088" target="_blank">Facebook</a>
-                <a href="https://www.instagram.com/samkdavies/" target="_blank">Instagram</a>
-                <a href="https://www.linkedin.com/in/samkdavies/">LinkedIn</a>
-            </div>
-        </div>
-    </div>
-</section>
-<script src="./landing-template/js/main.js"></script>
+<div ng-view></div>
 </body>
 </html>

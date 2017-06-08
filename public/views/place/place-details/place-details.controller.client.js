@@ -96,7 +96,7 @@
       $mdDialog.show({
         controller: AddSuggestionController,
         controllerAs: 'vm',
-        templateUrl: '/project/views/place/place-details/modals/add-suggestion-review.html',
+        templateUrl: '/views/place/place-details/modals/add-suggestion-review.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose: true,

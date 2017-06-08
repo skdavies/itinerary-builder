@@ -77,7 +77,7 @@
       $mdDialog.show({
         controller: EditModalController,
         controllerAs: 'vm',
-        templateUrl: '/project/views/admin/modals/user-edit-modal.html',
+        templateUrl: '/views/admin/modals/user-edit-modal.html',
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose: true,
@@ -99,7 +99,7 @@
       $mdDialog.show({
         controller: EditModalController,
         controllerAs: 'vm',
-        templateUrl: '/project/views/admin/modals/place-edit-modal.html',
+        templateUrl: '/views/admin/modals/place-edit-modal.html',
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose: true,
@@ -121,7 +121,7 @@
       $mdDialog.show({
         controller: EditModalController,
         controllerAs: 'vm',
-        templateUrl: '/project/views/admin/modals/itinerary-edit-modal.html',
+        templateUrl: '/views/admin/modals/itinerary-edit-modal.html',
         parent: angular.element(document.body),
         targetEvent: event,
         clickOutsideToClose: true,
