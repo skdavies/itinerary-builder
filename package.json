@@ -1,8 +1,11 @@
 {
-  "name": "web-dev",
+  "name": "itinerary-builder",
   "version": "1.0.0",
-  "description": "Web Dev at Northeastern University",
+  "description": "Itinerary Builder",
   "main": "server.js",
+  "engines": {
+    "node": "6.11.1"
+  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.1",
