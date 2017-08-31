@@ -14,13 +14,6 @@ module.exports = function () {
     }],
     lat: { type: Number, required: true },
     lng: { type: Number, required: true },
-    ads: [{
-      advertiser: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'ProjectUserModel'
-      },
-      ad: String
-    }],
     suggested: { type: Date },
     dateCreated: { type: Date, default: Date.now }
   }, { collection: 'project_places' });

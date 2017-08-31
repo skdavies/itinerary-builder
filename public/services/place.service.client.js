@@ -11,9 +11,7 @@
       'findAllPlaces': findAllPlaces,
       'updatePlace': updatePlace,
       'deletePlace': deletePlace,
-      'addPlaceReview': addPlaceReview,
-      'addPlaceAd': addPlaceAd,
-      'findMostRecentAds': findMostRecentAds
+      'addPlaceReview': addPlaceReview
     };
 
     function createPlace(place) {
@@ -42,14 +40,6 @@
 
     function addPlaceReview(placeId, review) {
       return $http.post('/project/api/places/' + placeId + '/reviews', review);
-    }
-
-    function addPlaceAd(placeId, ad) {
-      return $http.post('/project/api/places/' + placeId + '/ads', ad);
-    }
-
-    function findMostRecentAds() {
-      return $http.get('/project/api/places/ads/recent');
     }
   }
 

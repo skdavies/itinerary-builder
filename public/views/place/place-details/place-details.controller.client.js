@@ -3,7 +3,7 @@
     .module('ItineraryPlanner')
     .controller('PlaceDetailsController', placeDetailsController);
 
-  function placeDetailsController($location, $routeParams, PlaceService, loggedIn, $scope, DarkSkyService, $mdDialog) {
+  function placeDetailsController($routeParams, PlaceService, loggedIn, $scope, DarkSkyService, $mdDialog) {
     var vm = this;
     vm.lookupWeather = lookupWeather;
     vm.showModal = showModal;
@@ -92,48 +92,32 @@
       }
     }
 
-    function showModal(ev, action) {
+    function showModal(ev) {
       $mdDialog.show({
         controller: AddSuggestionController,
         controllerAs: 'vm',
-        templateUrl: '/views/place/place-details/modals/add-suggestion-review.html',
+        templateUrl: '/views/place/place-details/modals/add-review.html',
         parent: angular.element(document.body),
         targetEvent: ev,
-        clickOutsideToClose: true,
-        locals: {
-          action: action
-        }
+        clickOutsideToClose: true
       }).then(function (place) {
         vm.place.reviews = place.reviews;
         vm.place.ads = place.ads;
       });
 
-      function AddSuggestionController($mdDialog, action) {
+      function AddSuggestionController($mdDialog) {
         var modalVm = this;
         modalVm.cancel = cancel;
         modalVm.post = post;
-
-        function init() {
-          modalVm.action = action;
-          modalVm.title = action === 'REVIEW' ? 'Review' : 'Suggestion';
-        }
-
-        init();
 
         function cancel() {
           $mdDialog.cancel();
         }
 
         function post(text) {
-          if (action === 'REVIEW') {
-            PlaceService.addPlaceReview(vm.place._id, { text: text }).then(function (response) {
-              $mdDialog.hide(response.data);
-            });
-          } else if (action === 'SUGGESTION') {
-            PlaceService.addPlaceAd(vm.place._id, { text: text }).then(function (response) {
-              $mdDialog.hide(response.data);
-            });
-          }
+          PlaceService.addPlaceReview(vm.place._id, { text: text }).then(function (response) {
+            $mdDialog.hide(response.data);
+          });
         }
       }
     }

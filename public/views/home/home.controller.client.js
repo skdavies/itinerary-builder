@@ -14,17 +14,9 @@
       if (vm.user && vm.user.role === 'ADMIN') {
         $location.url('/admin');
         return;
-      } else if (vm.user && vm.user.role === 'ADVERTISER') {
-        $location.url('/place');
-        return;
       }
       vm.places = [];
       initMap();
-      PlaceService.findMostRecentAds().then(function (response) {
-        vm.placesWithAds = response.data;
-      }, function () {
-        vm.placesWithAds = [];
-      });
     }
 
     init();

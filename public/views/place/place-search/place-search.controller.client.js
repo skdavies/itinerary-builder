@@ -9,9 +9,6 @@
 
     function init() {
       vm.place = null;
-      PlaceService.findMostRecentAds().then(function (response) {
-        vm.placesWithAds = response.data;
-      });
       vm.user = loggedIn;
       initAutocomplete();
     }
