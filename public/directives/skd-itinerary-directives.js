@@ -155,8 +155,6 @@
             $mdDialog.hide(user);
             if (user.role === 'ADMIN') {
               $location.url('/admin');
-            } else if (user.role === 'ADVERTISER') {
-              $location.url('/place');
             }
           }, function () {
             vm.error = 'Username and password combination do not match.';
@@ -180,15 +178,13 @@
 
         function register(user) {
           if (user.password === user.confirm) {
-            var role = user.advertiser ? 'ADVERTISER' : 'USER';
+            var role = 'USER';
             var usr = { username: user.username, password: user.password, role: role };
             UserService.register(usr).then(function (response) {
               var user = response.data;
               $mdDialog.hide(user);
               if (user.role === 'ADMIN') {
                 $location.url('/admin');
-              } else if (user.role === 'ADVERTISER') {
-                $location.url('/place');
               }
             }, function (err) {
               vm.error = err.data;

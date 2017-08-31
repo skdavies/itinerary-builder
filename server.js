@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 
 var mongoose = require('mongoose');
-var connectionString = 'mongodb://127.0.0.1:27017/skd_webdev';
+var connectionString = 'mongodb://127.0.0.1:27017/itinerary-builder';
 
 if (process.env.MLAB_USERNAME) {
   connectionString = process.env.MLAB_USERNAME + ':' +

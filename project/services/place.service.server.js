@@ -7,8 +7,6 @@ module.exports = function (app, model) {
   app.get('/project/api/places/:placeId', findPlaceById);
   app.get('/project/api/places/google/:googleId', findPlaceByGoogleId);
   app.post('/project/api/places/:placeId/reviews', addPlaceReview);
-  app.post('/project/api/places/:placeId/ads', addPlaceAd);
-  app.get('/project/api/places/ads/recent', findMostRecentAds);
   app.put('/project/api/places/:placeId', updatePlace);
   app.delete('/project/api/places/:placeId', deletePlace);
 
@@ -66,23 +64,6 @@ module.exports = function (app, model) {
     }
   }
 
-  function addPlaceAd(req, res) {
-    var ad = req.body;
-    if (ad && ad.text) {
-      if (req.user && req.user.role === 'ADVERTISER') {
-        placeModel.addPlaceAd(req.user._id, req.params.placeId, ad.text).then(function (place) {
-          res.json(place);
-        }, function (error) {
-          res.sendStatus(500);
-        });
-      } else {
-        res.status(401).send('Only local advertisers can do that.');
-      }
-    } else {
-      res.status(400).send('Invalid request body.');
-    }
-  }
-
   function updatePlace(req, res) {
     var place = req.body;
     if (place) {
@@ -110,13 +91,5 @@ module.exports = function (app, model) {
     } else {
       res.status(401).send('Yod do not have permission to do that.');
     }
-  }
-
-  function findMostRecentAds(req, res) {
-    placeModel.findMostRecentAds().then(function (places) {
-      res.json(places);
-    }, function (err) {
-      res.sendStatus(500);
-    });
   }
 };

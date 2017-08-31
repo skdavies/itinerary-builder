@@ -5,9 +5,7 @@ module.exports = function () {
     findPlaceById: findPlaceById,
     findAllPlaces: findAllPlaces,
     findPlaceByGoogleId: findPlaceByGoogleId,
-    findMostRecentAds: findMostRecentAds,
     addPlaceReview: addPlaceReview,
-    addPlaceAd: addPlaceAd,
     updatePlace: updatePlace,
     deletePlace: deletePlace
   };
@@ -47,19 +45,6 @@ module.exports = function () {
         }
       },
       { new: true });
-  }
-
-  function addPlaceAd(userId, placeId, ad) {
-    return PlaceModel.findOneAndUpdate({ _id: placeId },
-      {
-        $addToSet: { ads: { advertiser: userId, ad: ad } },
-        $set: { suggested: new Date() }
-      },
-      { new: true });
-  }
-
-  function findMostRecentAds() {
-    return PlaceModel.find({ suggested: { $ne: null } }).sort({ suggested: -1 });
   }
 
   function updatePlace(placeId, place) {
