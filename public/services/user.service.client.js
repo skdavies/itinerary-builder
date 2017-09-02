@@ -22,59 +22,59 @@
     };
 
     function register(user) {
-      return $http.post('/project/api/users/register', user);
+      return $http.post('/api/users/register', user);
     }
 
     function findUserById(userId) {
-      return $http.get('/project/api/users/' + userId);
+      return $http.get('/api/users/' + userId);
     }
 
     function findUserByUsername(username) {
-      return $http.get('/project/api/users?username=' + username);
+      return $http.get('/api/users?username=' + username);
     }
 
     function findFollowingItineraries(userId) {
-      return $http.get('/project/api/users/' + userId + '/following/itineraries');
+      return $http.get('/api/users/' + userId + '/following/itineraries');
     }
 
     function findTrendingUsers() {
-      return $http.get('/project/api/users/trending/hot');
+      return $http.get('/api/users/trending/hot');
     }
 
     function findAllUsers() {
-      return $http.get('/project/api/users');
+      return $http.get('/api/users');
     }
 
     function updateUser(userId, user) {
-      return $http.put('/project/api/users/' + userId, user);
+      return $http.put('/api/users/' + userId, user);
     }
 
     function deleteUser(userId) {
-      return $http.delete('/project/api/users/' + userId);
+      return $http.delete('/api/users/' + userId);
     }
 
     function followUser(userId, followId) {
-      return $http.put('/project/api/users/' + userId + '/follow/' + followId);
+      return $http.put('/api/users/' + userId + '/follow/' + followId);
     }
 
     function unfollowUser(userId, unfollowId) {
-      return $http.put('/project/api/users/' + userId + '/unfollow/' + unfollowId);
+      return $http.put('/api/users/' + userId + '/unfollow/' + unfollowId);
     }
 
     function login(user) {
-      return $http.post('/project/api/users/login', user);
+      return $http.post('/api/users/login', user);
     }
 
     function logout() {
-      return $http.post('/project/api/users/logout');
+      return $http.post('/api/users/logout');
     }
 
     function loggedin() {
-      return $http.get('/project/api/users/loggedin');
+      return $http.get('/api/users/loggedin');
     }
 
     function isAdmin() {
-      return $http.get('/project/api/users/isadmin');
+      return $http.get('/api/users/isadmin');
     }
   }
 

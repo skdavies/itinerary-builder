@@ -20,7 +20,7 @@ module.exports = function () {
   mongoose.Promise = require('q').Promise;
 
   var UserSchema = require('./user.schema.server')();
-  var UserModel = mongoose.model('ProjectUserModel', UserSchema);
+  var UserModel = mongoose.model('UserModel', UserSchema);
 
   return api;
 

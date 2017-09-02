@@ -7,7 +7,7 @@ module.exports = function () {
     reviews: [{
       reviewer: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'ProjectUserModel'
+        ref: 'UserModel'
       },
       review: String,
       date: { type: Date, default: Date.now }
@@ -16,6 +16,6 @@ module.exports = function () {
     lng: { type: Number, required: true },
     suggested: { type: Date },
     dateCreated: { type: Date, default: Date.now }
-  }, { collection: 'project_places' });
+  }, { collection: 'places' });
 
 };

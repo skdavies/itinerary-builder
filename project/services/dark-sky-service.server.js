@@ -4,7 +4,7 @@ module.exports = function (app) {
 
   var baseUrl = 'https://api.darksky.net/forecast/' + process.env.DARK_SKY_SECRET + '/';
 
-  app.get('/project/api/darksky/lookup', timeMachineLookup);
+  app.get('/api/darksky/lookup', timeMachineLookup);
 
   function timeMachineLookup(req, res) {
     var lat = req.query.lat;

@@ -2,13 +2,13 @@ module.exports = function (app, model) {
 
   var placeModel = model.placeModel;
 
-  app.post('/project/api/places', createPlace);
-  app.get('/project/api/places', findAllPlaces);
-  app.get('/project/api/places/:placeId', findPlaceById);
-  app.get('/project/api/places/google/:googleId', findPlaceByGoogleId);
-  app.post('/project/api/places/:placeId/reviews', addPlaceReview);
-  app.put('/project/api/places/:placeId', updatePlace);
-  app.delete('/project/api/places/:placeId', deletePlace);
+  app.post('/api/places', createPlace);
+  app.get('/api/places', findAllPlaces);
+  app.get('/api/places/:placeId', findPlaceById);
+  app.get('/api/places/google/:googleId', findPlaceByGoogleId);
+  app.post('/api/places/:placeId/reviews', addPlaceReview);
+  app.put('/api/places/:placeId', updatePlace);
+  app.delete('/api/places/:placeId', deletePlace);
 
   function createPlace(req, res) {
     var place = req.body;

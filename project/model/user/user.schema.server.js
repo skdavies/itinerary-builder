@@ -9,11 +9,11 @@ module.exports = function () {
     role: { type: String, required: true, enum: ['ADMIN', 'USER'], default: 'USER' },
     itineraries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ItineraryModel' }],
     following: {
-      users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProjectUserModel' }],
+      users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserModel' }],
       count: { type: Number, default: 0 }
     },
     followers: {
-      users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProjectUserModel' }],
+      users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'UserModel' }],
       count: { type: Number, default: 0 }
     },
     dateCreated: { type: Date, default: Date.now },
@@ -23,7 +23,7 @@ module.exports = function () {
     facebook: {
       id: String
     }
-  }, { collection: 'project_users' });
+  }, { collection: 'users' });
 
   UserSchema.plugin(require('mongoose-unique-validator'));
   return UserSchema;
