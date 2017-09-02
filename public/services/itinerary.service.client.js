@@ -14,27 +14,27 @@
     };
 
     function createItinerary(userId, itinerary) {
-      return $http.post('/project/api/users/' + userId + '/itineraries', itinerary);
+      return $http.post('/api/users/' + userId + '/itineraries', itinerary);
     }
 
     function findAllItineraries() {
-      return $http.get('/project/api/itineraries');
+      return $http.get('/api/itineraries');
     }
 
     function findItineraryById(itineraryId) {
-      return $http.get('/project/api/itineraries/' + itineraryId);
+      return $http.get('/api/itineraries/' + itineraryId);
     }
 
     function findItinerariesForUser(userId) {
-      return $http.get('/project/api/users/' + userId + '/itineraries');
+      return $http.get('/api/users/' + userId + '/itineraries');
     }
 
     function updateItinerary(itineraryId, itinerary) {
-      return $http.put('/project/api/itineraries/' + itineraryId, itinerary);
+      return $http.put('/api/itineraries/' + itineraryId, itinerary);
     }
 
     function deleteItinerary(itineraryId) {
-      return $http.delete('/project/api/itineraries/' + itineraryId);
+      return $http.delete('/api/itineraries/' + itineraryId);
     }
   }
 

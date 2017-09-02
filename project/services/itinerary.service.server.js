@@ -3,12 +3,12 @@ module.exports = function (app, model) {
   var userModel = model.userModel;
   var itineraryModel = model.itineraryModel;
 
-  app.post('/project/api/users/:userId/itineraries', createItinerary);
-  app.get('/project/api/users/:userId/itineraries', findItinerariesForUser);
-  app.get('/project/api/itineraries', findAllItineraries);
-  app.get('/project/api/itineraries/:itinId', findItineraryById);
-  app.put('/project/api/itineraries/:itinId', updateItinerary);
-  app.delete('/project/api/itineraries/:itinId', deleteItinerary);
+  app.post('/api/users/:userId/itineraries', createItinerary);
+  app.get('/api/users/:userId/itineraries', findItinerariesForUser);
+  app.get('/api/itineraries', findAllItineraries);
+  app.get('/api/itineraries/:itinId', findItineraryById);
+  app.put('/api/itineraries/:itinId', updateItinerary);
+  app.delete('/api/itineraries/:itinId', deleteItinerary);
 
   function createItinerary(req, res) {
     var itinerary = req.body;

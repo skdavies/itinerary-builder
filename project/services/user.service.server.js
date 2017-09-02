@@ -27,38 +27,38 @@ module.exports = function (app, model) {
   passport.serializeUser(serializeUser);
   passport.deserializeUser(deserializeUser);
 
-  app.post('/project/api/users/login', passport.authenticate('local'), login);
+  app.post('/api/users/login', passport.authenticate('local'), login);
 
-  app.get('/project/api/users/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-  app.get('/project/google/auth/cb', passport.authenticate('google', {
-    successRedirect: '/project/#/',
-    failureRedirect: '/project/#/'
+  app.get('/api/users/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+  app.get('/google/auth/cb', passport.authenticate('google', {
+    successRedirect: '/#/',
+    failureRedirect: '/#/'
   }));
 
-  app.get('/project/api/users/auth/fb', function (req, res, next) {
+  app.get('/api/users/auth/fb', function (req, res, next) {
     if (process.env.HOST === 'http://localhost:3000') {
       res.status(403).send('Cannot use Facebook Auth from local build.');
     } else {
       next();
     }
   }, passport.authenticate('facebook', { scope: 'public_profile' }));
-  app.get('/project/fb/auth/cb',
+  app.get('/fb/auth/cb',
     passport.authenticate('facebook', {
-      successRedirect: '/project/#/',
-      failureRedirect: '/project/#/'
+      successRedirect: '/#/',
+      failureRedirect: '/#/'
     }));
-  app.post('/project/api/users/logout', logout);
-  app.get('/project/api/users/loggedin', loggedin);
-  app.get('/project/api/users/isadmin', isAdmin);
-  app.post('/project/api/users/register', register);
-  app.get('/project/api/users', findUser);
-  app.get('/project/api/users/:userId', findUserById);
-  app.get('/project/api/users/:userId/following/itineraries', findFollowingItineraries);
-  app.get('/project/api/users/trending/hot', findTrendingUsers);
-  app.put('/project/api/users/:userId', updateUser);
-  app.delete('/project/api/users/:userId', deleteUser);
-  app.put('/project/api/users/:userId/follow/:followId', followUser);
-  app.put('/project/api/users/:userId/unfollow/:unfollowId', unfollowUser);
+  app.post('/api/users/logout', logout);
+  app.get('/api/users/loggedin', loggedin);
+  app.get('/api/users/isadmin', isAdmin);
+  app.post('/api/users/register', register);
+  app.get('/api/users', findUser);
+  app.get('/api/users/:userId', findUserById);
+  app.get('/api/users/:userId/following/itineraries', findFollowingItineraries);
+  app.get('/api/users/trending/hot', findTrendingUsers);
+  app.put('/api/users/:userId', updateUser);
+  app.delete('/api/users/:userId', deleteUser);
+  app.put('/api/users/:userId/follow/:followId', followUser);
+  app.put('/api/users/:userId/unfollow/:unfollowId', unfollowUser);
 
   function localStrategy(username, password, done) {
     userModel.findUserByUsername(username).then(function (user) {

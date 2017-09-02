@@ -10,7 +10,7 @@
     };
 
     function timeMachineLookup(lat, lon, time) {
-      return $http.get('/project/api/darksky/lookup?lat=' + lat + '&lon=' + lon + '&time=' + time);
+      return $http.get('/api/darksky/lookup?lat=' + lat + '&lon=' + lon + '&time=' + time);
     }
 
   }
